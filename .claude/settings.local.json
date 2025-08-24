@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(node:*)",
+      "Bash(uv:*)",
+      "Bash(claude mcp add:*)",
+      "Bash(claude mcp:*)",
+      "Read(/C:\\Users\\ASROCK/**)",
+      "mcp__ide__executeCode"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
