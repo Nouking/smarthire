@@ -9,7 +9,16 @@
       "Bash(claude mcp add:*)",
       "Bash(claude mcp:*)",
       "Read(/C:\\Users\\ASROCK/**)",
-      "mcp__ide__executeCode"
+      "mcp__ide__executeCode",
+      "Bash(mv:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(timeout 10s npm run dev)",
+      "Bash(true)",
+      "Bash(sed:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git reset:*)"
     ],
     "deny": [],
     "ask": []
