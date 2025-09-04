@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartHire AI - Free Recruitment Platform for Small Businesses</title>
+    <meta name="description" content="AI-powered recruitment platform that makes hiring smarter and faster. Free CV matching in 30 seconds for companies with 5-25 employees. Start hiring better today.">
+    
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 213 94% 68%;
+            --primary-foreground: 0 0% 100%;
+            --primary-glow: 217 91% 85%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --border: 214.3 31.8% 91.4%;
+            --hero-gradient: linear-gradient(135deg, hsl(213 94% 68%), hsl(217 91% 85%));
+            --section-gradient: linear-gradient(180deg, hsl(0 0% 100%), hsl(213 94% 98%));
+            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --card-shadow-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navigation Styles */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid hsl(var(--border));
+            z-index: 50;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 4rem;
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: hsl(var(--primary));
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: hsl(var(--foreground));
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover {
+            color: hsl(var(--primary));
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            padding: 0.75rem 2rem;
+        }
+
+        .btn-primary:hover {
+            background: hsl(var(--primary-glow));
+        }
+
+        .btn-outline {
+            border: 1px solid hsl(var(--border));
+            color: hsl(var(--foreground));
+            padding: 0.75rem 2rem;
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: hsl(var(--secondary));
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--hero-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 1rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0);
+            background-size: 20px 20px;
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: hsl(var(--primary-foreground));
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: bold;
+            color: hsl(var(--primary-foreground));
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-highlight {
+            color: rgba(255, 255, 255, 0.9);
+            display: block;
+        }
+
+        .hero p {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        .hero-cta {
+            background: hsl(var(--primary-foreground));
+            color: hsl(var(--primary));
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .hero-cta:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-demo {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: hsl(var(--primary-foreground));
+            background: transparent;
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+        }
+
+        .hero-demo:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-proof {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .social-proof p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .companies {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            opacity: 0.7;
+        }
+
+        .companies span {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .wave svg {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background: var(--section-gradient);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: bold;
+            color: hsl(var(--foreground));
+            margin-bottom: 1rem;
+        }
+
+        .section-header .highlight {
+            color: hsl(var(--primary));
+            display: block;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: hsl(var(--muted-foreground));
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
+        }
+
+        .feature-card:hover {
+            box-shadow: var(--card-shadow-hover);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .feature-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon {
+            width: 3rem;
+            height: 3rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: hsl(var(--primary));
+            transition: var(--transition-smooth);
+        }
+
+        .feature-card:hover .feature-icon {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        .feature-badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: hsl(var(--primary));
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: hsl(var(--card-foreground));
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: hsl(var(--muted-foreground));
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .cta-section p {
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 1rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 0;
+            background: hsl(var(--background));
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 1024px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .testimonial-card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
+        }
+
+        .testimonial-card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .quote-icon {
+            width: 2rem;
+            height: 2rem;
+            color: rgba(59, 130, 246, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        .rating {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .star {
+            width: 1rem;
+            height: 1rem;
+            color: hsl(var(--primary));
+            fill: currentColor;
+        }
+
+        .testimonial-content {
+            color: hsl(var(--card-foreground));
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-highlight {
+            background: rgba(59, 130, 246, 0.1);
+            color: hsl(var(--primary));
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.5rem 0.75rem;
+            border-radius: 9999px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 3rem;
+            height: 3rem;
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            color: hsl(var(--card-foreground));
+        }
+
+        .author-info .role {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        .author-info .company {
+            font-size: 0.875rem;
+            color: hsl(var(--primary));
+            font-weight: 500;
+        }
+
+        .stats {
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: 1rem;
+            padding: 3rem 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-number {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: bold;
+            color: hsl(var(--primary));
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: hsl(var(--muted-foreground));
+        }
+
+        /* Footer */
+        .footer {
+            background: hsl(var(--foreground));
+            color: hsl(var(--background));
+            padding: 4rem 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                grid-template-columns: 2fr 1fr 1fr;
+            }
+        }
+
+        .footer h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: hsl(var(--primary-glow));
+            margin-bottom: 1rem;
+        }
+
+        .footer h4 {
+            font-weight: 600;
+            color: hsl(var(--background));
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            max-width: 28rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: hsl(var(--background));
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links a:hover {
+            color: hsl(var(--primary-glow));
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-cta {
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .footer-cta h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: hsl(var(--background));
+            margin-bottom: 1rem;
+        }
+
+        .footer-cta p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            max-width: 32rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-legal a:hover {
+            color: hsl(var(--primary-glow));
+        }
+
+        /* Icons */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .icon-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .icon-lg {
+            width: 2rem;
+            height: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="logo">SmartHire AI</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="#" class="btn btn-outline">Sign In</a>
+                <a href="#" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>✨ Now completely free for small businesses</span>
+            </div>
+
+            <h1>
+                Professional recruitment platform that makes hiring decisions
+                <span class="hero-highlight">smarter, faster, and completely free</span>
+            </h1>
+
+            <p>
+                AI-powered CV matching in 30 seconds. Perfect for companies with 5-25 employees who need powerful hiring tools without the enterprise price tag.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-lg hero-cta">
+                    Start Hiring Smarter
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                </a>
+                
+                <a href="#" class="btn btn-lg hero-demo">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <polygon points="5,3 19,12 5,21"/>
+                    </svg>
+                    Watch Demo
+                </a>
+            </div>
+
+            <div class="social-proof">
+                <p>Trusted by 500+ small businesses</p>
+                <div class="companies">
+                    <span>TechStart Inc.</span>
+                    <span>GrowthCo</span>
+                    <span>InnovateNow</span>
+                    <span>ScaleUp Ltd.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="wave">
+            <svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,0V120H1200V0C1200,0 900,20 600,20C300,20 0,0 0,0Z" fill="hsl(var(--background))"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>
+                    Everything you need to hire
+                    <span class="highlight">the right people</span>
+                </h2>
+                <p>
+                    Powerful recruitment tools designed specifically for small businesses. No complexity, no enterprise bloat.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M12 8V4H8"/>
+                                <rect width="16" height="12" x="4" y="8" rx="2"/>
+                                <path d="m14 12-4 4-2-2"/>
+                            </svg>
+                        </div>
+                        <span class="feature-badge">98% accuracy rate</span>
+                    </div>
+                    <h3>AI CV Matching</h3>
+                    <p>Advanced AI algorithms analyze CVs against job requirements in seconds, providing match scores and highlighting key qualifications.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/>
+                            </svg>
+                        </div>
+                        <span class="feature-badge">500+ CVs per batch</span>
+                    </div>
+                    <h3>Batch Processing</h3>
+                    <p>Process hundreds of applications simultaneously. Upload multiple CVs and get instant rankings and insights for your entire candidate pool.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <line x1="12" y1="2" x2="12" y2="22"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <span class="feature-badge">Always free</span>
+                    </div>
+                    <h3>Zero Cost Operation</h3>
+                    <p>Completely free for companies with 5-25 employees. No hidden fees, no subscription costs, just powerful recruitment tools.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12,6 12,12 16,14"/>
+                            </svg>
+                        </div>
+                        <span class="feature-badge">Lightning fast</span>
+                    </div>
+                    <h3>30-Second Analysis</h3>
+                    <p>Get comprehensive candidate analysis in under 30 seconds. Reduce time-to-hire from weeks to days.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="m22 21-3-3"/>
+                                <path d="m15 21 3-3"/>
+                            </svg>
+                        </div>
+                        <span class="feature-badge">Built for teams</span>
+                    </div>
+                    <h3>Team Collaboration</h3>
+                    <p>Share candidate profiles, add notes, and collaborate with your hiring team. Everyone stays in sync throughout the process.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4"/>
+                                <path d="M21 12c.552 0 1-.448 1-1V8a2 2 0 0 0-2-2h-5L9.7 0H4a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Z"/>
+                            </svg>
+                        </div>
+                        <span class="feature-badge">Enterprise security</span>
+                    </div>
+                    <h3>GDPR Compliant</h3>
+                    <p>Full GDPR compliance and data security. Your candidates' data is protected with enterprise-grade security.</p>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <p>Ready to transform your hiring process?</p>
+                <a href="#" class="btn btn-primary btn-lg">Get Started Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>
+                    Loved by small businesses
+                    <span class="highlight">across industries</span>
+                </h2>
+                <p>
+                    See how companies like yours are transforming their hiring process with SmartHire AI.
+                </p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <svg class="quote-icon" viewBox="0 0 24 24">
+                        <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/>
+                        <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
+                    </svg>
+                    
+                    <div class="rating">
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                    </div>
+
+                    <blockquote class="testimonial-content">
+                        "SmartHire AI cut our hiring time from 3 weeks to 5 days. The AI matching is incredibly accurate - we found our perfect developer on the first try. Best part? It's completely free!"
+                    </blockquote>
+
+                    <div class="testimonial-highlight">
+                        Reduced hiring time by 80%
+                    </div>
+
+                    <div class="testimonial-author">
+                        <div class="avatar">SC</div>
+                        <div class="author-info">
+                            <h4>Sarah Chen</h4>
+                            <div class="role">HR Manager</div>
+                            <div class="company">TechStart Inc. (12 employees)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <svg class="quote-icon" viewBox="0 0 24 24">
+                        <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/>
+                        <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
+                    </svg>
+                    
+                    <div class="rating">
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                    </div>
+
+                    <blockquote class="testimonial-content">
+                        "As a startup, budget is tight. SmartHire AI gave us enterprise-level recruitment tools without any cost. We've hired 4 amazing team members using their platform."
+                    </blockquote>
+
+                    <div class="testimonial-highlight">
+                        Saved $15,000+ in recruitment fees
+                    </div>
+
+                    <div class="testimonial-author">
+                        <div class="avatar">MR</div>
+                        <div class="author-info">
+                            <h4>Michael Rodriguez</h4>
+                            <div class="role">Founder & CEO</div>
+                            <div class="company">GrowthCo (8 employees)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <svg class="quote-icon" viewBox="0 0 24 24">
+                        <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/>
+                        <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
+                    </svg>
+                    
+                    <div class="rating">
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                    </div>
+
+                    <blockquote class="testimonial-content">
+                        "The batch processing feature is a game-changer. We processed 200+ applications in minutes instead of days. The AI insights helped us identify candidates we would have missed."
+                    </blockquote>
+
+                    <div class="testimonial-highlight">
+                        Processed 200+ CVs in minutes
+                    </div>
+
+                    <div class="testimonial-author">
+                        <div class="avatar">ET</div>
+                        <div class="author-info">
+                            <h4>Emily Thompson</h4>
+                            <div class="role">Operations Director</div>
+                            <div class="company">InnovateNow (18 employees)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stats-grid">
+                    <div>
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Companies using SmartHire</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">AI matching accuracy</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">75%</div>
+                        <div class="stat-label">Faster hiring process</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">$0</div>
+                        <div class="stat-label">Cost for small businesses</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3>SmartHire AI</h3>
+                    <p>
+                        Professional recruitment platform that makes hiring decisions smarter, faster, and completely free for small businesses.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect width="4" height="12" x="2" y="9"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#demo">Demo</a></li>
+                        <li><a href="#api">API</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>Contact</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <svg class="icon icon-sm" viewBox="0 0 24 24">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <span>hello@smarthire.ai</span>
+                        </li>
+                        <li>
+                            <svg class="icon icon-sm" viewBox="0 0 24 24">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li>
+                            <svg class="icon icon-sm" viewBox="0 0 24 24">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <span>San Francisco, CA</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-cta">
+                <h3>Ready to transform your hiring process?</h3>
+                <p>
+                    Join 500+ small businesses already using SmartHire AI to find the perfect candidates faster than ever before.
+                </p>
+                <a href="#" class="btn btn-primary btn-lg">Get Started Free Today</a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 SmartHire AI. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="/privacy">Privacy Policy</a>
+                    <a href="/terms">Terms of Service</a>
+                    <a href="/gdpr">GDPR Compliance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
