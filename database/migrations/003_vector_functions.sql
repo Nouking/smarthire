@@ -6,7 +6,7 @@ CREATE OR REPLACE FUNCTION match_candidates(
   query_embedding vector(1536),
   match_threshold float DEFAULT 0.8,
   match_count int DEFAULT 10,
-  user_id uuid DEFAULT NULL
+  filter_user_id uuid DEFAULT NULL
 )
 RETURNS TABLE (
   id uuid,
@@ -51,7 +51,7 @@ BEGIN
     1 - (c.cv_embedding <=> query_embedding) as similarity
   FROM candidates c
   WHERE 
-    (user_id IS NULL OR c.user_id = user_id)
+    (filter_user_id IS NULL OR c.user_id = filter_user_id)
     AND c.cv_embedding IS NOT NULL
     AND 1 - (c.cv_embedding <=> query_embedding) > match_threshold
     AND c.expires_at > CURRENT_TIMESTAMP
@@ -65,7 +65,7 @@ CREATE OR REPLACE FUNCTION match_job_descriptions(
   query_embedding vector(1536),
   match_threshold float DEFAULT 0.8,
   match_count int DEFAULT 10,
-  user_id uuid DEFAULT NULL
+  filter_user_id uuid DEFAULT NULL
 )
 RETURNS TABLE (
   id uuid,
@@ -102,7 +102,7 @@ BEGIN
     1 - (jd.description_embedding <=> query_embedding) as similarity
   FROM job_descriptions jd
   WHERE 
-    (user_id IS NULL OR jd.user_id = user_id)
+    (filter_user_id IS NULL OR jd.user_id = filter_user_id)
     AND jd.description_embedding IS NOT NULL
     AND 1 - (jd.description_embedding <=> query_embedding) > match_threshold
   ORDER BY jd.description_embedding <=> query_embedding

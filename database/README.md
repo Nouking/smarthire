@@ -56,10 +56,17 @@ Execute the migration files in order in your Supabase SQL Editor:
 
 ### 5. (Optional) Load Sample Data
 
-For testing purposes, run:
-```sql
--- In Supabase SQL Editor
-\i database/seeds/001_sample_data.sql
+For testing purposes:
+
+**Option 1 - Supabase SQL Editor (Recommended):**
+1. Open `database/seeds/001_sample_data.sql`
+2. Copy the entire SQL content
+3. Paste into Supabase SQL Editor
+4. Execute the SQL
+
+**Option 2 - Local psql client:**
+```bash
+psql "your-supabase-connection-string" -f database/seeds/001_sample_data.sql
 ```
 
 ### 6. Test Connection

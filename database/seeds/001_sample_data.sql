@@ -115,7 +115,7 @@ INSERT INTO cv_jd_matches (user_id, candidate_id, job_description_id, match_perc
     
     ('11111111-1111-1111-1111-111111111111', 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee', 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 88.0, 0.90, 1890,
      ARRAY['React', 'JavaScript', 'CSS', 'HTML', 'Git', 'Webpack'],
-     ARRAY[],
+     ARRAY[]::text[],
      ARRAY['Perfect skill match', 'Strong frontend focus', 'Performance optimization experience', 'Design collaboration experience'],
      ARRAY['Only 4 years experience vs 3+ requirement - minimal concern'],
      'strong_match',
@@ -126,7 +126,7 @@ INSERT INTO cv_jd_matches (user_id, candidate_id, job_description_id, match_perc
      ARRAY['Python', 'R', 'SQL', 'Machine Learning', 'Statistics', 'TensorFlow'],
      ARRAY['Pandas mentioned but could be stronger'],
      ARRAY['Advanced degree in relevant field', '6+ years ML experience', 'Production model deployment', 'Strong statistical background'],
-     ARRAY[],
+     ARRAY[]::text[],
      'strong_match',
      'Outstanding match with 94% compatibility. Candidate exceeds all requirements with MS in Data Science and 6+ years of hands-on ML experience. Proven track record of building and deploying models in production environments. Perfect alignment with role requirements.',
      'claude-3', 0.0027);
