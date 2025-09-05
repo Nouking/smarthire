@@ -5,7 +5,7 @@
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE candidates ENABLE ROW LEVEL SECURITY;
 ALTER TABLE job_descriptions ENABLE ROW LEVEL SECURITY;
-ALTER TABLE matches ENABLE ROW LEVEL SECURITY;
+ALTER TABLE cv_jd_matches ENABLE ROW LEVEL SECURITY;
 
 -- Users table policies
 CREATE POLICY "Users can view their own profile" ON users
@@ -58,29 +58,20 @@ CREATE POLICY "Admins can view all job descriptions" ON job_descriptions
 CREATE POLICY "Admins can manage all job descriptions" ON job_descriptions
     FOR ALL USING (auth.jwt() ->> 'role' = 'admin');
 
--- Matches table policies
-CREATE POLICY "Users can view their own matches" ON matches
-    FOR SELECT USING (
-        auth.uid() = (SELECT user_id FROM candidates WHERE id = candidate_id)
-        OR auth.uid() = (SELECT user_id FROM job_descriptions WHERE id = job_description_id)
-    );
+-- CV-JD Matches table policies
+CREATE POLICY "Users can view their own matches" ON cv_jd_matches
+    FOR SELECT USING (auth.uid() = user_id);
 
-CREATE POLICY "System can insert matches" ON matches
-    FOR INSERT WITH CHECK (true);
+CREATE POLICY "Users can insert their own matches" ON cv_jd_matches
+    FOR INSERT WITH CHECK (auth.uid() = user_id);
 
-CREATE POLICY "Users can update their own matches" ON matches
-    FOR UPDATE USING (
-        auth.uid() = (SELECT user_id FROM candidates WHERE id = candidate_id)
-        OR auth.uid() = (SELECT user_id FROM job_descriptions WHERE id = job_description_id)
-    );
+CREATE POLICY "Users can update their own matches" ON cv_jd_matches
+    FOR UPDATE USING (auth.uid() = user_id);
 
-CREATE POLICY "Users can delete their own matches" ON matches
-    FOR DELETE USING (
-        auth.uid() = (SELECT user_id FROM candidates WHERE id = candidate_id)
-        OR auth.uid() = (SELECT user_id FROM job_descriptions WHERE id = job_description_id)
-    );
+CREATE POLICY "Users can delete their own matches" ON cv_jd_matches
+    FOR DELETE USING (auth.uid() = user_id);
 
-CREATE POLICY "Admins can manage all matches" ON matches
+CREATE POLICY "Admins can manage all matches" ON cv_jd_matches
     FOR ALL USING (auth.jwt() ->> 'role' = 'admin');
 
 -- Storage bucket policies (applied via Supabase Dashboard or Storage API)
@@ -110,25 +101,5 @@ CREATE POLICY "Admins can manage all matches" ON matches
    Policy: auth.jwt() ->> 'role' = 'admin'
 */
 
--- Create function to check if user is admin
-CREATE OR REPLACE FUNCTION auth.is_admin()
-RETURNS boolean
-LANGUAGE sql
-SECURITY DEFINER
-AS $$
-    SELECT COALESCE(auth.jwt() ->> 'role', '') = 'admin';
-$$;
-
--- Create function to get current user ID
-CREATE OR REPLACE FUNCTION auth.current_user_id()
-RETURNS uuid
-LANGUAGE sql
-SECURITY DEFINER
-AS $$
-    SELECT auth.uid();
-$$;
-
--- Grant necessary permissions
-GRANT USAGE ON SCHEMA auth TO authenticated;
-GRANT EXECUTE ON FUNCTION auth.is_admin() TO authenticated;
-GRANT EXECUTE ON FUNCTION auth.current_user_id() TO authenticated;
+-- Note: Helper functions removed to avoid auth schema permission issues
+-- RLS policies use auth.uid() and auth.jwt() directly, which are always available
