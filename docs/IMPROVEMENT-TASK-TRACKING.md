@@ -113,7 +113,7 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 - Performance audit shows good Core Web Vitals baseline
 
 **Execution Prompt**: 
-Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T1. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines 44-114 for E14-T1 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @architect (primary) = .bmad-core/agents/architect.md + @dev = .bmad-core/agents/dev.md + @po collaboration.
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T1. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 44-114 for E14-T1 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @architect (primary) = .bmad-core/agents/architect.md + @dev = .bmad-core/agents/dev.md + @po collaboration.
 
 ### E14-T2: shadcn/ui + Tailwind CSS Integration (P1-CRITICAL) 🎨
 - **Status**: Pending | **Branch**: `dev-e14-t2-shadcn-tailwind-integration`
@@ -166,7 +166,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - Create responsive layout components
 
 **Execution Prompt**: 
-Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T2. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines 118-167 for E14-T2 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @dev (primary) = .bmad-core/agents/dev.md + @ux-expert + @architect = .bmad-core/agents/architect.md collaboration.
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T2. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 118-167 for E14-T2 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @dev (primary) = .bmad-core/agents/dev.md + @ux-expert + @architect = .bmad-core/agents/architect.md collaboration.
 
 ### E14-T3: Supabase Database & Schema Setup (P1-CRITICAL) ✅
 - **Status**: Completed - 2025-01-04 | **Branch**: `improvement-e14-t3-supabase-database-setup`
@@ -222,7 +222,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - Connection testing utilities
 
 **Execution Prompt**: 
-Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T3. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines 171-223 for E14-T3 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @architect (primary) = .bmad-core/agents/architect.md + @dev = .bmad-core/agents/dev.md + @po collaboration.
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T3. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 171-223 for E14-T3 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @architect (primary) = .bmad-core/agents/architect.md + @dev = .bmad-core/agents/dev.md + @po collaboration.
 
 ### E14-T4: Supabase Authentication & Storage Configuration (P1-CRITICAL) 🔐
 - **Status**: Pending | **Branch**: `dev-e14-t4-supabase-auth-storage`
@@ -275,7 +275,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - Basic session management utilities
 
 **Execution Prompt**: 
-Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T4. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines 228-276 for E14-T4 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @dev (primary) = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md + @po collaboration.
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T4. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 228-276 for E14-T4 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @dev (primary) = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md + @po collaboration.
 
 ### E14-T5: Development Pipeline & CI/CD (P2-HIGH) 🔄  
 - **Status**: Pending | **Branch**: `dev-e14-t5-development-pipeline`
@@ -328,7 +328,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - `vercel.json` (Vercel deployment configuration)
 
 **Execution Prompt**: 
-Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T5. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines 281-329 for E14-T5 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @dev (primary) = .bmad-core/agents/dev.md + @po + @architect = .bmad-core/agents/architect.md collaboration.
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T5. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 281-329 for E14-T5 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @dev (primary) = .bmad-core/agents/dev.md + @po + @architect = .bmad-core/agents/architect.md collaboration.
 
 ### E14-T6: Documentation & Development Environment (P2-HIGH) 📚
 - **Status**: Pending | **Branch**: `dev-e14-t6-documentation-dev-environment`
@@ -380,7 +380,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - Quick reference documentation
 
 **Execution Prompt**: 
-Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T6. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines 334-381 for E14-T6 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @po (primary) + @dev = .bmad-core/agents/dev.md + @sm collaboration.
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T6. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 334-381 for E14-T6 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @po (primary) + @dev = .bmad-core/agents/dev.md + @sm collaboration.
 
 ---
 
