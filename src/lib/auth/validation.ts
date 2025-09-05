@@ -54,6 +54,13 @@ export async function validateDatabaseConnection(): Promise<{
   error?: string;
   latency?: number;
 }> {
+  if (!supabaseAuth) {
+    return {
+      isConnected: false,
+      error: 'Supabase client not initialized',
+    };
+  }
+
   try {
     const startTime = Date.now();
 
@@ -91,6 +98,18 @@ export async function validateAuthService(): Promise<{
     userMetadata: boolean;
   };
 }> {
+  if (!supabaseAuth) {
+    return {
+      isWorking: false,
+      error: 'Supabase client not initialized',
+      features: {
+        emailAuth: false,
+        sessionManagement: false,
+        userMetadata: false,
+      },
+    };
+  }
+
   try {
     // Test session retrieval
     const { error: sessionError } = await supabaseAuth.auth.getSession();
@@ -134,6 +153,14 @@ export async function validateStorageService(): Promise<{
   error?: string;
   buckets: string[];
 }> {
+  if (!supabaseAuth) {
+    return {
+      isWorking: false,
+      error: 'Supabase client not initialized',
+      buckets: [],
+    };
+  }
+
   try {
     const { data: buckets, error } = await supabaseAuth.storage.listBuckets();
 

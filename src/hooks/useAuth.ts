@@ -26,6 +26,17 @@ export function useAuth(): AuthState {
     // Get initial session
     const getInitialSession = async () => {
       try {
+        if (!supabaseAuth) {
+          if (mounted) {
+            setAuthState((prev) => ({
+              ...prev,
+              error: 'Authentication service not available',
+              loading: false,
+            }));
+          }
+          return;
+        }
+
         const {
           data: { session },
           error,

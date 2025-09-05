@@ -3,6 +3,17 @@ import type { AuthError } from './client';
 
 // Sign up with email and password
 export async function signUp(email: string, password: string, name?: string) {
+  if (!supabaseAuth) {
+    return {
+      success: false,
+      error: {
+        message: 'Authentication service not available',
+        code: 'SERVICE_UNAVAILABLE',
+        statusCode: 503,
+      } as AuthError,
+    };
+  }
+
   try {
     const { data, error } = await supabaseAuth.auth.signUp({
       email,
@@ -41,6 +52,17 @@ export async function signUp(email: string, password: string, name?: string) {
 
 // Sign in with email and password
 export async function signIn(email: string, password: string) {
+  if (!supabaseAuth) {
+    return {
+      success: false,
+      error: {
+        message: 'Authentication service not available',
+        code: 'SERVICE_UNAVAILABLE',
+        statusCode: 503,
+      } as AuthError,
+    };
+  }
+
   try {
     const { data, error } = await supabaseAuth.auth.signInWithPassword({
       email,
@@ -72,6 +94,16 @@ export async function signIn(email: string, password: string) {
 
 // Sign out
 export async function signOut() {
+  if (!supabaseAuth) {
+    return {
+      success: false,
+      error: {
+        message: 'Authentication service not available',
+        code: 'SERVICE_UNAVAILABLE',
+      } as AuthError,
+    };
+  }
+
   try {
     const { error } = await supabaseAuth.auth.signOut();
 
@@ -98,6 +130,16 @@ export async function signOut() {
 
 // Reset password
 export async function resetPassword(email: string) {
+  if (!supabaseAuth) {
+    return {
+      success: false,
+      error: {
+        message: 'Authentication service not available',
+        code: 'SERVICE_UNAVAILABLE',
+      } as AuthError,
+    };
+  }
+
   try {
     const { error } = await supabaseAuth.auth.resetPasswordForEmail(email, {
       redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset-password`,
@@ -126,6 +168,16 @@ export async function resetPassword(email: string) {
 
 // Update password (for authenticated users)
 export async function updatePassword(newPassword: string) {
+  if (!supabaseAuth) {
+    return {
+      success: false,
+      error: {
+        message: 'Authentication service not available',
+        code: 'SERVICE_UNAVAILABLE',
+      } as AuthError,
+    };
+  }
+
   try {
     const { error } = await supabaseAuth.auth.updateUser({
       password: newPassword,
@@ -154,6 +206,16 @@ export async function updatePassword(newPassword: string) {
 
 // Update user profile
 export async function updateProfile(updates: { name?: string; email?: string }) {
+  if (!supabaseAuth) {
+    return {
+      success: false,
+      error: {
+        message: 'Authentication service not available',
+        code: 'SERVICE_UNAVAILABLE',
+      } as AuthError,
+    };
+  }
+
   try {
     const { error } = await supabaseAuth.auth.updateUser({
       data: updates,
@@ -182,6 +244,16 @@ export async function updateProfile(updates: { name?: string; email?: string }) 
 
 // Verify email with token
 export async function verifyEmail(token: string, type: 'signup' | 'email_change' = 'signup') {
+  if (!supabaseAuth) {
+    return {
+      success: false,
+      error: {
+        message: 'Authentication service not available',
+        code: 'SERVICE_UNAVAILABLE',
+      } as AuthError,
+    };
+  }
+
   try {
     const { error } = await supabaseAuth.auth.verifyOtp({
       token_hash: token,
