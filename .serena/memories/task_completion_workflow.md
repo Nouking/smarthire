@@ -3,23 +3,26 @@
 ## Mandatory Task Completion Steps
 
 ### 1. Code Implementation
+
 - Complete all code changes for the assigned task
 - Follow TypeScript strict mode requirements
 - Use Tailwind CSS for styling with mobile-first approach
 - Ensure responsive design across all screen sizes
 
 ### 2. Quality Assurance (Required Before Git Operations)
+
 ```bash
 # Lint the code
 npm run lint
 
-# Build to check for TypeScript/build errors  
+# Build to check for TypeScript/build errors
 npm run build
 
 # Fix any linting or build errors before proceeding
 ```
 
 ### 3. Documentation Updates (MANDATORY BEFORE GIT)
+
 **CRITICAL**: Must be completed in this exact order BEFORE any git operations:
 
 - [ ] Update task status in relevant tracking document:
@@ -30,6 +33,7 @@ npm run build
 - [ ] Update any affected architecture or design documents
 
 ### 4. Git Operations (ONLY After Documentation Updates)
+
 ```bash
 # Create feature branch (if not already created)
 git checkout -b task{ID}-{kebab-case-description}
@@ -47,16 +51,19 @@ git push origin branch-name
 ```
 
 ### 5. Pull Request Creation
+
 - Use GitHub CLI or web interface
 - Include task details in PR description
 - Link to relevant documentation
 - DO NOT mention AI assistance in commit messages or PRs
 
 ## Branch Naming Conventions
+
 - **Original Tasks**: `task{ID}-{kebab-case-description}`
 - **Improvement Tasks**: `improvement-e{epic}-t{task}-{kebab-case-description}`
 
 ## Commit Message Format
+
 ```
 type(scope): description
 
@@ -67,6 +74,7 @@ docs(readme): update installation instructions
 ```
 
 ## Quality Standards
+
 - **TypeScript**: No type errors allowed
 - **ESLint**: No linting errors
 - **Build**: Must complete successfully

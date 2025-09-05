@@ -1,9 +1,13 @@
-import { supabase, handleDatabaseError, withPerformanceMonitoring } from './supabase';
 import { Database } from '@/types/database';
+
+import { supabase, handleDatabaseError, withPerformanceMonitoring } from './supabase';
 
 type JobDescription = Database['public']['Tables']['job_descriptions']['Row'];
 type JobDescriptionInsert = Database['public']['Tables']['job_descriptions']['Insert'];
 type JobDescriptionUpdate = Database['public']['Tables']['job_descriptions']['Update'];
+type JobDescriptionWithSimilarity = Omit<JobDescription, 'description_embedding'> & {
+  similarity: number;
+};
 
 export class JobDescriptionService {
   // Create a new job description
@@ -79,10 +83,7 @@ export class JobDescriptionService {
   // Delete job description
   static async delete(id: string): Promise<void> {
     return withPerformanceMonitoring(async () => {
-      const { error } = await supabase
-        .from('job_descriptions')
-        .delete()
-        .eq('id', id);
+      const { error } = await supabase.from('job_descriptions').delete().eq('id', id);
 
       if (error) {
         throw new Error(handleDatabaseError(error, 'delete job description'));
@@ -96,13 +97,13 @@ export class JobDescriptionService {
     userId: string,
     threshold = 0.8,
     limit = 10
-  ): Promise<JobDescription[]> {
+  ): Promise<JobDescriptionWithSimilarity[]> {
     return withPerformanceMonitoring(async () => {
       const { data, error } = await supabase.rpc('match_job_descriptions', {
         query_embedding: embedding,
         match_threshold: threshold,
         match_count: limit,
-        user_id: userId
+        user_id: userId,
       });
 
       if (error) {
@@ -116,12 +117,24 @@ export class JobDescriptionService {
   // Update usage tracking
   static async incrementUsage(id: string): Promise<void> {
     return withPerformanceMonitoring(async () => {
+      // First get the current times_used value
+      const { data: current, error: fetchError } = await supabase
+        .from('job_descriptions')
+        .select('times_used')
+        .eq('id', id)
+        .single();
+
+      if (fetchError) {
+        throw new Error(handleDatabaseError(fetchError, 'fetch job description usage'));
+      }
+
+      // Increment and update
       const { error } = await supabase
         .from('job_descriptions')
         .update({
-          times_used: supabase.rpc('increment_field', { field_value: 1 }),
+          times_used: (current?.times_used || 0) + 1,
           last_used_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
         })
         .eq('id', id);
 

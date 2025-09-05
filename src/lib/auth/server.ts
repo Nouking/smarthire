@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+
 import { Database } from '@/types/database';
 
 // This file should only be imported in Server Components or Server Actions
@@ -9,14 +10,14 @@ export async function createServerSupabaseClient() {
   const cookieStore = await cookies();
 
   return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
     {
       cookies: {
         get(name: string) {
           return cookieStore.get(name)?.value;
         },
-        set(name: string, value: string, options: any) {
+        set(name: string, value: string, options: { [key: string]: unknown }) {
           try {
             cookieStore.set(name, value, options);
           } catch (error) {
@@ -24,15 +25,15 @@ export async function createServerSupabaseClient() {
             console.warn('Cookie setting failed:', error);
           }
         },
-        remove(name: string, options: any) {
+        remove(name: string, options: { [key: string]: unknown }) {
           try {
             cookieStore.set(name, '', { ...options, maxAge: 0 });
           } catch (error) {
             // Cookie removal may fail in some server contexts
             console.warn('Cookie removal failed:', error);
           }
-        }
-      }
+        },
+      },
     }
   );
 }
@@ -41,7 +42,10 @@ export async function createServerSupabaseClient() {
 export async function getServerSession() {
   try {
     const supabase = await createServerSupabaseClient();
-    const { data: { session }, error } = await supabase.auth.getSession();
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
 
     if (error) {
       console.error('Server session error:', error);
@@ -59,7 +63,10 @@ export async function getServerSession() {
 export async function getServerUser() {
   try {
     const supabase = await createServerSupabaseClient();
-    const { data: { user }, error } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
 
     if (error) {
       console.error('Server user error:', error);

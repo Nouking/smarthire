@@ -14,6 +14,7 @@
 **Objective:** Execute SmartHire AI MVP development with disciplined scope management and realistic resource planning.
 
 **Key Changes from Original Plan:**
+
 - **Timeline Extended:** 8 weeks → 16 weeks (realistic for quality MVP)
 - **Scope Reduced:** Focus on core CV-JD matching only (moved advanced features to roadmap)
 - **Resource Approach:** Single full-stack developer with focused deliverables
@@ -29,26 +30,26 @@
 gantt
     title SmartHire AI MVP Implementation (16 Weeks)
     dateFormat  YYYY-MM-DD
-    
+
     section Phase 1: Foundation
     Project Setup & Infrastructure    :phase1a, 2025-08-26, 14d
     Authentication & Security         :phase1b, after phase1a, 14d
-    
-    section Phase 2: Core Features  
+
+    section Phase 2: Core Features
     File Processing Pipeline         :phase2a, after phase1b, 14d
     AI Integration & 30s SLA         :phase2b, after phase2a, 14d
-    
+
     section Phase 3: User Experience
     Results Dashboard & Mobile UI    :phase3a, after phase2b, 14d
     Performance Optimization         :phase3b, after phase3a, 14d
-    
+
     section Phase 4: Launch Ready
     Testing & Quality Assurance     :phase4a, after phase3b, 14d
     Production Deploy & Monitoring   :phase4b, after phase4a, 14d
-    
+
     section Milestones
     Technical Foundation Complete    :milestone, after phase1b, 1d
-    30-Second SLA Validated         :milestone, after phase2b, 1d  
+    30-Second SLA Validated         :milestone, after phase2b, 1d
     Beta Launch Ready               :milestone, after phase3b, 1d
     Production Launch               :milestone, after phase4b, 1d
 ```
@@ -58,37 +59,42 @@ gantt
 ## 🏗️ Phase 1: Foundation (Weeks 1-4)
 
 ### Week 1-2: Project Infrastructure
+
 **Primary Developer:** Full-stack engineer  
 **Hours Estimate:** 60 hours
 
 #### Sprint 1.1 Goals:
+
 - [ ] **Next.js 14 Project Setup** (8 hours)
   - TypeScript configuration with strict mode
   - shadcn/ui component library integration
   - Tailwind CSS setup with mobile-first approach
   - Basic project structure and development workflows
 
-- [ ] **Supabase Integration** (12 hours)  
+- [ ] **Supabase Integration** (12 hours)
   - Database setup with enhanced schema
   - Authentication configuration with RLS
   - Storage bucket setup for CV files
   - Basic environment configuration
 
 - [ ] **Development Tooling** (6 hours)
-  - ESLint and Prettier configuration  
+  - ESLint and Prettier configuration
   - GitHub Actions CI/CD pipeline
   - Testing framework setup (Jest + Testing Library)
   - Local development environment documentation
 
 **Deliverables:**
+
 - ✅ Working Next.js application deployed to Vercel
 - ✅ Supabase backend configured and tested
 - ✅ Development pipeline operational
 
 ### Week 3-4: Authentication & Security
+
 **Hours Estimate:** 50 hours
 
 #### Sprint 1.2 Goals:
+
 - [ ] **User Authentication** (15 hours)
   - Supabase Auth integration with email/password
   - Protected routes and middleware
@@ -102,17 +108,19 @@ gantt
   - Basic GDPR compliance (consent, data deletion)
 
 - [ ] **Basic UI Framework** (15 hours)
-  - Landing page with value proposition  
+  - Landing page with value proposition
   - User registration and login flows
   - Dashboard shell with navigation
   - Mobile-responsive layout foundation
 
 **Deliverables:**
+
 - ✅ Secure user authentication system
 - ✅ Basic UI framework with mobile optimization
 - ✅ Security policies implemented and tested
 
 **Phase 1 Success Criteria:**
+
 - [ ] New users can register and log in securely
 - [ ] Application loads on mobile devices with good UX
 - [ ] Security audit passes with no critical vulnerabilities
@@ -122,10 +130,12 @@ gantt
 
 ## ⚡ Phase 2: Core Processing (Weeks 5-8)
 
-### Week 5-6: File Processing Pipeline  
+### Week 5-6: File Processing Pipeline
+
 **Hours Estimate:** 65 hours
 
 #### Sprint 2.1 Goals:
+
 - [ ] **File Upload System** (20 hours)
   - Drag-and-drop interface with progress indicators
   - Batch upload capability (5-20 CVs)
@@ -134,7 +144,7 @@ gantt
 
 - [ ] **Document Parsing Engine** (25 hours)
   - PDF text extraction with pdf-parse
-  - Word document processing with mammoth  
+  - Word document processing with mammoth
   - OCR integration for scanned documents (Tesseract.js)
   - Parallel processing pipeline for performance
 
@@ -145,17 +155,20 @@ gantt
   - Mobile-friendly creation interface
 
 **Deliverables:**
+
 - ✅ Reliable file processing for all supported formats
 - ✅ Job description creation with templates
 - ✅ Mobile-optimized upload and creation flows
 
 ### Week 7-8: AI Integration & 30-Second SLA
+
 **Hours Estimate:** 70 hours
 
 #### Sprint 2.2 Goals:
+
 - [ ] **AI Processing Pipeline** (30 hours)
   - OpenRouter integration with Claude 3.5 Haiku
-  - Batch processing optimization for speed  
+  - Batch processing optimization for speed
   - DeepSeek fallback implementation
   - Cost tracking and budget management
 
@@ -172,18 +185,21 @@ gantt
   - Basic error handling and retry logic
 
 **Critical Validation:**
+
 - [ ] **30-Second SLA Testing** (Must pass before Phase 3)
   - Load test with 20 CVs against single JD
-  - 95% success rate under normal conditions  
+  - 95% success rate under normal conditions
   - Graceful degradation when SLA at risk
   - Performance monitoring dashboard operational
 
 **Deliverables:**
+
 - ✅ AI processing pipeline meeting 30-second SLA
 - ✅ Cost-optimized processing with fallbacks
 - ✅ Performance monitoring and alerting
 
 **Phase 2 Success Criteria:**
+
 - [ ] 95% of CV batches (≤20 CVs) process within 30 seconds
 - [ ] AI responses are structured and actionable
 - [ ] Processing costs stay within $0.10 per analysis
@@ -194,9 +210,11 @@ gantt
 ## 📊 Phase 3: User Experience (Weeks 9-12)
 
 ### Week 9-10: Results Dashboard & Mobile UI
+
 **Hours Estimate:** 60 hours
 
 #### Sprint 3.1 Goals:
+
 - [ ] **Match Results Interface** (25 hours)
   - Ranked candidate display with match percentages
   - Expandable detail views with AI reasoning
@@ -216,17 +234,20 @@ gantt
   - User feedback collection for AI improvement
 
 **Deliverables:**
+
 - ✅ Intuitive results dashboard with mobile optimization
 - ✅ Clear AI explanations that users understand
 - ✅ Quick decision-making interface for candidates
 
 ### Week 11-12: Performance Optimization & Polish
+
 **Hours Estimate:** 55 hours
 
 #### Sprint 3.2 Goals:
+
 - [ ] **Performance Optimization** (25 hours)
   - Page load time optimization (<3 seconds)
-  - Image and asset optimization  
+  - Image and asset optimization
   - Code splitting and lazy loading
   - Core Web Vitals optimization
 
@@ -243,11 +264,13 @@ gantt
   - Basic export functionality (PDF reports)
 
 **Deliverables:**
+
 - ✅ Fast-loading application with excellent mobile UX
 - ✅ Clear user guidance and error handling
 - ✅ Usage tracking and limit management
 
 **Phase 3 Success Criteria:**
+
 - [ ] Average page load time <3 seconds on mobile
 - [ ] Users can complete full workflow on mobile devices
 - [ ] 85% of users understand AI explanations (user testing)
@@ -257,14 +280,16 @@ gantt
 
 ## 🚀 Phase 4: Launch Preparation (Weeks 13-16)
 
-### Week 13-14: Testing & Quality Assurance  
+### Week 13-14: Testing & Quality Assurance
+
 **Hours Estimate:** 50 hours
 
 #### Sprint 4.1 Goals:
+
 - [ ] **Comprehensive Testing** (25 hours)
   - Unit tests for critical business logic (>80% coverage)
   - Integration tests for AI processing pipeline
-  - End-to-end tests for complete user workflows  
+  - End-to-end tests for complete user workflows
   - Performance testing for 30-second SLA validation
 
 - [ ] **User Acceptance Testing** (15 hours)
@@ -280,17 +305,20 @@ gantt
   - Privacy policy and terms of service finalization
 
 **Deliverables:**
+
 - ✅ Comprehensive test suite with high coverage
 - ✅ Beta user validation of core workflows
 - ✅ Security and compliance requirements met
 
 ### Week 15-16: Production Deployment & Monitoring
+
 **Hours Estimate:** 45 hours
 
 #### Sprint 4.2 Goals:
+
 - [ ] **Production Infrastructure** (20 hours)
   - Production environment setup and configuration
-  - Database optimization and backup strategies  
+  - Database optimization and backup strategies
   - CDN and performance optimization
   - SSL certificates and security hardening
 
@@ -307,11 +335,13 @@ gantt
   - Launch checklist and rollback procedures
 
 **Deliverables:**
+
 - ✅ Production-ready application with monitoring
 - ✅ Comprehensive documentation and support materials
 - ✅ Launch procedures and contingency plans
 
 **Phase 4 Success Criteria:**
+
 - [ ] 99%+ uptime in production environment
 - [ ] All monitoring and alerting systems operational
 - [ ] 20+ beta users successfully complete workflows
@@ -324,23 +354,26 @@ gantt
 ### Core Team (Minimum Viable Team)
 
 **Primary Developer (Full-Stack Engineer)**
+
 - **Commitment:** 35-40 hours/week for 16 weeks
 - **Skills Required:** Next.js, TypeScript, PostgreSQL, AI API integration
-- **Responsibilities:** 
+- **Responsibilities:**
   - Complete technical implementation
   - Code reviews and quality assurance
   - Performance optimization and debugging
   - Technical documentation
 
-**Product Manager (Part-Time)**  
+**Product Manager (Part-Time)**
+
 - **Commitment:** 10-15 hours/week for 16 weeks
 - **Responsibilities:**
   - Sprint planning and stakeholder communication
-  - User acceptance testing coordination  
+  - User acceptance testing coordination
   - Beta user recruitment and feedback collection
   - Go-to-market preparation
 
 **Optional Roles (If Budget Allows):**
+
 - **UI/UX Designer:** Mobile interface optimization (consulting basis)
 - **DevOps Engineer:** Production deployment and monitoring (2-3 weeks)
 - **QA Tester:** Comprehensive testing and bug identification (final 4 weeks)
@@ -348,12 +381,14 @@ gantt
 ### Skill Requirements Validation
 
 **Must-Have Technical Skills:**
+
 - [ ] **Next.js 14 + TypeScript:** Server Actions, App Router, performance optimization
 - [ ] **PostgreSQL + Supabase:** Database design, RLS policies, vector search
-- [ ] **AI API Integration:** OpenRouter, prompt engineering, cost optimization  
+- [ ] **AI API Integration:** OpenRouter, prompt engineering, cost optimization
 - [ ] **Mobile-First Development:** Responsive design, PWA, touch interfaces
 
 **Nice-to-Have Skills:**
+
 - [ ] Previous experience with AI/ML applications
 - [ ] B2B SaaS development experience
 - [ ] Performance optimization and monitoring
@@ -365,31 +400,33 @@ gantt
 
 ### Development Costs (16 Weeks)
 
-| Resource | Rate | Hours | Total Cost |
-|----------|------|--------|------------|
-| **Senior Full-Stack Developer** | $75/hr | 580 hours | $43,500 |
-| **Product Manager** | $60/hr | 200 hours | $12,000 |
-| **UI/UX Design** (consulting) | $80/hr | 40 hours | $3,200 |
-| **DevOps Setup** (consulting) | $85/hr | 32 hours | $2,720 |
-| **QA Testing** (consulting) | $50/hr | 60 hours | $3,000 |
-| **TOTAL DEVELOPMENT** | | | **$64,420** |
+| Resource                        | Rate   | Hours     | Total Cost  |
+| ------------------------------- | ------ | --------- | ----------- |
+| **Senior Full-Stack Developer** | $75/hr | 580 hours | $43,500     |
+| **Product Manager**             | $60/hr | 200 hours | $12,000     |
+| **UI/UX Design** (consulting)   | $80/hr | 40 hours  | $3,200      |
+| **DevOps Setup** (consulting)   | $85/hr | 32 hours  | $2,720      |
+| **QA Testing** (consulting)     | $50/hr | 60 hours  | $3,000      |
+| **TOTAL DEVELOPMENT**           |        |           | **$64,420** |
 
 ### Operational Costs (During Development)
 
-| Service | Cost/Month | 4 Months | Notes |
-|---------|------------|-----------|-------|
-| **Supabase** | $0 | $0 | Free tier sufficient |
-| **Vercel** | $0 | $0 | Free tier sufficient |
-| **OpenRouter API** | $50 | $200 | Testing and development |
-| **Redis (Upstash)** | $0 | $0 | Free tier sufficient |
-| **Domain & SSL** | $15/year | $15 | One-time setup |
-| **Monitoring Tools** | $25 | $100 | Basic monitoring stack |
-| **TOTAL OPERATIONAL** | | **$315** | |
+| Service               | Cost/Month | 4 Months | Notes                   |
+| --------------------- | ---------- | -------- | ----------------------- |
+| **Supabase**          | $0         | $0       | Free tier sufficient    |
+| **Vercel**            | $0         | $0       | Free tier sufficient    |
+| **OpenRouter API**    | $50        | $200     | Testing and development |
+| **Redis (Upstash)**   | $0         | $0       | Free tier sufficient    |
+| **Domain & SSL**      | $15/year   | $15      | One-time setup          |
+| **Monitoring Tools**  | $25        | $100     | Basic monitoring stack  |
+| **TOTAL OPERATIONAL** |            | **$315** |                         |
 
 ### Total Project Investment
+
 **Development + Operational:** $64,735 for complete MVP
 
 ### Post-Launch Operational Costs (Monthly)
+
 - **Infrastructure:** $8/month (validated for 100+ users)
 - **Monitoring & Analytics:** $15/month
 - **Support Tools:** $10/month
@@ -404,8 +441,9 @@ gantt
 #### Technical Risks
 
 **Risk 1: 30-Second SLA Failure**
+
 - **Probability:** Medium (35%)
-- **Impact:** High (core competitive advantage lost)  
+- **Impact:** High (core competitive advantage lost)
 - **Early Detection:** Weekly performance testing starting Week 6
 - **Mitigation Plan:**
   - Prototype and validate processing pipeline in Week 5
@@ -414,6 +452,7 @@ gantt
   - Alternative AI providers ready for deployment
 
 **Risk 2: AI Cost Overruns**
+
 - **Probability:** Medium (30%)
 - **Impact:** Medium (business model viability affected)
 - **Early Detection:** Daily cost monitoring with alerts at $20/day
@@ -426,6 +465,7 @@ gantt
 #### Project Risks
 
 **Risk 3: Scope Creep**
+
 - **Probability:** High (60%)
 - **Impact:** Medium (timeline and budget overruns)
 - **Early Detection:** Weekly scope reviews with stakeholders
@@ -436,7 +476,8 @@ gantt
   - Future roadmap clearly defined for post-MVP features
 
 **Risk 4: Single Developer Dependency**
-- **Probability:** Low (15%)  
+
+- **Probability:** Low (15%)
 - **Impact:** High (project failure if developer unavailable)
 - **Early Detection:** Weekly check-ins and code reviews
 - **Mitigation Plan:**
@@ -448,11 +489,13 @@ gantt
 ### Success Dependencies
 
 **External Dependencies:**
+
 - ✅ **OpenRouter API Stability:** 99.5% uptime and consistent pricing
-- ✅ **Supabase Service Reliability:** Database and auth service availability  
+- ✅ **Supabase Service Reliability:** Database and auth service availability
 - ✅ **Vercel Platform Performance:** Deployment and hosting reliability
 
 **Internal Execution Dependencies:**
+
 - ✅ **Developer Availability:** Consistent 35-40 hours/week commitment
 - ✅ **Stakeholder Engagement:** Weekly reviews and timely decision-making
 - ✅ **User Feedback Access:** 20+ beta users for validation testing
@@ -464,7 +507,9 @@ gantt
 ### Phase Gate Reviews (Go/No-Go Decisions)
 
 #### Phase 1 Gate (End of Week 4):
+
 **Required Outcomes:**
+
 - [ ] Authentication system operational with RLS
 - [ ] Basic UI framework responsive on mobile
 - [ ] File upload functionality working reliably
@@ -472,8 +517,10 @@ gantt
 
 **Go Criteria:** All outcomes achieved with <2 critical bugs
 
-#### Phase 2 Gate (End of Week 8):  
+#### Phase 2 Gate (End of Week 8):
+
 **Required Outcomes:**
+
 - [ ] 30-second SLA achieved for 95% of test batches
 - [ ] AI integration producing structured, actionable results
 - [ ] Cost per analysis <$0.15 including all overhead
@@ -482,7 +529,9 @@ gantt
 **Go Criteria:** SLA validation passed + cost model sustainable
 
 #### Phase 3 Gate (End of Week 12):
+
 **Required Outcomes:**
+
 - [ ] Complete user workflow testable by external users
 - [ ] Mobile experience equivalent to desktop for core flows
 - [ ] AI explanations understandable to 85% of test users
@@ -491,7 +540,9 @@ gantt
 **Go Criteria:** 10+ beta users complete full workflow successfully
 
 #### Launch Gate (End of Week 16):
+
 **Required Outcomes:**
+
 - [ ] 20+ beta users validate product-market fit indicators
 - [ ] System handles production load with 99%+ uptime
 - [ ] All security and compliance requirements met
@@ -502,13 +553,15 @@ gantt
 ### Weekly Progress Tracking
 
 **Developer Velocity Metrics:**
+
 - **Story Points Completed:** Target 15-20 points per week
 - **Code Quality:** <2 bugs per 100 lines of new code
 - **Test Coverage:** Maintain >80% for business logic
 - **Performance:** Page load times <3 seconds
 
 **Business Progress Indicators:**
-- **User Feedback Quality:** 4.0+ rating on core workflows  
+
+- **User Feedback Quality:** 4.0+ rating on core workflows
 - **Feature Adoption:** >90% of beta users try core matching
 - **Support Request Volume:** <1 support request per 10 users
 - **Cost Management:** Actual costs within 10% of projections
@@ -518,27 +571,34 @@ gantt
 ## 🎯 Post-MVP Roadmap Planning
 
 ### Immediate Post-Launch (Months 1-3)
+
 **Focus:** User feedback integration and performance optimization
+
 - User onboarding optimization based on usage data
-- AI accuracy improvements through feedback loops  
+- AI accuracy improvements through feedback loops
 - Mobile app planning and technical validation
 - Advanced filtering and search capabilities
 
 ### Growth Phase (Months 4-6)
+
 **Focus:** Feature expansion and user base growth
+
 - Interview question generation feature
 - Team collaboration and sharing features
 - Integration with popular job boards (LinkedIn, Indeed)
 - Advanced analytics and hiring funnel reporting
 
 ### Scale Phase (Months 7-12)
+
 **Focus:** Platform scaling and enterprise features
+
 - Multi-language support and international expansion
 - Custom AI model training and bias detection
-- White-label solution for recruitment agencies  
+- White-label solution for recruitment agencies
 - Enterprise security features (SSO, SAML)
 
 ### Success Metrics for Roadmap Prioritization
+
 - **User Retention:** 70%+ monthly active user retention
 - **Feature Adoption:** New features adopted by >60% of users within 30 days
 - **Business Growth:** 20%+ month-over-month user acquisition
@@ -549,20 +609,23 @@ gantt
 ## 📋 Implementation Checklist
 
 ### Pre-Development (Week 0)
+
 - [ ] Technical team assembled and contracts signed
-- [ ] Development environment and tools provisioned  
+- [ ] Development environment and tools provisioned
 - [ ] Supabase and external service accounts created
 - [ ] Project management and communication tools setup
 - [ ] Initial stakeholder alignment meeting completed
 
 ### During Development (Weeks 1-16)
+
 - [ ] Weekly sprint planning and review meetings
 - [ ] Bi-weekly stakeholder demo and feedback sessions
-- [ ] Daily stand-ups and progress tracking  
+- [ ] Daily stand-ups and progress tracking
 - [ ] Weekly risk assessment and mitigation reviews
 - [ ] Monthly budget and timeline reviews
 
 ### Launch Preparation (Week 16)
+
 - [ ] Production infrastructure validated and monitored
 - [ ] Beta user feedback incorporated and validated
 - [ ] Legal and compliance requirements completed
@@ -579,10 +642,11 @@ gantt
 
 ---
 
-*This implementation plan provides a realistic, step-by-step approach to delivering the SmartHire AI MVP within 16 weeks while maintaining high quality standards and managing identified risks proactively.*
+_This implementation plan provides a realistic, step-by-step approach to delivering the SmartHire AI MVP within 16 weeks while maintaining high quality standards and managing identified risks proactively._
 
-**Next Steps:** 
+**Next Steps:**
+
 1. Secure development team and finalize contracts
-2. Set up project management tools and communication channels  
+2. Set up project management tools and communication channels
 3. Begin Phase 1 development with infrastructure setup
 4. Schedule weekly stakeholder reviews and progress checkpoints

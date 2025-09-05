@@ -2,13 +2,13 @@
 
 /**
  * Database Connection Test Utility
- * 
+ *
  * This script tests the Supabase database connection and verifies:
  * - Basic connectivity
  * - Table existence
  * - Extension availability (pgvector)
  * - Basic CRUD operations
- * 
+ *
  * Usage: node database/test-connection.js
  */
 
@@ -36,7 +36,7 @@ async function testDatabaseConnection() {
       .from('users')
       .select('count')
       .limit(1);
-    
+
     if (healthError) {
       throw new Error(`Connection failed: ${healthError.message}`);
     }
@@ -45,13 +45,10 @@ async function testDatabaseConnection() {
     // Test 2: Check table existence
     console.log('2. Checking table structure...');
     const tables = ['users', 'job_descriptions', 'candidates', 'cv_jd_matches'];
-    
+
     for (const table of tables) {
-      const { error: tableError } = await supabase
-        .from(table)
-        .select('*')
-        .limit(1);
-      
+      const { error: tableError } = await supabase.from(table).select('*').limit(1);
+
       if (tableError) {
         throw new Error(`Table '${table}' not accessible: ${tableError.message}`);
       }
@@ -66,7 +63,7 @@ async function testDatabaseConnection() {
         .from('candidates')
         .select('embedding')
         .limit(1);
-      
+
       if (vectorError) {
         console.log('⚠️  Vector column access failed - pgvector may not be enabled');
       } else {
@@ -79,12 +76,12 @@ async function testDatabaseConnection() {
 
     // Test 4: Test CRUD operations
     console.log('4. Testing CRUD operations...');
-    
+
     // Create test user
     const testUser = {
       email: `test-${Date.now()}@example.com`,
       full_name: 'Test User',
-      subscription_tier: 'free'
+      subscription_tier: 'free',
     };
 
     const { data: createdUser, error: createError } = await supabase
@@ -124,10 +121,7 @@ async function testDatabaseConnection() {
     console.log('✅ UPDATE operation successful');
 
     // Delete operation (cleanup)
-    const { error: deleteError } = await supabase
-      .from('users')
-      .delete()
-      .eq('id', createdUser.id);
+    const { error: deleteError } = await supabase.from('users').delete().eq('id', createdUser.id);
 
     if (deleteError) {
       throw new Error(`Delete operation failed: ${deleteError.message}`);
@@ -137,12 +131,12 @@ async function testDatabaseConnection() {
 
     // Test 5: Check database functions
     console.log('5. Testing database functions...');
-    
+
     // Create a temporary test user for function testing
     const funcTestUser = {
       email: `func-test-${Date.now()}@example.com`,
       full_name: 'Function Test User',
-      subscription_tier: 'free'
+      subscription_tier: 'free',
     };
 
     const { data: functionTestUser, error: testUserError } = await supabase
@@ -165,10 +159,12 @@ async function testDatabaseConnection() {
       } catch (err) {
         console.log('⚠️  Function cleanup_expired_data test failed:', err.message);
       }
-      
+
       // Test increment_user_usage function (requires UUID parameter)
       try {
-        const { error: incrementError } = await supabase.rpc('increment_user_usage', { user_uuid: functionTestUser.id });
+        const { error: incrementError } = await supabase.rpc('increment_user_usage', {
+          user_uuid: functionTestUser.id,
+        });
         if (incrementError && incrementError.message.includes('Could not find the function')) {
           console.log('⚠️  Function increment_user_usage not found');
         } else {
@@ -177,13 +173,16 @@ async function testDatabaseConnection() {
       } catch (err) {
         console.log('⚠️  Function increment_user_usage test failed:', err.message);
       }
-      
+
       // Test check_user_usage_limit function (requires UUID and integer parameters)
       try {
-        const { data: usageResult, error: checkError } = await supabase.rpc('check_user_usage_limit', { 
-          user_uuid: functionTestUser.id, 
-          tier_limit: 10 
-        });
+        const { data: usageResult, error: checkError } = await supabase.rpc(
+          'check_user_usage_limit',
+          {
+            user_uuid: functionTestUser.id,
+            tier_limit: 10,
+          }
+        );
         if (checkError && checkError.message.includes('Could not find the function')) {
           console.log('⚠️  Function check_user_usage_limit not found');
         } else {
@@ -192,11 +191,11 @@ async function testDatabaseConnection() {
       } catch (err) {
         console.log('⚠️  Function check_user_usage_limit test failed:', err.message);
       }
-      
+
       // Clean up test user
       await supabase.from('users').delete().eq('id', functionTestUser.id);
     }
-    
+
     console.log('');
 
     console.log('🎉 All database tests passed successfully!');
@@ -205,7 +204,6 @@ async function testDatabaseConnection() {
     console.log(`   Tables: ${tables.length} core tables verified`);
     console.log(`   Extensions: pgvector extension tested`);
     console.log(`   Functions: 3 utility functions verified`);
-    
   } catch (error) {
     console.error('\n❌ Database test failed:', error.message);
     console.error('\n🔧 Troubleshooting:');

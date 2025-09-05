@@ -1,7 +1,8 @@
 'use client';
 
-import { createContext, useContext, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
+import { createContext, useContext, ReactNode } from 'react';
+
 import { useAuth } from '@/hooks/useAuth';
 
 interface AuthContextType {
@@ -30,14 +31,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     error,
     isAuthenticated: !!user,
     isAdmin: user?.user_metadata?.role === 'admin',
-    userRole: user?.user_metadata?.role || 'user'
+    userRole: user?.user_metadata?.role || 'user',
   };
 
-  return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthContext(): AuthContextType {
@@ -51,8 +48,8 @@ export function useAuthContext(): AuthContextType {
 // Loading component for auth states
 export function AuthLoadingSpinner() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+    <div className='flex min-h-screen items-center justify-center'>
+      <div className='h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600'></div>
     </div>
   );
 }
@@ -64,10 +61,10 @@ interface ProtectedRouteProps {
   requiredRole?: 'user' | 'admin';
 }
 
-export function ProtectedRoute({ 
-  children, 
-  fallback = <AuthLoadingSpinner />, 
-  requiredRole = 'user' 
+export function ProtectedRoute({
+  children,
+  fallback = <AuthLoadingSpinner />,
+  requiredRole = 'user',
 }: ProtectedRouteProps) {
   const { loading, isAuthenticated, userRole } = useAuthContext();
 
@@ -83,10 +80,10 @@ export function ProtectedRoute({
 
   if (requiredRole === 'admin' && userRole !== 'admin') {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h1>
-          <p className="text-gray-600">You don&apos;t have permission to access this page.</p>
+      <div className='flex min-h-screen items-center justify-center'>
+        <div className='text-center'>
+          <h1 className='mb-2 text-2xl font-bold text-gray-900'>Access Denied</h1>
+          <p className='text-gray-600'>You don&apos;t have permission to access this page.</p>
         </div>
       </div>
     );

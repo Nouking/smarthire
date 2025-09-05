@@ -1,4 +1,5 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
+
 import { Database } from '@/types/database';
 
 // Environment variables validation
@@ -14,16 +15,16 @@ export const supabase: SupabaseClient<Database> = createClient(supabaseUrl, supa
   auth: {
     persistSession: true,
     autoRefreshToken: true,
-    detectSessionInUrl: true
+    detectSessionInUrl: true,
   },
   db: {
-    schema: 'public'
+    schema: 'public',
   },
   global: {
     headers: {
-      'X-Client-Info': 'smarthire-web'
-    }
-  }
+      'X-Client-Info': 'smarthire-web',
+    },
+  },
 });
 
 // Connection health check utility
@@ -38,14 +39,17 @@ export const checkDatabaseConnection = async (): Promise<boolean> => {
 };
 
 // Error handling utilities
-export const handleDatabaseError = (error: any, operation: string) => {
+export const handleDatabaseError = (
+  error: { message?: string; details?: string; hint?: string; code?: string },
+  operation: string
+) => {
   console.error(`Database error during ${operation}:`, {
     message: error.message,
     details: error.details,
     hint: error.hint,
-    code: error.code
+    code: error.code,
   });
-  
+
   // Return user-friendly error messages
   switch (error.code) {
     case '23505': // Unique violation
@@ -67,16 +71,16 @@ export const withPerformanceMonitoring = async <T>(
   operationName: string
 ): Promise<T> => {
   const startTime = Date.now();
-  
+
   try {
     const result = await operation();
     const duration = Date.now() - startTime;
-    
+
     // Log slow queries (>1000ms)
     if (duration > 1000) {
       console.warn(`Slow database operation: ${operationName} took ${duration}ms`);
     }
-    
+
     return result;
   } catch (error) {
     const duration = Date.now() - startTime;

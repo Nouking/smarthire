@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { signUp, validateEmail, validatePassword } from '@/lib/auth/client-exports';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
+
 import { Alert } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { signUp, validateEmail, validatePassword } from '@/lib/auth/client-exports';
 
 export function SignUpForm() {
   const [name, setName] = useState('');
@@ -50,13 +51,13 @@ export function SignUpForm() {
 
     try {
       const result = await signUp(email, password, name.trim());
-      
+
       if (result.success) {
         setSuccess(true);
       } else {
         setError(result.error?.message || 'Sign up failed');
       }
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred');
     } finally {
       setIsLoading(false);
@@ -65,24 +66,31 @@ export function SignUpForm() {
 
   if (success) {
     return (
-      <Card className="w-full max-w-md mx-auto p-6">
-        <div className="text-center">
-          <div className="mb-4">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+      <Card className='mx-auto w-full max-w-md p-6'>
+        <div className='text-center'>
+          <div className='mb-4'>
+            <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100'>
+              <svg
+                className='h-6 w-6 text-green-600'
+                fill='none'
+                stroke='currentColor'
+                viewBox='0 0 24 24'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M5 13l4 4L19 7'
+                />
               </svg>
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Check Your Email</h1>
-          <p className="text-sm text-gray-600 mb-6">
-            We&apos;ve sent a verification link to <strong>{email}</strong>. 
-            Please check your email and click the link to verify your account.
+          <h1 className='mb-2 text-2xl font-bold text-gray-900'>Check Your Email</h1>
+          <p className='mb-6 text-sm text-gray-600'>
+            We&apos;ve sent a verification link to <strong>{email}</strong>. Please check your email
+            and click the link to verify your account.
           </p>
-          <Button 
-            onClick={() => window.location.href = '/auth/signin'}
-            className="w-full"
-          >
+          <Button onClick={() => (window.location.href = '/auth/signin')} className='w-full'>
             Continue to Sign In
           </Button>
         </div>
@@ -91,104 +99,95 @@ export function SignUpForm() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto p-6">
-      <div className="mb-6 text-center">
-        <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
-        <p className="text-sm text-gray-600 mt-2">
-          Join SmartHire AI to get started
-        </p>
+    <Card className='mx-auto w-full max-w-md p-6'>
+      <div className='mb-6 text-center'>
+        <h1 className='text-2xl font-bold text-gray-900'>Create Account</h1>
+        <p className='mt-2 text-sm text-gray-600'>Join SmartHire AI to get started</p>
       </div>
 
       {error && (
-        <Alert variant="destructive" className="mb-4">
+        <Alert variant='destructive' className='mb-4'>
           {error}
         </Alert>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className='space-y-4'>
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor='name' className='mb-1 block text-sm font-medium text-gray-700'>
             Full Name
           </label>
           <Input
-            id="name"
-            type="text"
+            id='name'
+            type='text'
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your full name"
+            placeholder='Enter your full name'
             required
-            className="w-full"
-            autoComplete="name"
+            className='w-full'
+            autoComplete='name'
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor='email' className='mb-1 block text-sm font-medium text-gray-700'>
             Email
           </label>
           <Input
-            id="email"
-            type="email"
+            id='email'
+            type='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
+            placeholder='Enter your email'
             required
-            className="w-full"
-            autoComplete="email"
+            className='w-full'
+            autoComplete='email'
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor='password' className='mb-1 block text-sm font-medium text-gray-700'>
             Password
           </label>
           <Input
-            id="password"
-            type="password"
+            id='password'
+            type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Create a password"
+            placeholder='Create a password'
             required
-            className="w-full"
-            autoComplete="new-password"
+            className='w-full'
+            autoComplete='new-password'
           />
-          <p className="text-xs text-gray-500 mt-1">
+          <p className='mt-1 text-xs text-gray-500'>
             Must be at least 8 characters with uppercase, lowercase, number, and special character
           </p>
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor='confirmPassword' className='mb-1 block text-sm font-medium text-gray-700'>
             Confirm Password
           </label>
           <Input
-            id="confirmPassword"
-            type="password"
+            id='confirmPassword'
+            type='password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm your password"
+            placeholder='Confirm your password'
             required
-            className="w-full"
-            autoComplete="new-password"
+            className='w-full'
+            autoComplete='new-password'
           />
         </div>
 
-        <Button
-          type="submit"
-          disabled={isLoading}
-          className="w-full"
-        >
+        <Button type='submit' disabled={isLoading} className='w-full'>
           {isLoading ? 'Creating Account...' : 'Create Account'}
         </Button>
       </form>
 
-      <div className="mt-6 text-center">
-        <p className="text-sm text-gray-600">
+      <div className='mt-6 text-center'>
+        <p className='text-sm text-gray-600'>
           Already have an account?{' '}
-          <a 
-            href="/auth/signin" 
-            className="text-blue-600 hover:text-blue-500 underline"
-          >
+          <a href='/auth/signin' className='text-blue-600 underline hover:text-blue-500'>
             Sign in
           </a>
         </p>

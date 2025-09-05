@@ -14,9 +14,10 @@
 **Architecture:** RESTful API built on Next.js 14 Server Actions  
 **Authentication:** Supabase Auth with JWT tokens  
 **Rate Limiting:** 100 requests per minute per user  
-**Response Format:** JSON with consistent error handling  
+**Response Format:** JSON with consistent error handling
 
 **Key Principles:**
+
 - **Security-First:** All endpoints protected by RLS policies
 - **Performance-Optimized:** Sub-500ms response times for CRUD operations
 - **Mobile-Friendly:** Lightweight payloads optimized for mobile connections
@@ -31,29 +32,35 @@
 All API endpoints require authentication except public endpoints explicitly marked as such.
 
 **Headers Required:**
+
 ```http
 Authorization: Bearer <supabase_jwt_token>
 Content-Type: application/json
 ```
 
 **Getting Auth Token:**
+
 ```typescript
 // Client-side auth
-const { data: { user }, error } = await supabase.auth.getUser();
+const {
+  data: { user },
+  error,
+} = await supabase.auth.getUser();
 const token = user?.access_token;
 
 // Use in API calls
 const response = await fetch('/api/candidates', {
   headers: {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  }
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  },
 });
 ```
 
 ### Error Responses
 
 **Authentication Errors:**
+
 ```json
 {
   "error": "unauthorized",
@@ -63,9 +70,10 @@ const response = await fetch('/api/candidates', {
 ```
 
 **Authorization Errors:**
+
 ```json
 {
-  "error": "forbidden", 
+  "error": "forbidden",
   "message": "Access denied to this resource",
   "status": 403
 }
@@ -76,9 +84,11 @@ const response = await fetch('/api/candidates', {
 ## 👤 User Management
 
 ### GET /api/user/profile
+
 Get current user profile information.
 
 **Response:**
+
 ```json
 {
   "id": "550e8400-e29b-41d4-a716-446655440000",
@@ -95,9 +105,11 @@ Get current user profile information.
 ```
 
 ### PUT /api/user/profile
+
 Update user profile information.
 
 **Request Body:**
+
 ```json
 {
   "full_name": "John Smith",
@@ -107,6 +119,7 @@ Update user profile information.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -120,9 +133,11 @@ Update user profile information.
 ```
 
 ### GET /api/user/usage
+
 Get current month usage statistics.
 
 **Response:**
+
 ```json
 {
   "current_month": {
@@ -144,9 +159,11 @@ Get current month usage statistics.
 ## 📄 Job Description Management
 
 ### POST /api/job-descriptions
+
 Create a new job description.
 
 **Request Body:**
+
 ```json
 {
   "title": "Senior React Developer",
@@ -159,6 +176,7 @@ Create a new job description.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -177,14 +195,17 @@ Create a new job description.
 ```
 
 ### GET /api/job-descriptions
+
 Get all job descriptions for authenticated user.
 
 **Query Parameters:**
+
 - `limit` (optional): Number of results (default: 20, max: 100)
 - `offset` (optional): Pagination offset (default: 0)
 - `search` (optional): Search in title or description
 
 **Response:**
+
 ```json
 {
   "data": [
@@ -209,9 +230,11 @@ Get all job descriptions for authenticated user.
 ```
 
 ### GET /api/job-descriptions/:id
+
 Get specific job description by ID.
 
 **Response:**
+
 ```json
 {
   "data": {
@@ -231,9 +254,11 @@ Get specific job description by ID.
 ```
 
 ### PUT /api/job-descriptions/:id
+
 Update job description.
 
 **Request Body:**
+
 ```json
 {
   "title": "Senior React Developer (Updated)",
@@ -243,9 +268,11 @@ Update job description.
 ```
 
 ### DELETE /api/job-descriptions/:id
+
 Delete job description (soft delete).
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -255,12 +282,14 @@ Delete job description (soft delete).
 
 ---
 
-## 👥 Candidate Management  
+## 👥 Candidate Management
 
 ### POST /api/candidates/upload
+
 Upload and process candidate CV files.
 
 **Request:** Multipart form data
+
 ```
 Content-Type: multipart/form-data
 
@@ -269,6 +298,7 @@ job_description_id: string (optional, for immediate matching)
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -282,9 +312,11 @@ job_description_id: string (optional, for immediate matching)
 ```
 
 ### GET /api/candidates/upload/:batchId/status
+
 Check processing status for uploaded batch.
 
 **Response:**
+
 ```json
 {
   "batch_id": "batch-550e8400-e29b-41d4-a716-446655440000",
@@ -308,16 +340,19 @@ Check processing status for uploaded batch.
 ```
 
 ### GET /api/candidates
+
 Get all candidates for authenticated user.
 
 **Query Parameters:**
+
 - `limit` (optional): Number of results (default: 20, max: 100)
-- `offset` (optional): Pagination offset (default: 0)  
+- `offset` (optional): Pagination offset (default: 0)
 - `search` (optional): Search in name, email, or skills
 - `experience_level` (optional): Filter by experience level
 - `skills` (optional): Comma-separated list of required skills
 
 **Response:**
+
 ```json
 {
   "data": [
@@ -344,9 +379,11 @@ Get all candidates for authenticated user.
 ```
 
 ### GET /api/candidates/:id
+
 Get specific candidate details.
 
 **Response:**
+
 ```json
 {
   "data": {
@@ -370,9 +407,11 @@ Get specific candidate details.
 ```
 
 ### DELETE /api/candidates/:id
+
 Delete candidate and associated files.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -385,9 +424,11 @@ Delete candidate and associated files.
 ## 🤖 AI Matching Engine
 
 ### POST /api/matching/analyze
+
 Perform AI-powered CV to job description matching.
 
 **Request Body:**
+
 ```json
 {
   "candidate_ids": [
@@ -400,6 +441,7 @@ Perform AI-powered CV to job description matching.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -413,9 +455,11 @@ Perform AI-powered CV to job description matching.
 ```
 
 ### GET /api/matching/analyze/:analysisId/status
+
 Check analysis processing status.
 
 **Response (In Progress):**
+
 ```json
 {
   "analysis_id": "analysis-880e8400-e29b-41d4-a716-446655440003",
@@ -430,6 +474,7 @@ Check analysis processing status.
 ```
 
 **Response (Completed):**
+
 ```json
 {
   "analysis_id": "analysis-880e8400-e29b-41d4-a716-446655440003",
@@ -441,10 +486,12 @@ Check analysis processing status.
 }
 ```
 
-### GET /api/matching/results/:analysisId  
+### GET /api/matching/results/:analysisId
+
 Get completed matching results.
 
 **Response:**
+
 ```json
 {
   "analysis_id": "analysis-880e8400-e29b-41d4-a716-446655440003",
@@ -489,13 +536,16 @@ Get completed matching results.
 ```
 
 ### GET /api/matching/history
+
 Get user's matching analysis history.
 
 **Query Parameters:**
+
 - `limit` (optional): Number of results (default: 20)
 - `offset` (optional): Pagination offset (default: 0)
 
 **Response:**
+
 ```json
 {
   "data": [
@@ -522,10 +572,12 @@ Get user's matching analysis history.
 
 ## 📊 Analytics & Reporting
 
-### GET /api/analytics/dashboard  
+### GET /api/analytics/dashboard
+
 Get dashboard metrics for authenticated user.
 
 **Response:**
+
 ```json
 {
   "current_month": {
@@ -550,13 +602,16 @@ Get dashboard metrics for authenticated user.
 ```
 
 ### GET /api/analytics/performance
+
 Get detailed performance analytics.
 
 **Query Parameters:**
+
 - `period` (optional): "week", "month", "quarter" (default: "month")
 - `include_trends` (optional): Include trend data (default: false)
 
 **Response:**
+
 ```json
 {
   "period": "month",
@@ -572,7 +627,7 @@ Get detailed performance analytics.
     "sla_compliance_rate": 0.964,
     "cost_efficiency": {
       "total_cost_usd": 0.485,
-      "cost_per_analysis": 0.040,
+      "cost_per_analysis": 0.04,
       "cost_per_candidate": 0.0027
     }
   },
@@ -602,9 +657,11 @@ Get detailed performance analytics.
 ## 📤 Export & Integration
 
 ### POST /api/export/matches/:analysisId
+
 Export matching results as PDF report.
 
 **Request Body:**
+
 ```json
 {
   "format": "pdf",
@@ -617,6 +674,7 @@ Export matching results as PDF report.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -627,9 +685,11 @@ Export matching results as PDF report.
 ```
 
 ### GET /api/export/:exportId/download
+
 Download exported file.
 
 **Response:** Binary file download with appropriate headers
+
 ```http
 Content-Type: application/pdf
 Content-Disposition: attachment; filename="matches_report_20250824.pdf"
@@ -641,6 +701,7 @@ Content-Length: 245760
 ## ⚠️ Error Handling
 
 ### Standard Error Response Format
+
 ```json
 {
   "error": "error_code",
@@ -655,6 +716,7 @@ Content-Length: 245760
 ### Common Error Codes
 
 #### 400 - Bad Request
+
 ```json
 {
   "error": "validation_error",
@@ -668,6 +730,7 @@ Content-Length: 245760
 ```
 
 #### 402 - Payment Required (Usage Limits)
+
 ```json
 {
   "error": "usage_limit_exceeded",
@@ -682,6 +745,7 @@ Content-Length: 245760
 ```
 
 #### 429 - Too Many Requests
+
 ```json
 {
   "error": "rate_limit_exceeded",
@@ -696,6 +760,7 @@ Content-Length: 245760
 ```
 
 #### 503 - Service Unavailable (Processing Issues)
+
 ```json
 {
   "error": "processing_timeout",
@@ -715,11 +780,13 @@ Content-Length: 245760
 ### API Design Principles
 
 #### 1. Consistent Naming
+
 - **Resources:** Plural nouns (`/candidates`, `/job-descriptions`)
 - **Actions:** HTTP verbs (GET, POST, PUT, DELETE)
 - **Parameters:** Snake_case for consistency with database
 
 #### 2. Response Structure
+
 ```typescript
 // Success Response
 interface ApiResponse<T> {
@@ -728,7 +795,7 @@ interface ApiResponse<T> {
   pagination?: PaginationInfo;
 }
 
-// Error Response  
+// Error Response
 interface ApiError {
   error: string;
   message: string;
@@ -740,6 +807,7 @@ interface ApiError {
 ```
 
 #### 3. Input Validation
+
 ```typescript
 // Example validation schema
 const CreateJobDescriptionSchema = {
@@ -747,33 +815,37 @@ const CreateJobDescriptionSchema = {
   description: { required: true, maxLength: 5000 },
   requirements: { required: true, maxLength: 3000 },
   experience_level: { enum: ['junior', 'mid', 'senior'] },
-  key_skills: { type: 'array', items: { type: 'string' }, maxItems: 20 }
+  key_skills: { type: 'array', items: { type: 'string' }, maxItems: 20 },
 };
 ```
 
 ### Performance Requirements
 
 #### Response Time Targets
+
 - **CRUD Operations:** <500ms for 95% of requests
 - **File Upload:** <5s for files up to 5MB
 - **AI Processing:** <30s for batches up to 20 CVs
 - **Export Generation:** <10s for PDF reports
 
 #### Rate Limiting
+
 - **Authenticated Users:** 100 requests/minute
-- **File Uploads:** 10 uploads/minute  
+- **File Uploads:** 10 uploads/minute
 - **AI Processing:** 5 analyses/minute
 - **Export Generation:** 3 exports/minute
 
 ### Security Considerations
 
 #### Input Sanitization
+
 - All user inputs validated and sanitized
 - File uploads scanned for malware
 - SQL injection prevention through parameterized queries
 - XSS prevention through output encoding
 
 #### Access Control
+
 - Row Level Security (RLS) enforced at database level
 - JWT token validation on every request
 - Resource ownership verification
@@ -786,18 +858,21 @@ const CreateJobDescriptionSchema = {
 ### API Testing Strategy
 
 #### Unit Tests
+
 - Request/response validation
-- Business logic correctness  
+- Business logic correctness
 - Error handling scenarios
 - Edge cases and boundary conditions
 
 #### Integration Tests
+
 - Database operations with RLS
 - File upload and processing pipeline
 - AI provider integration with fallbacks
 - External service dependencies
 
 #### Performance Tests
+
 - Load testing for concurrent users
 - 30-second SLA validation for AI processing
 - Rate limiting enforcement
@@ -812,27 +887,25 @@ describe('AI Processing Performance', () => {
     const start = Date.now();
     const mockCandidates = generateMockCandidates(20);
     const mockJobDescription = generateMockJobDescription();
-    
+
     const response = await request(app)
       .post('/api/matching/analyze')
       .send({
-        candidate_ids: mockCandidates.map(c => c.id),
-        job_description_id: mockJobDescription.id
+        candidate_ids: mockCandidates.map((c) => c.id),
+        job_description_id: mockJobDescription.id,
       });
-      
+
     const duration = Date.now() - start;
     expect(duration).toBeLessThan(30000);
     expect(response.status).toBe(200);
   });
 });
 
-// Security test example  
+// Security test example
 describe('API Security', () => {
   test('should reject requests without authentication', async () => {
-    const response = await request(app)
-      .get('/api/candidates')
-      .send();
-      
+    const response = await request(app).get('/api/candidates').send();
+
     expect(response.status).toBe(401);
     expect(response.body.error).toBe('unauthorized');
   });

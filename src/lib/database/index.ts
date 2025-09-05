@@ -1,5 +1,10 @@
 // Database services and utilities
-export { supabase, checkDatabaseConnection, handleDatabaseError, withPerformanceMonitoring } from './supabase';
+export {
+  supabase,
+  checkDatabaseConnection,
+  handleDatabaseError,
+  withPerformanceMonitoring,
+} from './supabase';
 
 // Service classes
 export { UserService } from './users';

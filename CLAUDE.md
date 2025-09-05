@@ -6,35 +6,35 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 <Importance> 
 No illusion, No overthinking, only do the task scope
-<Importance> 
+<Importance>
 
 ### 1. Project Understanding (Mandatory - SmartHire AI Project)
+
 Before starting any task, you MUST read and understand the following documents to grasp the project's goals, scope, and current state.
 
 **📋 Master Documents (Start Here)**:
+
 - **Task Management**: docs/IMPROVEMENT-TASK-TRACKING.md (Epic 14 task tracking for all development phases)
 - **Implementation Archive**: docs/completed-tasks.md (historical patterns and implementation examples)
 - **Technical Design**: docs/core/smarthire_technical_design.md (architecture and system specifications)
 
 **🔧 Supporting References**:
+
 - **Implementation Plan**: docs/core/smarthire_implementation_plan.md (16-week development timeline)
 - **Product Requirements**: docs/core/smarthire_mvp_prd.md (business requirements and user stories)
 - **Project Summary**: docs/core/smarthire_project_summary.md (high-level project overview)
 
 ### 2. Task-Specific Instructions (Epic 14 Development)
+
 For any given task ID (e.g., "E14-T1", "E14-T3"), you MUST:
 
 **For Epic 14 Tasks (E14-TX format)**:
+
 1. Read docs/IMPROVEMENT-TASK-TRACKING.md section "Epic 14: Phase 1 Foundation"
 2. Check the specific task for details, dependencies, and acceptance criteria
 3. Review docs/completed-tasks.md for related implementation patterns and examples
 
-**Task Workflow Requirements**:
-4. Understand task description, status, dependencies, and acceptance criteria
-5. Check agent assignments and role-specific requirements (@architect, @dev, @po, etc.)
-6. Verify prerequisites are met before proceeding
-7. Only proceed with implementation after confirming complete understanding
-8. Follow the git branch naming convention: `dev-e14-t{task}-{kebab-case-description}`
+**Task Workflow Requirements**: 4. Understand task description, status, dependencies, and acceptance criteria 5. Check agent assignments and role-specific requirements (@architect, @dev, @po, etc.) 6. Verify prerequisites are met before proceeding 7. Only proceed with implementation after confirming complete understanding 8. Follow the git branch naming convention: `dev-e14-t{task}-{kebab-case-description}`
 
 ## Task Detail Location Guide
 
@@ -46,20 +46,24 @@ For any given task ID (e.g., "E14-T1", "E14-T3"), you MUST:
 4. **Proceed**: Only start implementation after reading full acceptance criteria
 
 **Example Command Flow**:
+
 ```
 "Read CLAUDE.md, follow the task workflow, then do E14-T2"
 ```
 
 **Detail Lookup Examples**:
+
 - E14-T1 details → docs/IMPROVEMENT-TASK-TRACKING.md (Next.js Foundation Setup)
-- E14-T2 details → docs/IMPROVEMENT-TASK-TRACKING.md (shadcn/ui Integration)  
+- E14-T2 details → docs/IMPROVEMENT-TASK-TRACKING.md (shadcn/ui Integration)
 - E14-T3 details → docs/IMPROVEMENT-TASK-TRACKING.md (Supabase Database Setup)
 - Completed examples → docs/completed-tasks.md (implementation patterns)
 
 ### 3. Task Status Updates (MANDATORY - DO NOT SKIP)
+
 **CRITICAL**: You MUST complete ALL steps below in EXACT ORDER. Do NOT proceed to git operations without completing documentation updates first.
 
 **Required Steps (Must Complete in Order):**
+
 - [ ] **Step 1 - Complete Code Implementation**: Finish writing all code changes for the task.
 - [ ] **Step 2 - Update Documentation (MANDATORY BEFORE GIT)**: After code is complete but BEFORE any git operations, you MUST update the following:
   - [ ] Update the task's status in `docs/IMPROVEMENT-TASK-TRACKING.md`
@@ -84,6 +88,7 @@ For any given task ID (e.g., "E14-T1", "E14-T3"), you MUST:
 **WARNING**: Skipping Step 2 documentation updates is a critical workflow violation. Always verify documentation is updated before any git commit.
 
 #### Standard Format for Improvement Tasks (Completed)
+
 When an Improvement task (E?-T?) is marked Completed, enforce this structure in `IMPROVEMENT-TASK-TRACKING.md` and mirror a concise entry in `/docs/completed-tasks.md`:
 
 ```
@@ -104,6 +109,7 @@ In `docs/completed-tasks.md`, ensure an anchor exists:
 ```
 
 Notes:
+
 - Prefer concise summaries in the archive when `docs/IMPROVEMENT-TASK-TRACKING.md` already contains full details.
 - The `docs/IMPROVEMENT-TASK-TRACKING.md` format should match the style used by completed entries like `E14-T1` and `E14-T3` (Title + Priority + ✅, followed by Status | Branch, Summary, and Details link).
 
@@ -114,11 +120,13 @@ The SmartHire AI application code is located in the root directory. Always run c
 ## Development Workflow
 
 ### Git Workflow (Mandatory)
+
 - NEVER automatically add AI attribution signatures like:
   "🤖 Generated with [Claude Code]"
   "Co-Authored-By: Claude noreply@anthropic.com"
   Any AI tool attribution or signature
 - Create clean, professional commit messages without AI references. Use conventional commit format.
+
 1. **Create a Branch**: Before writing any code, create a feature branch.
    - **For Epic 14 tasks**: `dev-e14-t{task}-{kebab-case-description}`
      - Example: `dev-e14-t2-shadcn-tailwind-integration`
@@ -129,10 +137,10 @@ The SmartHire AI application code is located in the root directory. Always run c
    - **Example**: `feat(auth): implement jwt token generation`
 3. **Create a Pull Request**: After pushing your changes, create a PR. The description should include task details and not mention Claude
 
-
 ## Development Commands & Architecture
 
 For development commands, tech stack details, and architecture overview, refer to:
+
 - **Development Commands**: See `package.json` scripts section - dev, build, start, lint commands
 - **Architecture Overview**: See `docs/core/smarthire_technical_design.md` - comprehensive tech stack and structure
 - **Project Goals**: See `docs/core/smarthire_project_summary.md` - detailed technical architecture and data models
@@ -157,16 +165,18 @@ When working on SmartHire AI tasks, follow this streamlined flow:
   - Update any relevant technical documentation as needed
 
 ### SmartHire AI Technology Stack
+
 **Current Foundation**: Epic 14 establishes the core technology stack
 
 - **Framework**: Next.js 15 with App Router and TypeScript strict mode
-- **Styling**: Tailwind CSS v4 with shadcn/ui component library  
+- **Styling**: Tailwind CSS v4 with shadcn/ui component library
 - **Database**: Supabase PostgreSQL with pgvector for semantic search
 - **Authentication**: Supabase Auth with email/password
 - **Storage**: Supabase Storage for CV file uploads
 - **Deployment**: Vercel with automated CI/CD via GitHub Actions
 
 Acceptance checkpoints for SmartHire AI work:
+
 - Mobile-first responsive design; AA contrast; proper semantic HTML
 - 3-second page load performance target
 - TypeScript strict mode compilation without errors
@@ -174,6 +184,7 @@ Acceptance checkpoints for SmartHire AI work:
 - Proper error handling and user experience patterns
 
 ## Task Status Values
+
 - `Pending`: Not yet started
 - `In Progress`: Currently being worked on
 - `Completed`: Finished successfully
@@ -181,6 +192,7 @@ Acceptance checkpoints for SmartHire AI work:
 - `Error`: Task failed and needs resolution
 
 ## Documentation Structure
+
 - **Project Documentation**: docs/
   - IMPROVEMENT-TASK-TRACKING.md: Epic 14 tasks and their status
   - completed-tasks.md: Archive of finished tasks with implementation notes
@@ -193,13 +205,15 @@ Acceptance checkpoints for SmartHire AI work:
 - **Documentation Archive**: docs/archive/ - Previous task tracking versions with timestamps
 
 ## Task Reference Format
+
 - **Git Branch Name Format**: `dev-e{epic}-t{task}-{kebab-case-description}`
-  - *Example*: `dev-e14-t2-shadcn-tailwind-integration`
+  - _Example_: `dev-e14-t2-shadcn-tailwind-integration`
 - **Task Reference Format**: "E{epic}-T{task} - [Title]"
-  - *Example*: "E14-T2 - shadcn/ui + Tailwind CSS Integration"
+  - _Example_: "E14-T2 - shadcn/ui + Tailwind CSS Integration"
 
 ## Important Instruction Reminders
+
 Do what has been asked; nothing more, nothing less.
 NEVER create files unless they're absolutely necessary for achieving your goal.
 ALWAYS prefer editing an existing file to creating a new one.
-NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+NEVER proactively create documentation files (\*.md) or README files. Only create documentation files if explicitly requested by the User.

@@ -1,5 +1,6 @@
-import { supabase, handleDatabaseError, withPerformanceMonitoring } from './supabase';
 import { Database } from '@/types/database';
+
+import { supabase, handleDatabaseError, withPerformanceMonitoring } from './supabase';
 
 type User = Database['public']['Tables']['users']['Row'];
 type UserInsert = Database['public']['Tables']['users']['Insert'];
@@ -9,11 +10,7 @@ export class UserService {
   // Create a new user
   static async create(userData: UserInsert): Promise<User | null> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
-        .from('users')
-        .insert(userData)
-        .select()
-        .single();
+      const { data, error } = await supabase.from('users').insert(userData).select().single();
 
       if (error) {
         throw new Error(handleDatabaseError(error, 'create user'));
@@ -26,11 +23,7 @@ export class UserService {
   // Get user by ID
   static async getById(id: string): Promise<User | null> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .eq('id', id)
-        .single();
+      const { data, error } = await supabase.from('users').select('*').eq('id', id).single();
 
       if (error && error.code !== 'PGRST116') {
         throw new Error(handleDatabaseError(error, 'get user by ID'));
@@ -43,11 +36,7 @@ export class UserService {
   // Get user by email
   static async getByEmail(email: string): Promise<User | null> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .eq('email', email)
-        .single();
+      const { data, error } = await supabase.from('users').select('*').eq('email', email).single();
 
       if (error && error.code !== 'PGRST116') {
         throw new Error(handleDatabaseError(error, 'get user by email'));
@@ -79,7 +68,7 @@ export class UserService {
   static async incrementUsage(id: string): Promise<void> {
     return withPerformanceMonitoring(async () => {
       const { error } = await supabase.rpc('increment_user_usage', {
-        user_uuid: id
+        user_uuid: id,
       });
 
       if (error) {
@@ -93,7 +82,7 @@ export class UserService {
     return withPerformanceMonitoring(async () => {
       const { data, error } = await supabase.rpc('check_user_usage_limit', {
         user_uuid: id,
-        tier_limit: limit
+        tier_limit: limit,
       });
 
       if (error) {
@@ -106,9 +95,9 @@ export class UserService {
 
   // Get user usage statistics
   static async getUsageStats(id: string): Promise<{
-    monthly_usage_count: number;
-    usage_reset_date: string;
-    subscription_tier: string;
+    monthly_usage_count: number | null;
+    usage_reset_date: string | null;
+    subscription_tier: string | null;
   } | null> {
     return withPerformanceMonitoring(async () => {
       const { data, error } = await supabase

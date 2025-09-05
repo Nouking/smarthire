@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { User, Session } from '@supabase/supabase-js';
+import { useState, useEffect } from 'react';
+
 import { supabaseAuth, onAuthStateChange } from '@/lib/auth/client-exports';
 
 export interface AuthState {
@@ -16,7 +17,7 @@ export function useAuth(): AuthState {
     user: null,
     session: null,
     loading: true,
-    error: null
+    error: null,
   });
 
   useEffect(() => {
@@ -25,39 +26,55 @@ export function useAuth(): AuthState {
     // Get initial session
     const getInitialSession = async () => {
       try {
-        const { data: { session }, error } = await supabaseAuth.auth.getSession();
-        
+        if (!supabaseAuth) {
+          if (mounted) {
+            setAuthState((prev) => ({
+              ...prev,
+              error: 'Authentication service not available',
+              loading: false,
+            }));
+          }
+          return;
+        }
+
+        const {
+          data: { session },
+          error,
+        } = await supabaseAuth.auth.getSession();
+
         if (mounted) {
           if (error) {
-            setAuthState(prev => ({ ...prev, error: error.message, loading: false }));
+            setAuthState((prev) => ({ ...prev, error: error.message, loading: false }));
           } else {
             setAuthState({
               user: session?.user ?? null,
               session,
               loading: false,
-              error: null
+              error: null,
             });
           }
         }
-      } catch (error) {
+      } catch {
         if (mounted) {
-          setAuthState(prev => ({ 
-            ...prev, 
-            error: 'Failed to initialize authentication', 
-            loading: false 
+          setAuthState((prev) => ({
+            ...prev,
+            error: 'Failed to initialize authentication',
+            loading: false,
           }));
         }
       }
     };
 
     // Set up auth state listener
-    const { data: { subscription } } = onAuthStateChange((session) => {
+    const {
+      data: { subscription },
+    } = onAuthStateChange((session) => {
       if (mounted) {
         setAuthState({
           user: session?.user ?? null,
           session,
           loading: false,
-          error: null
+          error: null,
         });
       }
     });
@@ -83,10 +100,10 @@ export function useAuthUser() {
 // Custom hook for user role
 export function useUserRole() {
   const { user, loading } = useAuth();
-  
+
   return {
     role: user?.user_metadata?.role || 'user',
     isAdmin: user?.user_metadata?.role === 'admin',
-    loading
+    loading,
   };
 }

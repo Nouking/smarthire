@@ -29,7 +29,10 @@ export function validateEnvironment(): EnvironmentValidation {
   }
 
   // Check URL format
-  if (process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.startsWith('https://')) {
+  if (
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    !process.env.NEXT_PUBLIC_SUPABASE_URL.startsWith('https://')
+  ) {
     errors.push('NEXT_PUBLIC_SUPABASE_URL must start with https://');
   }
 
@@ -41,7 +44,7 @@ export function validateEnvironment(): EnvironmentValidation {
   return {
     isValid: errors.length === 0,
     errors,
-    warnings
+    warnings,
   };
 }
 
@@ -51,29 +54,36 @@ export async function validateDatabaseConnection(): Promise<{
   error?: string;
   latency?: number;
 }> {
+  if (!supabaseAuth) {
+    return {
+      isConnected: false,
+      error: 'Supabase client not initialized',
+    };
+  }
+
   try {
     const startTime = Date.now();
-    
+
     const { error } = await supabaseAuth.from('users').select('id').limit(1);
-    
+
     const latency = Date.now() - startTime;
 
     if (error) {
       return {
         isConnected: false,
         error: error.message,
-        latency
+        latency,
       };
     }
 
     return {
       isConnected: true,
-      latency
+      latency,
     };
   } catch (error) {
     return {
       isConnected: false,
-      error: error instanceof Error ? error.message : 'Unknown database error'
+      error: error instanceof Error ? error.message : 'Unknown database error',
     };
   }
 }
@@ -88,10 +98,22 @@ export async function validateAuthService(): Promise<{
     userMetadata: boolean;
   };
 }> {
+  if (!supabaseAuth) {
+    return {
+      isWorking: false,
+      error: 'Supabase client not initialized',
+      features: {
+        emailAuth: false,
+        sessionManagement: false,
+        userMetadata: false,
+      },
+    };
+  }
+
   try {
     // Test session retrieval
     const { error: sessionError } = await supabaseAuth.auth.getSession();
-    
+
     if (sessionError) {
       return {
         isWorking: false,
@@ -99,8 +121,8 @@ export async function validateAuthService(): Promise<{
         features: {
           emailAuth: false,
           sessionManagement: false,
-          userMetadata: false
-        }
+          userMetadata: false,
+        },
       };
     }
 
@@ -109,8 +131,8 @@ export async function validateAuthService(): Promise<{
       features: {
         emailAuth: true,
         sessionManagement: true,
-        userMetadata: true
-      }
+        userMetadata: true,
+      },
     };
   } catch (error) {
     return {
@@ -119,8 +141,8 @@ export async function validateAuthService(): Promise<{
       features: {
         emailAuth: false,
         sessionManagement: false,
-        userMetadata: false
-      }
+        userMetadata: false,
+      },
     };
   }
 }
@@ -131,26 +153,34 @@ export async function validateStorageService(): Promise<{
   error?: string;
   buckets: string[];
 }> {
+  if (!supabaseAuth) {
+    return {
+      isWorking: false,
+      error: 'Supabase client not initialized',
+      buckets: [],
+    };
+  }
+
   try {
     const { data: buckets, error } = await supabaseAuth.storage.listBuckets();
-    
+
     if (error) {
       return {
         isWorking: false,
         error: `Storage access failed: ${error.message}`,
-        buckets: []
+        buckets: [],
       };
     }
 
     return {
       isWorking: true,
-      buckets: buckets.map(bucket => bucket.name)
+      buckets: buckets.map((bucket) => bucket.name),
     };
   } catch (error) {
     return {
       isWorking: false,
       error: error instanceof Error ? error.message : 'Unknown storage error',
-      buckets: []
+      buckets: [],
     };
   }
 }
@@ -184,7 +214,7 @@ export function validateSecurityConfiguration(): {
   return {
     isSecure: issues.length === 0,
     issues,
-    recommendations
+    recommendations,
   };
 }
 
@@ -201,12 +231,12 @@ export async function validateSystem(): Promise<{
     Promise.resolve(validateEnvironment()),
     validateDatabaseConnection(),
     validateAuthService(),
-    validateStorageService()
+    validateStorageService(),
   ]);
 
   const security = validateSecurityConfiguration();
 
-  const isHealthy = 
+  const isHealthy =
     environment.isValid &&
     database.isConnected &&
     auth.isWorking &&
@@ -219,6 +249,6 @@ export async function validateSystem(): Promise<{
     database,
     auth,
     storage,
-    security
+    security,
   };
 }
