@@ -39,7 +39,10 @@ export const checkDatabaseConnection = async (): Promise<boolean> => {
 };
 
 // Error handling utilities
-export const handleDatabaseError = (error: any, operation: string) => {
+export const handleDatabaseError = (
+  error: { message?: string; details?: string; hint?: string; code?: string },
+  operation: string
+) => {
   console.error(`Database error during ${operation}:`, {
     message: error.message,
     details: error.details,

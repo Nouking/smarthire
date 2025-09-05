@@ -25,14 +25,15 @@ export async function signUp(email: string, password: string, name?: string) {
       session: data.session,
       message: 'Check your email for verification link',
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Sign up failed';
     console.error('Sign up error:', error);
     return {
       success: false,
       error: {
-        message: error.message || 'Sign up failed',
-        code: error.error_code,
-        statusCode: error.status,
+        message: errorMessage,
+        code: undefined,
+        statusCode: undefined,
       } as AuthError,
     };
   }
@@ -55,14 +56,15 @@ export async function signIn(email: string, password: string) {
       user: data.user,
       session: data.session,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Sign in error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Sign in failed';
     return {
       success: false,
       error: {
-        message: error.message || 'Sign in failed',
-        code: error.error_code,
-        statusCode: error.status,
+        message: errorMessage,
+        code: undefined,
+        statusCode: undefined,
       } as AuthError,
     };
   }
@@ -81,13 +83,14 @@ export async function signOut() {
       success: true,
       message: 'Signed out successfully',
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Sign out error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Sign out failed';
     return {
       success: false,
       error: {
-        message: error.message || 'Sign out failed',
-        code: error.error_code,
+        message: errorMessage,
+        code: undefined,
       } as AuthError,
     };
   }
@@ -108,13 +111,14 @@ export async function resetPassword(email: string) {
       success: true,
       message: 'Password reset email sent',
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Password reset error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Password reset failed';
     return {
       success: false,
       error: {
-        message: error.message || 'Password reset failed',
-        code: error.error_code,
+        message: errorMessage,
+        code: undefined,
       } as AuthError,
     };
   }
@@ -135,13 +139,14 @@ export async function updatePassword(newPassword: string) {
       success: true,
       message: 'Password updated successfully',
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Password update error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Password update failed';
     return {
       success: false,
       error: {
-        message: error.message || 'Password update failed',
-        code: error.error_code,
+        message: errorMessage,
+        code: undefined,
       } as AuthError,
     };
   }
@@ -162,13 +167,14 @@ export async function updateProfile(updates: { name?: string; email?: string }) 
       success: true,
       message: 'Profile updated successfully',
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Profile update error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Profile update failed';
     return {
       success: false,
       error: {
-        message: error.message || 'Profile update failed',
-        code: error.error_code,
+        message: errorMessage,
+        code: undefined,
       } as AuthError,
     };
   }
@@ -190,13 +196,14 @@ export async function verifyEmail(token: string, type: 'signup' | 'email_change'
       success: true,
       message: 'Email verified successfully',
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Email verification error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Email verification failed';
     return {
       success: false,
       error: {
-        message: error.message || 'Email verification failed',
-        code: error.error_code,
+        message: errorMessage,
+        code: undefined,
       } as AuthError,
     };
   }

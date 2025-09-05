@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { supabase } from '@/lib/database/supabase';
 
-import { STORAGE_CONFIG, FILE_TYPE_MAP, STORAGE_ERRORS } from './config';
+import { STORAGE_CONFIG, STORAGE_ERRORS } from './config';
 
 // File validation utilities
 export const validateFile = (file: File): { isValid: boolean; error?: string } => {
@@ -12,7 +12,11 @@ export const validateFile = (file: File): { isValid: boolean; error?: string } =
   }
 
   // Check file type
-  if (!STORAGE_CONFIG.FILE_LIMITS.ALLOWED_TYPES.includes(file.type as any)) {
+  if (
+    !STORAGE_CONFIG.FILE_LIMITS.ALLOWED_TYPES.includes(
+      file.type as (typeof STORAGE_CONFIG.FILE_LIMITS.ALLOWED_TYPES)[number]
+    )
+  ) {
     return { isValid: false, error: STORAGE_ERRORS.INVALID_FILE_TYPE };
   }
 
@@ -21,9 +25,6 @@ export const validateFile = (file: File): { isValid: boolean; error?: string } =
 
 // Generate secure file path
 export const generateSecureFilePath = (userId: string, originalName: string): string => {
-  const _fileExtension =
-    Object.values(FILE_TYPE_MAP).find((ext) => originalName.toLowerCase().endsWith(ext)) || '.pdf';
-
   const uniqueId = uuidv4();
   const timestamp = Date.now();
   const sanitizedName = originalName.replace(/[^a-zA-Z0-9.-]/g, '_');

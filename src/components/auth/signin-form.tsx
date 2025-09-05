@@ -46,7 +46,7 @@ export function SignInForm() {
       } else {
         setError(result.error?.message || 'Sign in failed');
       }
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred');
     } finally {
       setIsLoading(false);

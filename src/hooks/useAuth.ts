@@ -43,7 +43,7 @@ export function useAuth(): AuthState {
             });
           }
         }
-      } catch (error) {
+      } catch {
         if (mounted) {
           setAuthState((prev) => ({
             ...prev,

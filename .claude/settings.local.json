@@ -38,7 +38,9 @@
       "Bash(npm run lint)",
       "Bash(npm run format:*)",
       "Bash(npm test:*)",
-      "Bash(npm run lint:*)"
+      "Bash(npm run lint:*)",
+      "Bash(git config:*)",
+      "Bash(git credential-store:*)"
     ],
     "deny": [],
     "ask": []

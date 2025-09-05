@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type Session } from '@supabase/supabase-js';
 
 import { Database } from '@/types/database';
 
@@ -108,7 +108,7 @@ export const refreshSession = async () => {
 };
 
 // Auth state change listener setup
-export const onAuthStateChange = (callback: (session: any) => void) => {
+export const onAuthStateChange = (callback: (session: Session | null) => void) => {
   return supabaseAuth.auth.onAuthStateChange((event, session) => {
     callback(session);
   });

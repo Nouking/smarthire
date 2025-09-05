@@ -28,15 +28,15 @@ export default async function DashboardPage() {
             <h3 className='mb-4 text-lg font-semibold text-gray-900'>Account Information</h3>
             <div className='space-y-3'>
               <div>
-                <label className='text-sm font-medium text-gray-500'>Email</label>
+                <span className='text-sm font-medium text-gray-500'>Email</span>
                 <p className='text-gray-900'>{user.email}</p>
               </div>
               <div>
-                <label className='text-sm font-medium text-gray-500'>Role</label>
+                <span className='text-sm font-medium text-gray-500'>Role</span>
                 <p className='text-gray-900 capitalize'>{user.user_metadata?.role || 'User'}</p>
               </div>
               <div>
-                <label className='text-sm font-medium text-gray-500'>Status</label>
+                <span className='text-sm font-medium text-gray-500'>Status</span>
                 <p className='text-green-600'>
                   {user.email_confirmed_at ? 'Verified' : 'Pending Verification'}
                 </p>
