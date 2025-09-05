@@ -30,7 +30,8 @@
       "mcp__serena__write_memory",
       "mcp__sequential-thinking__sequentialthinking",
       "Bash(npm install:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "mcp__serena__replace_regex"
     ],
     "deny": [],
     "ask": []
