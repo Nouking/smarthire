@@ -9,14 +9,14 @@ export const STORAGE_CONFIG = {
       'application/pdf',
       'application/msword',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'text/plain'
+      'text/plain',
     ],
-    ALLOWED_EXTENSIONS: ['.pdf', '.doc', '.docx', '.txt']
+    ALLOWED_EXTENSIONS: ['.pdf', '.doc', '.docx', '.txt'],
   },
   PATHS: {
     USER_CV: (userId: string) => `users/${userId}/cvs`,
-    TEMP_UPLOADS: 'temp'
-  }
+    TEMP_UPLOADS: 'temp',
+  },
 } as const;
 
 // File type validation mapping
@@ -24,7 +24,7 @@ export const FILE_TYPE_MAP = {
   'application/pdf': '.pdf',
   'application/msword': '.doc',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '.docx',
-  'text/plain': '.txt'
+  'text/plain': '.txt',
 } as const;
 
 // Storage bucket policies (to be applied in Supabase)
@@ -38,30 +38,30 @@ export const BUCKET_POLICIES = {
       {
         name: 'Users can upload their own CVs',
         definition: 'auth.uid() = (storage.foldername(name))[1]::uuid',
-        operation: 'INSERT'
+        operation: 'INSERT',
       },
       {
         name: 'Users can view their own CVs',
         definition: 'auth.uid() = (storage.foldername(name))[1]::uuid',
-        operation: 'SELECT'
+        operation: 'SELECT',
       },
       {
         name: 'Users can update their own CVs',
         definition: 'auth.uid() = (storage.foldername(name))[1]::uuid',
-        operation: 'UPDATE'
+        operation: 'UPDATE',
       },
       {
         name: 'Users can delete their own CVs',
         definition: 'auth.uid() = (storage.foldername(name))[1]::uuid',
-        operation: 'DELETE'
+        operation: 'DELETE',
       },
       {
         name: 'Admins can access all CVs',
-        definition: 'auth.jwt() ->> \'role\' = \'admin\'',
-        operation: 'ALL'
-      }
-    ]
-  }
+        definition: "auth.jwt() ->> 'role' = 'admin'",
+        operation: 'ALL',
+      },
+    ],
+  },
 } as const;
 
 // Error messages
@@ -71,5 +71,5 @@ export const STORAGE_ERRORS = {
   UPLOAD_FAILED: 'File upload failed. Please try again',
   UNAUTHORIZED: 'You are not authorized to perform this operation',
   FILE_NOT_FOUND: 'File not found',
-  QUOTA_EXCEEDED: 'Storage quota exceeded'
+  QUOTA_EXCEEDED: 'Storage quota exceeded',
 } as const;

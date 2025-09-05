@@ -7,8 +7,9 @@
 This document tracks Epic 13: Critical UI & API Fixes based on reported issues in the `@Instruction` file. All reported problems have been mapped to specific, actionable tasks that AI agents can execute following the established project workflow.
 
 ## 📋 Task Status Legend
+
 - **Pending**: Not yet started
-- **In Progress**: Currently being worked on  
+- **In Progress**: Currently being worked on
 - **Completed**: Finished successfully
 - **In Review**: Ready for testing and review
 - **Blocked**: Unable to proceed due to external factors
@@ -17,17 +18,20 @@ This document tracks Epic 13: Critical UI & API Fixes based on reported issues i
 ## 🎯 Agent Workflow Integration
 
 ### Git Branch Naming Convention
+
 - **Format**: `dev-{epic-id}-{task-id}-{kebab-case-description}`
 - **Example**: `dev-e13-t1-v2-login-sizing-fix`
 
 ### Agent Responsibilities & Capabilities
 
 **Core Project Management:**
+
 - **@pm (John)**: Epic planning, PRD validation, strategic decisions, feature prioritization
 - **@po (Sarah)**: Task validation, quality assurance, acceptance criteria verification, process adherence
 - **@sm (Bob)**: Story creation, task breakdown, developer handoff preparation, agile facilitation
 
 **Technical Implementation:**
+
 - **@analyst (Mary)**: Market research, project discovery, competitive analysis, brainstorming sessions
 - **@architect (Winston)**: System design, technology selection, architecture documentation, technical strategy
 - **@dev (James)**: Code implementation, debugging, refactoring, development execution
@@ -40,11 +44,13 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 ---
 
 ## Epic 13: Critical UI & API Fixes 🚨
+
 **Priority**: P1-CRITICAL | **Estimated Timeline**: 1-2 weeks
 **Goal**: Resolve all reported issues from @Instruction file while maintaining existing functionality
 **Success Criteria**: 100% visual parity with prompt files, zero API errors, enhanced UX functionality
 
 ### E13-T10: v2 CSS Architecture Consolidation (P0-BLOCKING) ✅
+
 - **Status**: Completed - 2025-01-18 | Branch: `improvement-e13-t10-v2-css-consolidation`
 - **Summary**: Successfully consolidated all v2-specific CSS into v2-styles.css, updated component imports, established v2- prefixed class naming architecture, and removed v2 dependencies from globals.css
 - **Details**: See Completed Log → [E13-T10](family-tree/docs/completed-tasks.md#e13-t10)
@@ -103,7 +109,8 @@ Tasks are assigned primary agents with supporting agents based on expertise over
   - Accessibility testing (contrast, focus indicators maintained)
 - **Branch**: `improvement-e13-t10-v2-css-architecture-consolidation`
 
-- **Execution Prompt**: 
+- **Execution Prompt**:
+
 ```
 Use the template from @Instruction file to execute E13-T10. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines 47-102 for E13-T10 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @architect (primary) = @.cursor\rules\architect.mdc + @dev = @.cursor\rules\dev.mdc + @qa = @.cursor\rules\qa.mdc collaboration. Consolidate all v2 CSS into family-tree/app/v2/v2-styles.css, update component imports, establish clean architectural separation from v1 system. Remove v2 dependencies from globals.css, use v2- prefixing, ensure visual parity maintained. Implement v2 CSS Architecture Standards from CLAUDE.md (156-170). This is BLOCKING task - all other v2 CSS-dependent tasks depend on clean CSS architecture. Complete in order: code → docs → git.
 ```

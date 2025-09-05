@@ -1,9 +1,10 @@
-import { supabase, handleDatabaseError, withPerformanceMonitoring } from './supabase';
 import { Database } from '@/types/database';
+
+import { supabase, handleDatabaseError, withPerformanceMonitoring } from './supabase';
 
 type CVJDMatch = Database['public']['Tables']['cv_jd_matches']['Row'];
 type CVJDMatchInsert = Database['public']['Tables']['cv_jd_matches']['Insert'];
-type CVJDMatchUpdate = Database['public']['Tables']['cv_jd_matches']['Update'];
+// type CVJDMatchUpdate = Database['public']['Tables']['cv_jd_matches']['Update']; // Unused for now
 
 export class MatchService {
   // Create a new CV-JD match analysis
@@ -28,7 +29,8 @@ export class MatchService {
     return withPerformanceMonitoring(async () => {
       const { data, error } = await supabase
         .from('cv_jd_matches')
-        .select(`
+        .select(
+          `
           *,
           candidates (
             full_name,
@@ -39,7 +41,8 @@ export class MatchService {
             title,
             company
           )
-        `)
+        `
+        )
         .eq('id', id)
         .single();
 
@@ -56,7 +59,8 @@ export class MatchService {
     return withPerformanceMonitoring(async () => {
       const { data, error } = await supabase
         .from('cv_jd_matches')
-        .select(`
+        .select(
+          `
           *,
           candidates (
             full_name,
@@ -67,7 +71,8 @@ export class MatchService {
             title,
             company
           )
-        `)
+        `
+        )
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
         .range(offset, offset + limit - 1);
@@ -85,14 +90,16 @@ export class MatchService {
     return withPerformanceMonitoring(async () => {
       const { data, error } = await supabase
         .from('cv_jd_matches')
-        .select(`
+        .select(
+          `
           *,
           candidates (
             full_name,
             email,
             original_filename
           )
-        `)
+        `
+        )
         .eq('job_description_id', jobDescriptionId)
         .eq('user_id', userId)
         .order('match_percentage', { ascending: false });
@@ -110,13 +117,15 @@ export class MatchService {
     return withPerformanceMonitoring(async () => {
       const { data, error } = await supabase
         .from('cv_jd_matches')
-        .select(`
+        .select(
+          `
           *,
           job_descriptions (
             title,
             company
           )
-        `)
+        `
+        )
         .eq('candidate_id', candidateId)
         .eq('user_id', userId)
         .order('match_percentage', { ascending: false });
@@ -155,15 +164,12 @@ export class MatchService {
   }
 
   // Get top matches by percentage
-  static async getTopMatches(
-    userId: string,
-    minPercentage = 70,
-    limit = 10
-  ): Promise<CVJDMatch[]> {
+  static async getTopMatches(userId: string, minPercentage = 70, limit = 10): Promise<CVJDMatch[]> {
     return withPerformanceMonitoring(async () => {
       const { data, error } = await supabase
         .from('cv_jd_matches')
-        .select(`
+        .select(
+          `
           *,
           candidates (
             full_name,
@@ -174,7 +180,8 @@ export class MatchService {
             title,
             company
           )
-        `)
+        `
+        )
         .eq('user_id', userId)
         .gte('match_percentage', minPercentage)
         .order('match_percentage', { ascending: false })
@@ -196,7 +203,8 @@ export class MatchService {
     return withPerformanceMonitoring(async () => {
       const { data, error } = await supabase
         .from('cv_jd_matches')
-        .select(`
+        .select(
+          `
           *,
           candidates (
             full_name,
@@ -207,7 +215,8 @@ export class MatchService {
             title,
             company
           )
-        `)
+        `
+        )
         .eq('user_id', userId)
         .eq('recommendation', recommendation)
         .order('match_percentage', { ascending: false });
@@ -233,12 +242,14 @@ export class MatchService {
     return withPerformanceMonitoring(async () => {
       const { data, error } = await supabase
         .from('cv_jd_matches')
-        .select(`
+        .select(
+          `
           match_percentage,
           recommendation,
           processing_time_ms,
           processing_cost_usd
-        `)
+        `
+        )
         .eq('user_id', userId);
 
       if (error) {
@@ -253,16 +264,20 @@ export class MatchService {
           potential_fits: 0,
           not_recommended: 0,
           average_processing_time_ms: 0,
-          total_cost_usd: 0
+          total_cost_usd: 0,
         };
       }
 
       const totalMatches = data.length;
-      const avgMatchPercentage = data.reduce((sum, match) => sum + match.match_percentage, 0) / totalMatches;
-      const strongMatches = data.filter(match => match.recommendation === 'strong_match').length;
-      const potentialFits = data.filter(match => match.recommendation === 'potential_fit').length;
-      const notRecommended = data.filter(match => match.recommendation === 'not_recommended').length;
-      const avgProcessingTime = data.reduce((sum, match) => sum + match.processing_time_ms, 0) / totalMatches;
+      const avgMatchPercentage =
+        data.reduce((sum, match) => sum + match.match_percentage, 0) / totalMatches;
+      const strongMatches = data.filter((match) => match.recommendation === 'strong_match').length;
+      const potentialFits = data.filter((match) => match.recommendation === 'potential_fit').length;
+      const notRecommended = data.filter(
+        (match) => match.recommendation === 'not_recommended'
+      ).length;
+      const avgProcessingTime =
+        data.reduce((sum, match) => sum + match.processing_time_ms, 0) / totalMatches;
       const totalCost = data.reduce((sum, match) => sum + (match.processing_cost_usd || 0), 0);
 
       return {
@@ -272,7 +287,7 @@ export class MatchService {
         potential_fits: potentialFits,
         not_recommended: notRecommended,
         average_processing_time_ms: Math.round(avgProcessingTime),
-        total_cost_usd: Math.round(totalCost * 10000) / 10000
+        total_cost_usd: Math.round(totalCost * 10000) / 10000,
       };
     }, 'MatchService.getAnalytics');
   }
@@ -280,10 +295,7 @@ export class MatchService {
   // Delete match
   static async delete(id: string): Promise<void> {
     return withPerformanceMonitoring(async () => {
-      const { error } = await supabase
-        .from('cv_jd_matches')
-        .delete()
-        .eq('id', id);
+      const { error } = await supabase.from('cv_jd_matches').delete().eq('id', id);
 
       if (error) {
         throw new Error(handleDatabaseError(error, 'delete match'));

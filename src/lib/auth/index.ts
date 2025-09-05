@@ -7,7 +7,7 @@ export {
   onAuthStateChange,
   type AuthUser,
   type AuthSession,
-  type AuthError
+  type AuthError,
 } from './client';
 
 // Authentication actions
@@ -18,7 +18,7 @@ export {
   resetPassword,
   updatePassword,
   updateProfile,
-  verifyEmail
+  verifyEmail,
 } from './actions';
 
 // Server-side exports - Note: These should only be imported in Server Components
@@ -28,7 +28,7 @@ export {
   getServerUser,
   isAuthenticated,
   isAdmin,
-  getUserRole
+  getUserRole,
 } from './server';
 
 // Utility functions
@@ -39,30 +39,30 @@ export const validateEmail = (email: string): boolean => {
 
 export const validatePassword = (password: string): { isValid: boolean; errors: string[] } => {
   const errors: string[] = [];
-  
+
   if (password.length < 8) {
     errors.push('Password must be at least 8 characters long');
   }
-  
+
   if (!/(?=.*[a-z])/.test(password)) {
     errors.push('Password must contain at least one lowercase letter');
   }
-  
+
   if (!/(?=.*[A-Z])/.test(password)) {
     errors.push('Password must contain at least one uppercase letter');
   }
-  
+
   if (!/(?=.*\d)/.test(password)) {
     errors.push('Password must contain at least one number');
   }
-  
+
   if (!/(?=.*[@$!%*?&])/.test(password)) {
     errors.push('Password must contain at least one special character');
   }
-  
+
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 };
 
@@ -72,7 +72,7 @@ export const AUTH_ROUTES = {
   SIGN_UP: '/auth/signup',
   RESET_PASSWORD: '/auth/reset-password',
   VERIFY_EMAIL: '/auth/verify-email',
-  PROFILE: '/profile'
+  PROFILE: '/profile',
 } as const;
 
 export const PROTECTED_ROUTES = [
@@ -80,5 +80,5 @@ export const PROTECTED_ROUTES = [
   '/profile',
   '/upload',
   '/jobs',
-  '/candidates'
+  '/candidates',
 ] as const;

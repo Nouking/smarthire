@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 interface ResponsiveGridProps {
   children: React.ReactNode;
@@ -12,14 +12,14 @@ interface ResponsiveGridProps {
     lg?: number;
     xl?: number;
   };
-  gap?: "sm" | "md" | "lg" | "xl";
+  gap?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-export function ResponsiveGrid({ 
-  children, 
+export function ResponsiveGrid({
+  children,
   className,
   cols = { xs: 1, sm: 1, md: 2, lg: 3, xl: 4 },
-  gap = "md"
+  gap = 'md',
 }: ResponsiveGridProps) {
   const gridCols = {
     [`grid-cols-${cols.xs || 1}`]: true,
@@ -30,20 +30,11 @@ export function ResponsiveGrid({
   };
 
   const gapClass = {
-    "gap-2": gap === "sm",
-    "gap-4": gap === "md",
-    "gap-6": gap === "lg", 
-    "gap-8": gap === "xl",
+    'gap-2': gap === 'sm',
+    'gap-4': gap === 'md',
+    'gap-6': gap === 'lg',
+    'gap-8': gap === 'xl',
   };
 
-  return (
-    <div className={cn(
-      "grid w-full",
-      gridCols,
-      gapClass,
-      className
-    )}>
-      {children}
-    </div>
-  );
+  return <div className={cn('grid w-full', gridCols, gapClass, className)}>{children}</div>;
 }

@@ -10,9 +10,9 @@ export async function signUp(email: string, password: string, name?: string) {
       options: {
         data: {
           name: name || null,
-          role: 'user'
-        }
-      }
+          role: 'user',
+        },
+      },
     });
 
     if (error) {
@@ -23,7 +23,7 @@ export async function signUp(email: string, password: string, name?: string) {
       success: true,
       user: data.user,
       session: data.session,
-      message: 'Check your email for verification link'
+      message: 'Check your email for verification link',
     };
   } catch (error: any) {
     console.error('Sign up error:', error);
@@ -32,8 +32,8 @@ export async function signUp(email: string, password: string, name?: string) {
       error: {
         message: error.message || 'Sign up failed',
         code: error.error_code,
-        statusCode: error.status
-      } as AuthError
+        statusCode: error.status,
+      } as AuthError,
     };
   }
 }
@@ -43,7 +43,7 @@ export async function signIn(email: string, password: string) {
   try {
     const { data, error } = await supabaseAuth.auth.signInWithPassword({
       email,
-      password
+      password,
     });
 
     if (error) {
@@ -53,7 +53,7 @@ export async function signIn(email: string, password: string) {
     return {
       success: true,
       user: data.user,
-      session: data.session
+      session: data.session,
     };
   } catch (error: any) {
     console.error('Sign in error:', error);
@@ -62,8 +62,8 @@ export async function signIn(email: string, password: string) {
       error: {
         message: error.message || 'Sign in failed',
         code: error.error_code,
-        statusCode: error.status
-      } as AuthError
+        statusCode: error.status,
+      } as AuthError,
     };
   }
 }
@@ -79,7 +79,7 @@ export async function signOut() {
 
     return {
       success: true,
-      message: 'Signed out successfully'
+      message: 'Signed out successfully',
     };
   } catch (error: any) {
     console.error('Sign out error:', error);
@@ -87,8 +87,8 @@ export async function signOut() {
       success: false,
       error: {
         message: error.message || 'Sign out failed',
-        code: error.error_code
-      } as AuthError
+        code: error.error_code,
+      } as AuthError,
     };
   }
 }
@@ -97,7 +97,7 @@ export async function signOut() {
 export async function resetPassword(email: string) {
   try {
     const { error } = await supabaseAuth.auth.resetPasswordForEmail(email, {
-      redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset-password`
+      redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset-password`,
     });
 
     if (error) {
@@ -106,7 +106,7 @@ export async function resetPassword(email: string) {
 
     return {
       success: true,
-      message: 'Password reset email sent'
+      message: 'Password reset email sent',
     };
   } catch (error: any) {
     console.error('Password reset error:', error);
@@ -114,8 +114,8 @@ export async function resetPassword(email: string) {
       success: false,
       error: {
         message: error.message || 'Password reset failed',
-        code: error.error_code
-      } as AuthError
+        code: error.error_code,
+      } as AuthError,
     };
   }
 }
@@ -124,7 +124,7 @@ export async function resetPassword(email: string) {
 export async function updatePassword(newPassword: string) {
   try {
     const { error } = await supabaseAuth.auth.updateUser({
-      password: newPassword
+      password: newPassword,
     });
 
     if (error) {
@@ -133,7 +133,7 @@ export async function updatePassword(newPassword: string) {
 
     return {
       success: true,
-      message: 'Password updated successfully'
+      message: 'Password updated successfully',
     };
   } catch (error: any) {
     console.error('Password update error:', error);
@@ -141,8 +141,8 @@ export async function updatePassword(newPassword: string) {
       success: false,
       error: {
         message: error.message || 'Password update failed',
-        code: error.error_code
-      } as AuthError
+        code: error.error_code,
+      } as AuthError,
     };
   }
 }
@@ -151,7 +151,7 @@ export async function updatePassword(newPassword: string) {
 export async function updateProfile(updates: { name?: string; email?: string }) {
   try {
     const { error } = await supabaseAuth.auth.updateUser({
-      data: updates
+      data: updates,
     });
 
     if (error) {
@@ -160,7 +160,7 @@ export async function updateProfile(updates: { name?: string; email?: string }) 
 
     return {
       success: true,
-      message: 'Profile updated successfully'
+      message: 'Profile updated successfully',
     };
   } catch (error: any) {
     console.error('Profile update error:', error);
@@ -168,8 +168,8 @@ export async function updateProfile(updates: { name?: string; email?: string }) 
       success: false,
       error: {
         message: error.message || 'Profile update failed',
-        code: error.error_code
-      } as AuthError
+        code: error.error_code,
+      } as AuthError,
     };
   }
 }
@@ -179,7 +179,7 @@ export async function verifyEmail(token: string, type: 'signup' | 'email_change'
   try {
     const { error } = await supabaseAuth.auth.verifyOtp({
       token_hash: token,
-      type: type === 'signup' ? 'signup' : 'email_change'
+      type: type === 'signup' ? 'signup' : 'email_change',
     });
 
     if (error) {
@@ -188,7 +188,7 @@ export async function verifyEmail(token: string, type: 'signup' | 'email_change'
 
     return {
       success: true,
-      message: 'Email verified successfully'
+      message: 'Email verified successfully',
     };
   } catch (error: any) {
     console.error('Email verification error:', error);
@@ -196,8 +196,8 @@ export async function verifyEmail(token: string, type: 'signup' | 'email_change'
       success: false,
       error: {
         message: error.message || 'Email verification failed',
-        code: error.error_code
-      } as AuthError
+        code: error.error_code,
+      } as AuthError,
     };
   }
 }

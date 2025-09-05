@@ -1,6 +1,8 @@
-import { supabase } from '@/lib/database/supabase';
-import { STORAGE_CONFIG, FILE_TYPE_MAP, STORAGE_ERRORS } from './config';
 import { v4 as uuidv4 } from 'uuid';
+
+import { supabase } from '@/lib/database/supabase';
+
+import { STORAGE_CONFIG, FILE_TYPE_MAP, STORAGE_ERRORS } from './config';
 
 // File validation utilities
 export const validateFile = (file: File): { isValid: boolean; error?: string } => {
@@ -10,7 +12,7 @@ export const validateFile = (file: File): { isValid: boolean; error?: string } =
   }
 
   // Check file type
-  if (!STORAGE_CONFIG.FILE_LIMITS.ALLOWED_TYPES.includes(file.type)) {
+  if (!STORAGE_CONFIG.FILE_LIMITS.ALLOWED_TYPES.includes(file.type as any)) {
     return { isValid: false, error: STORAGE_ERRORS.INVALID_FILE_TYPE };
   }
 
@@ -19,19 +21,21 @@ export const validateFile = (file: File): { isValid: boolean; error?: string } =
 
 // Generate secure file path
 export const generateSecureFilePath = (userId: string, originalName: string): string => {
-  const fileExtension = Object.values(FILE_TYPE_MAP).find(ext => 
-    originalName.toLowerCase().endsWith(ext)
-  ) || '.pdf';
-  
+  const _fileExtension =
+    Object.values(FILE_TYPE_MAP).find((ext) => originalName.toLowerCase().endsWith(ext)) || '.pdf';
+
   const uniqueId = uuidv4();
   const timestamp = Date.now();
   const sanitizedName = originalName.replace(/[^a-zA-Z0-9.-]/g, '_');
-  
+
   return `${STORAGE_CONFIG.PATHS.USER_CV(userId)}/${timestamp}-${uniqueId}-${sanitizedName}`;
 };
 
 // Upload file to storage
-export async function uploadFile(file: File, userId: string): Promise<{
+export async function uploadFile(
+  file: File,
+  userId: string
+): Promise<{
   success: boolean;
   filePath?: string;
   publicUrl?: string;
@@ -52,7 +56,7 @@ export async function uploadFile(file: File, userId: string): Promise<{
       .from(STORAGE_CONFIG.BUCKETS.CV_UPLOADS)
       .upload(filePath, file, {
         cacheControl: '3600',
-        upsert: false
+        upsert: false,
       });
 
     if (error) {
@@ -68,7 +72,7 @@ export async function uploadFile(file: File, userId: string): Promise<{
     return {
       success: true,
       filePath: data.path,
-      publicUrl: urlData.publicUrl
+      publicUrl: urlData.publicUrl,
     };
   } catch (error) {
     console.error('File upload error:', error);
@@ -77,7 +81,10 @@ export async function uploadFile(file: File, userId: string): Promise<{
 }
 
 // Generate signed URL for file access
-export async function getSignedUrl(filePath: string, expiresIn: number = 3600): Promise<{
+export async function getSignedUrl(
+  filePath: string,
+  expiresIn: number = 3600
+): Promise<{
   success: boolean;
   signedUrl?: string;
   error?: string;
@@ -129,7 +136,7 @@ export async function listUserFiles(userId: string): Promise<{
 }> {
   try {
     const userPath = STORAGE_CONFIG.PATHS.USER_CV(userId);
-    
+
     const { data, error } = await supabase.storage
       .from(STORAGE_CONFIG.BUCKETS.CV_UPLOADS)
       .list(userPath);
@@ -139,11 +146,11 @@ export async function listUserFiles(userId: string): Promise<{
       return { success: false, error: 'Failed to list files' };
     }
 
-    const files = data.map(file => ({
+    const files = data.map((file) => ({
       name: file.name,
       size: file.metadata?.size || 0,
       lastModified: file.updated_at,
-      fullPath: `${userPath}/${file.name}`
+      fullPath: `${userPath}/${file.name}`,
     }));
 
     return { success: true, files };
@@ -173,7 +180,7 @@ export async function getFileMetadata(filePath: string): Promise<{
       return { success: false, error: STORAGE_ERRORS.FILE_NOT_FOUND };
     }
 
-    const fileInfo = data.find(file => file.name === fileName);
+    const fileInfo = data.find((file) => file.name === fileName);
     if (!fileInfo) {
       return { success: false, error: STORAGE_ERRORS.FILE_NOT_FOUND };
     }
@@ -183,8 +190,8 @@ export async function getFileMetadata(filePath: string): Promise<{
       metadata: {
         size: fileInfo.metadata?.size || 0,
         type: fileInfo.metadata?.mimetype || 'application/octet-stream',
-        lastModified: fileInfo.updated_at
-      }
+        lastModified: fileInfo.updated_at,
+      },
     };
   } catch (error) {
     console.error('File metadata error:', error);

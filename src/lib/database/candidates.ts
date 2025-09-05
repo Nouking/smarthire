@@ -1,9 +1,13 @@
-import { supabase, handleDatabaseError, withPerformanceMonitoring } from './supabase';
 import { Database } from '@/types/database';
+
+import { supabase, handleDatabaseError, withPerformanceMonitoring } from './supabase';
 
 type Candidate = Database['public']['Tables']['candidates']['Row'];
 type CandidateInsert = Database['public']['Tables']['candidates']['Insert'];
 type CandidateUpdate = Database['public']['Tables']['candidates']['Update'];
+type CandidateWithSimilarity = Omit<Candidate, 'cv_embedding'> & {
+  similarity: number;
+};
 
 export class CandidateService {
   // Create a new candidate
@@ -26,11 +30,7 @@ export class CandidateService {
   // Get candidate by ID
   static async getById(id: string): Promise<Candidate | null> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
-        .from('candidates')
-        .select('*')
-        .eq('id', id)
-        .single();
+      const { data, error } = await supabase.from('candidates').select('*').eq('id', id).single();
 
       if (error && error.code !== 'PGRST116') {
         throw new Error(handleDatabaseError(error, 'get candidate by ID'));
@@ -79,10 +79,7 @@ export class CandidateService {
   // Delete candidate
   static async delete(id: string): Promise<void> {
     return withPerformanceMonitoring(async () => {
-      const { error } = await supabase
-        .from('candidates')
-        .delete()
-        .eq('id', id);
+      const { error } = await supabase.from('candidates').delete().eq('id', id);
 
       if (error) {
         throw new Error(handleDatabaseError(error, 'delete candidate'));
@@ -96,13 +93,13 @@ export class CandidateService {
     userId: string,
     threshold = 0.8,
     limit = 10
-  ): Promise<Candidate[]> {
+  ): Promise<CandidateWithSimilarity[]> {
     return withPerformanceMonitoring(async () => {
       const { data, error } = await supabase.rpc('match_candidates', {
         query_embedding: embedding,
         match_threshold: threshold,
         match_count: limit,
-        user_id: userId
+        user_id: userId,
       });
 
       if (error) {
@@ -187,10 +184,7 @@ export class CandidateService {
       expirationDate.setDate(expirationDate.getDate() + 7);
 
       const [totalResult, monthResult, expiringResult] = await Promise.all([
-        supabase
-          .from('candidates')
-          .select('id', { count: 'exact' })
-          .eq('user_id', userId),
+        supabase.from('candidates').select('id', { count: 'exact' }).eq('user_id', userId),
         supabase
           .from('candidates')
           .select('id', { count: 'exact' })
@@ -200,13 +194,13 @@ export class CandidateService {
           .from('candidates')
           .select('id', { count: 'exact' })
           .eq('user_id', userId)
-          .lte('expires_at', expirationDate.toISOString())
+          .lte('expires_at', expirationDate.toISOString()),
       ]);
 
       return {
         total_candidates: totalResult.count || 0,
         candidates_this_month: monthResult.count || 0,
-        expiring_soon: expiringResult.count || 0
+        expiring_soon: expiringResult.count || 0,
       };
     }, 'CandidateService.getStats');
   }

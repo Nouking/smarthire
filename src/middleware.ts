@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   const supabaseResponse = NextResponse.next({
-    request
+    request,
   });
 
   const supabase = createServerClient(
@@ -19,13 +19,16 @@ export async function middleware(request: NextRequest) {
         },
         remove(name: string, options: any) {
           supabaseResponse.cookies.set(name, '', { ...options, maxAge: 0 });
-        }
-      }
+        },
+      },
     }
   );
 
   // Get user session
-  const { data: { session }, error } = await supabase.auth.getSession();
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
 
   const url = request.nextUrl.clone();
   const pathname = url.pathname;
@@ -39,15 +42,17 @@ export async function middleware(request: NextRequest) {
   // Handle authentication errors
   if (error) {
     console.error('Middleware auth error:', error);
-    
+
     // Redirect to signin if trying to access protected routes
-    if (protectedRoutes.some(route => pathname.startsWith(route)) || 
-        adminRoutes.some(route => pathname.startsWith(route))) {
+    if (
+      protectedRoutes.some((route) => pathname.startsWith(route)) ||
+      adminRoutes.some((route) => pathname.startsWith(route))
+    ) {
       url.pathname = '/auth/signin';
       url.searchParams.set('redirectTo', pathname);
       return NextResponse.redirect(url);
     }
-    
+
     return supabaseResponse;
   }
 
@@ -61,14 +66,14 @@ export async function middleware(request: NextRequest) {
         url.searchParams.delete('redirectTo');
         return NextResponse.redirect(url);
       }
-      
+
       url.pathname = '/dashboard';
       return NextResponse.redirect(url);
     }
 
     // Check admin access
     const userRole = session.user.user_metadata?.role;
-    if (adminRoutes.some(route => pathname.startsWith(route)) && userRole !== 'admin') {
+    if (adminRoutes.some((route) => pathname.startsWith(route)) && userRole !== 'admin') {
       url.pathname = '/dashboard';
       return NextResponse.redirect(url);
     }
@@ -79,8 +84,10 @@ export async function middleware(request: NextRequest) {
   // User is not authenticated
   if (!session?.user) {
     // Redirect unauthenticated users from protected routes to signin
-    if (protectedRoutes.some(route => pathname.startsWith(route)) || 
-        adminRoutes.some(route => pathname.startsWith(route))) {
+    if (
+      protectedRoutes.some((route) => pathname.startsWith(route)) ||
+      adminRoutes.some((route) => pathname.startsWith(route))
+    ) {
       url.pathname = '/auth/signin';
       url.searchParams.set('redirectTo', pathname);
       return NextResponse.redirect(url);
@@ -105,6 +112,6 @@ export const config = {
      * - public folder
      * - api routes (optional - comment out if you want to protect API routes)
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'
-  ]
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 };

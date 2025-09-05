@@ -5,13 +5,16 @@
 **INSTRUCTIONS FOR AI**: When user updates the "Current Issues/Todos" section below, follow this exact workflow:
 
 ### Step 1: Archive Current Documentation
+
 1. Create timestamp: `YYYY-MM-DD` (e.g., `2025-08-16`)
 2. Archive to `/docs/archive/` with timestamp suffix:
    - `IMPROVEMENT-TASK-TRACKING.md` → `improvement-task-tracking-{timestamp}.md`
    - `/docs/completed-tasks.md` → `completed-tasks-{timestamp}.md`
    - `/docs/ui-improvement-plan.md` → `ui-improvement-plan-{timestamp}.md`
-If not exist, can skip
+     If not exist, can skip
+
 ### Step 2: Create New Documentation Structure
+
 1. **Strategic Plan** (`/docs/develop-plan.md`):
    - High-level strategy for addressing current issues
    - Epic structure planning and agent role distribution
@@ -30,6 +33,7 @@ If not exist, can skip
    - Maintain reference links to archived documentation
 
 ### Step 3: Update This Instruction File
+
 - Update "Last Epic Processed" number
 - Move completed issues to "Resolved Issues Archive"
 - Update completion timestamps and epic numbers
@@ -41,18 +45,23 @@ If not exist, can skip
 **EDIT THIS SECTION** to add new bugs/todos. AI will automatically process into epic tasks.
 
 ### User Interface Issues
+
 - (No current UI issues reported)
 
-### API/Backend Issues  
+### API/Backend Issues
+
 - (No current API issues reported)
 
 ### Script/Configuration Issues
+
 - (No current script issues reported)
 
 ### Feature Requests
+
 - (No current feature requests reported)
 
 ### Bug Reports
+
 - (No current bugs reported)
 
 ---
@@ -60,12 +69,14 @@ If not exist, can skip
 ## 📊 Project Status
 
 ### Last Epic Processed: **Epic 14** (2025-08-24)
+
 **Status**: Ready for implementation
 **Tasks**: E14-T1 through E14-T6 (6 tasks total)
 
 ### Documentation Structure
+
 - ✅ **Strategic Plan**: `docs/develop-plan.md`
-- ✅ **Task Tracking**: `IMPROVEMENT-TASK-TRACKING.md` 
+- ✅ **Task Tracking**: `IMPROVEMENT-TASK-TRACKING.md`
 - ✅ **Implementation Archive**: `docs/completed-tasks.md`
 - ✅ **Archive Directory**: `docs/archive/`
 
@@ -80,13 +91,14 @@ If not exist, can skip
 Generate execution prompts using this exact format:
 
 ```
-**Execution Prompt**: 
+**Execution Prompt**:
 Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute {TASK_ID}. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines {LINE_RANGE} for {TASK_ID} specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @{PRIMARY_AGENT} (primary) = .bmad-core/agents/{AGENT_FILE}.md + @{SUPPORTING_AGENTS} collaboration.
 ```
 
 ### Template Variables for Compact Generation
 
 **Task Information**:
+
 - `{TASK_ID}` - Task identifier (e.g., E14-T1, E15-T3)
 - `{LINE_RANGE}` - Task specification line numbers (e.g., 44-114, 118-167)
 - `{PRIMARY_AGENT}` - Main responsible agent name (architect, dev, po, ux-expert, sm)
@@ -94,6 +106,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - `{SUPPORTING_AGENTS}` - Additional agents with .bmad-core/agents/ references
 
 **Agent Mapping Examples**:
+
 - `@architect (primary) = .bmad-core/agents/architect.md + @dev = .bmad-core/agents/dev.md + @po collaboration`
 - `@dev (primary) = .bmad-core/agents/dev.md + @ux-expert + @architect = .bmad-core/agents/architect.md collaboration`
 - `@po (primary) + @dev = .bmad-core/agents/dev.md + @sm collaboration`
@@ -101,8 +114,9 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ### Context Management Rationale
 
 **Why Compact Format**:
+
 - **Prevents Context Overflow**: Full templates consume 80-100 lines per task
-- **Maintains Information**: All task details remain in specification sections  
+- **Maintains Information**: All task details remain in specification sections
 - **References Template**: AI can access full structure from this template file
 - **Enables Processing**: Tasks remain within AI context limits
 - **Preserves Quality**: Same 5-section structure via template reference
@@ -110,11 +124,13 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ### Template Variables (Auto-populated from IMPROVEMENT-TASK-TRACKING.md)
 
 **Epic Information**:
+
 - `{EPIC_NUMBER}` - Epic number (e.g., E13)
 - `{EPIC_TITLE}` - Epic title and priority
 - `{EPIC_GOAL}` - High-level epic objective
 
 **Task Information**:
+
 - `{TASK_ID}` - Task identifier (e.g., E13-T3)
 - `{TASK_TITLE}` - Full task title
 - `{TASK_PRIORITY}` - Priority level (P1-CRITICAL, P2-HIGH, etc.)
@@ -122,6 +138,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - `{SUPPORTING_AGENTS}` - Additional collaborating agents
 
 **Implementation Details**:
+
 - `{ACCEPTANCE_CRITERIA}` - GIVEN/WHEN/THEN specifications
 - `{DEPENDENCIES}` - Prerequisite tasks
 - `{FILES_TO_MODIFY}` - Specific file paths
@@ -140,44 +157,54 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ### Example: Format Evolution - Run-on → Full Template → Compact
 
 **❌ ORIGINAL PROBLEMATIC (Run-on Sentence)**:
+
 ```
 "As @dev, @ux-expert, @qa: read CLAUDE.md 1–136 (AI Task Workflow), 138–155 (UI v2 Workflow), and 274–331 (Task Status Updates); read IMPROVEMENT-TASK-TRACKING.md 923–1018 (E12-T3 complete specification); follow AI Task Workflow exactly; do E12-T3 Edit Member Modal (v2)..."
 ```
-*Problems*: 1,247 characters, cognitive overload, buried information
+
+_Problems_: 1,247 characters, cognitive overload, buried information
 
 **⚠️ INTERMEDIATE (Full Template) - CAUSES CONTEXT OVERFLOW**:
+
 ```markdown
 ## 🎯 CONTEXT ESTABLISHMENT
+
 **Project**: SmartHire AI Application
 **Epic**: E12 - UI v2 Enhancement...
 [80-100 lines of template content]
 ```
-*Problems*: 80-100 lines per task, context overflow, redundant information
+
+_Problems_: 80-100 lines per task, context overflow, redundant information
 
 **✅ OPTIMIZED COMPACT FORMAT (Current Standard)**:
+
 ```
-**Execution Prompt**: 
+**Execution Prompt**:
 Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T1. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines 44-114 for E14-T1 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @architect (primary) = .bmad-core/agents/architect.md + @dev = .bmad-core/agents/dev.md + @po collaboration.
 ```
-*Benefits*: 3-4 lines, maintains all information, prevents context overflow, references template structure
+
+_Benefits_: 3-4 lines, maintains all information, prevents context overflow, references template structure
 
 ### Compact Format Examples by Task Type
 
 **Backend/Database Task (E14-T3)**:
+
 ```
-**Execution Prompt**: 
+**Execution Prompt**:
 Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T3. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines 171-220 for E14-T3 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @architect (primary) = .bmad-core/agents/architect.md + @dev = .bmad-core/agents/dev.md + @po collaboration.
 ```
 
 **UI/Frontend Task (E14-T2)**:
+
 ```
-**Execution Prompt**: 
+**Execution Prompt**:
 Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T2. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines 118-167 for E14-T2 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @dev (primary) = .bmad-core/agents/dev.md + @ux-expert + @architect = .bmad-core/agents/architect.md collaboration.
 ```
 
 **Documentation Task (E14-T6)**:
+
 ```
-**Execution Prompt**: 
+**Execution Prompt**:
 Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E14-T6. Read CLAUDE.md sections 1–136, 138–155, 156-170, 274–331 and IMPROVEMENT-TASK-TRACKING.md lines 334-381 for E14-T6 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @po (primary) + @dev = .bmad-core/agents/dev.md + @sm collaboration.
 ```
 
@@ -223,36 +250,42 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 **Before Using Any Generated Compact Prompt:**
 
 **✅ Format Compliance**:
+
 - [ ] Uses exact compact format (3-4 lines maximum)
 - [ ] References `docs/Build _from_epic_to_task_tracking.md` template file
 - [ ] Includes all required CLAUDE.md section references (1–136, 138–155, 156-170, 274–331)
 - [ ] Contains accurate IMPROVEMENT-TASK-TRACKING.md line ranges
 
 **✅ Line Range Accuracy**:
+
 - [ ] Line range starts from task header (### E{X}-T{Y})
 - [ ] Line range ends at last relevant content (Testing Requirements or Files to Create/Modify)
 - [ ] Line numbers are accurate for AI reading
 - [ ] Range covers complete task specification
 
 **✅ Agent Mapping**:
+
 - [ ] Primary agent correctly identified
 - [ ] Primary agent mapped to correct .bmad-core/agents/{agent}.md file
 - [ ] Supporting agents listed with proper collaboration syntax
 - [ ] Agent roles match task requirements
 
 **✅ Template Reference**:
+
 - [ ] References template structure (Context → Workflow → Task → Technical → Quality)
 - [ ] All task details remain in specification sections (no duplication)
 - [ ] Template file provides 5-section structure guidance
 - [ ] Maintains quality without redundancy
 
 **✅ Context Efficiency**:
+
 - [ ] Prevents context overflow (compact format used)
 - [ ] All necessary information accessible via references
 - [ ] No redundant content duplication
 - [ ] Enables AI processing within limits
 
 **✅ Execution Readiness**:
+
 - [ ] Task specification contains all implementation details
 - [ ] Template file provides execution structure
 - [ ] Agent files contain role-specific guidance
@@ -261,6 +294,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ### Common Prompt Anti-Patterns to Avoid
 
 **❌ AVOID THESE**:
+
 - Run-on sentences exceeding 100 words
 - Burying critical information in parentheses
 - Mixed abstraction levels in same section
@@ -271,6 +305,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - Poor information hierarchy
 
 **✅ USE THESE INSTEAD**:
+
 - Modular sections with clear headers
 - Progressive information disclosure
 - Consistent abstraction levels within sections
@@ -283,24 +318,30 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ### Template Testing: Multiple Epic Task Examples
 
 **Example 1: API/Backend Task (E13-T3)**
+
 ```markdown
 ## 🎯 CONTEXT ESTABLISHMENT
+
 **Project**: SmartHire AI Application
 **Epic**: E13 - Critical UI & API Fixes
 **Task**: E13-T3 - API Fetch Error Resolution in v2/view (P1-CRITICAL)
 **Agents**: @architect (Winston - Primary API debugging) + @dev (James - Frontend fixes) + @qa (Quinn - Error testing)
 
 ## 📋 MANDATORY WORKFLOW COMPLIANCE
+
 **Pre-Execution Requirements**:
+
 - [ ] Read CLAUDE.md: AI Task Workflow sections
 - [ ] Read IMPROVEMENT-TASK-TRACKING.md: lines 126-176 (E13-T3 specification)
 - [ ] Analyze browser console stack traces and network request logs
 - [ ] Validate API endpoint availability and routing configuration
 
 ## 🛠️ TASK SPECIFICATION
+
 **Primary Objective**: Resolve "Failed to fetch" errors in /v2/view that prevent family tree data loading and interactive features.
 
 **Success Criteria** (GIVEN/WHEN/THEN format):
+
 - GIVEN a user navigates to `/v2/view`
 - WHEN the page loads and attempts API calls
 - THEN all fetch requests complete successfully with no console errors
@@ -309,24 +350,30 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ```
 
 **Example 2: UI/UX Task (E13-T1)**
+
 ```markdown
 ## 🎯 CONTEXT ESTABLISHMENT
+
 **Project**: SmartHire AI Application
 **Epic**: E13 - Critical UI & API Fixes
 **Task**: E13-T1 - v2 Login Page Sizing & Responsive Fix (P1-CRITICAL)
 **Agents**: @ux-expert (Sally - Primary responsive design) + @dev (James - Implementation) + @qa (Quinn - Cross-device testing)
 
 ## 📋 MANDATORY WORKFLOW COMPLIANCE
+
 **Pre-Execution Requirements**:
+
 - [ ] Read CLAUDE.md: UI v2 Workflow sections
 - [ ] Read IMPROVEMENT-TASK-TRACKING.md: lines 47-85 (E13-T1 specification)
 - [ ] Analyze `login-screen-prompt` HTML/CSS for exact specifications
 - [ ] Review current `family-tree/app/v2/login/page.tsx` implementation
 
 ## 🛠️ TASK SPECIFICATION
+
 **Primary Objective**: Fix v2 login page sizing to match login-screen-prompt specifications exactly across all viewport sizes.
 
 **Success Criteria** (GIVEN/WHEN/THEN format):
+
 - GIVEN the v2 login page is accessed at `/v2/login`
 - WHEN viewed on desktop (1024px+), tablet (768px), and mobile (360px+)
 - THEN the page layout matches `login-screen-prompt` visual specifications
@@ -335,24 +382,30 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ```
 
 **Example 3: Development/Scripting Task (E13-T2)**
+
 ```markdown
 ## 🎯 CONTEXT ESTABLISHMENT
+
 **Project**: SmartHire AI Application
 **Epic**: E13 - Critical UI & API Fixes
 **Task**: E13-T2 - Admin Script Path Resolution (P1-CRITICAL)
 **Agents**: @dev (James - Primary path resolution) + @po (Sarah - Documentation) + @architect (Winston - Build system)
 
 ## 📋 MANDATORY WORKFLOW COMPLIANCE
+
 **Pre-Execution Requirements**:
+
 - [ ] Read CLAUDE.md: Script execution and path handling sections
 - [ ] Read IMPROVEMENT-TASK-TRACKING.md: lines 87-124 (E13-T2 specification)
 - [ ] Investigate actual file location: `family-tree/scripts/seed-admin.mjs`
 - [ ] Analyze current error: double `family-tree` directory nesting
 
 ## 🛠️ TASK SPECIFICATION
+
 **Primary Objective**: Fix admin seed script path error preventing password management functionality execution.
 
 **Success Criteria** (GIVEN/WHEN/THEN format):
+
 - GIVEN the command `node family-tree/scripts/seed-admin.mjs --password=admin`
 - WHEN run from project root directory
 - THEN the script executes successfully without path errors
@@ -363,6 +416,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ### Template Scalability Validation
 
 **✅ Template Successfully Handles**:
+
 - **Different Task Types**: API/Backend, UI/UX, Development/Scripting
 - **Various Priorities**: P1-CRITICAL, P2-HIGH, P2-MEDIUM
 - **Multiple Agent Combinations**: Primary + 1-2 supporting agents
@@ -370,6 +424,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - **Diverse Technical Requirements**: React components, Node.js scripts, API endpoints
 
 **✅ Consistent Quality Across All Examples**:
+
 - Clear context establishment in every case
 - Modular structure maintained regardless of task type
 - Progressive information disclosure preserved
@@ -381,6 +436,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ## 🔄 AI Workflow Standards
 
 ### Task Creation Guidelines
+
 - **Complexity Scaling**: 200-1200+ words based on task difficulty
 - **Agent Assignments**: Primary + supporting agents based on expertise
 - **Acceptance Criteria**: GIVEN/WHEN/THEN format for clarity
@@ -388,6 +444,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - **Testing**: Comprehensive validation requirements
 
 ### Agent Role Definitions
+
 - **@sm (Bob)**: Epic breakdown, story preparation, agile facilitation
 - **@po (Sarah)**: Quality validation, acceptance criteria, process adherence
 - **@architect (Winston)**: System design, API architecture, technical strategy
@@ -396,6 +453,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - **@qa (Quinn)**: Testing, code review, quality assurance, validation
 
 ### Quality Standards
+
 - **Token Efficiency**: Use cross-references, avoid duplication
 - **Agent Clarity**: Clear role assignments and collaboration patterns
 - **Implementation Ready**: Detailed technical requirements and file specifications
@@ -403,6 +461,7 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 - **Documentation Links**: Proper anchor linking and cross-references
 
 ### Epic Naming Convention
+
 - **Format**: `Epic [Number]: [Brief Description]`
 - **Example**: `Epic 14: Performance Optimization & Bug Fixes`
 - **Tasks**: `E[Number]-T[Task]: [Task Title] (P[Priority]-[Level])`
@@ -412,7 +471,9 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ## 📚 Resolved Issues Archive
 
 ### Epic 14: Phase 1 Foundation - Sprint 1.1 Project Infrastructure ✅ (2025-08-24)
+
 **Completed Issues**:
+
 1. ✅ Sprint 1.1 Task Creation → E14: Created comprehensive task breakdown for SmartHire AI Phase 1 Foundation
    - Next.js 14 Foundation Setup (E14-T1): TypeScript strict mode, project structure, mobile-first optimization
    - shadcn/ui + Tailwind Integration (E14-T2): Design system with mobile-first responsive components
@@ -427,7 +488,9 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ### Previous Archived Epics
 
 ### Epic 13: Critical UI & API Fixes ✅ (2025-08-16) - Family Tree Project
+
 **Completed Issues**:
+
 1. ✅ v2 Login Page Sizing → E13-T1: Fixed responsive behavior to match `login-screen-prompt`
 2. ✅ Admin Script Path Error → E13-T2: Fixed path resolution for admin script
 3. ✅ API Fetch Errors in /v2/view → E13-T3: Resolved "Failed to fetch" errors
@@ -446,27 +509,33 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 ## 🎯 Usage Instructions for Humans
 
 ### To Add New Issues/Todos:
+
 1. **Edit "Current Issues/Todos" section** above with your new bugs/features
 2. **Specify issue type** (UI, API, Script, Feature, Bug)
 3. **Provide context**: Reference files, error messages, expected behavior
 4. **Run AI workflow**: AI will automatically create new epic and tasks
 
 ### Example Issue Format:
+
 ```markdown
 ### User Interface Issues
+
 - Login button not responsive on mobile devices (reference: login-screen-prompt)
 - Add modal missing validation error states
 
-### API/Backend Issues  
+### API/Backend Issues
+
 - GET /api/members returns 500 error intermittently
 - Authentication tokens expire too quickly
 
 ### Feature Requests
+
 - Export family tree as PDF format
 - Add dark mode toggle for entire application
 ```
 
 ### AI Will Automatically:
+
 1. ✅ Archive current documentation with timestamps
 2. ✅ Create new epic with incremented number
 3. ✅ Break down issues into detailed, agent-ready tasks
@@ -476,4 +545,4 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 
 ---
 
-*This instruction file serves as the master template for AI-driven project improvement workflows. Simply update the "Current Issues/Todos" section and AI will handle the complete documentation restructure and task planning process.*
+_This instruction file serves as the master template for AI-driven project improvement workflows. Simply update the "Current Issues/Todos" section and AI will handle the complete documentation restructure and task planning process._

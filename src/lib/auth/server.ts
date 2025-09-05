@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+
 import { Database } from '@/types/database';
 
 // This file should only be imported in Server Components or Server Actions
@@ -31,8 +32,8 @@ export async function createServerSupabaseClient() {
             // Cookie removal may fail in some server contexts
             console.warn('Cookie removal failed:', error);
           }
-        }
-      }
+        },
+      },
     }
   );
 }
@@ -41,7 +42,10 @@ export async function createServerSupabaseClient() {
 export async function getServerSession() {
   try {
     const supabase = await createServerSupabaseClient();
-    const { data: { session }, error } = await supabase.auth.getSession();
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
 
     if (error) {
       console.error('Server session error:', error);
@@ -59,7 +63,10 @@ export async function getServerSession() {
 export async function getServerUser() {
   try {
     const supabase = await createServerSupabaseClient();
-    const { data: { user }, error } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
 
     if (error) {
       console.error('Server user error:', error);

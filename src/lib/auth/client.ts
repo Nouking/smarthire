@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+
 import { Database } from '@/types/database';
 
 // Environment variables validation
@@ -15,16 +16,16 @@ export const supabaseAuth = createClient<Database>(supabaseUrl, supabaseAnonKey,
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    flowType: 'pkce'
+    flowType: 'pkce',
   },
   db: {
-    schema: 'public'
+    schema: 'public',
   },
   global: {
     headers: {
-      'X-Client-Info': 'smarthire-auth'
-    }
-  }
+      'X-Client-Info': 'smarthire-auth',
+    },
+  },
 });
 
 // Authentication state types
@@ -53,13 +54,16 @@ export type AuthError = {
 // Session management utilities
 export const getSession = async () => {
   try {
-    const { data: { session }, error } = await supabaseAuth.auth.getSession();
-    
+    const {
+      data: { session },
+      error,
+    } = await supabaseAuth.auth.getSession();
+
     if (error) {
       console.error('Error getting session:', error);
       return null;
     }
-    
+
     return session;
   } catch (error) {
     console.error('Session retrieval failed:', error);
@@ -69,13 +73,16 @@ export const getSession = async () => {
 
 export const getUser = async () => {
   try {
-    const { data: { user }, error } = await supabaseAuth.auth.getUser();
-    
+    const {
+      data: { user },
+      error,
+    } = await supabaseAuth.auth.getUser();
+
     if (error) {
       console.error('Error getting user:', error);
       return null;
     }
-    
+
     return user;
   } catch (error) {
     console.error('User retrieval failed:', error);
@@ -87,12 +94,12 @@ export const getUser = async () => {
 export const refreshSession = async () => {
   try {
     const { data, error } = await supabaseAuth.auth.refreshSession();
-    
+
     if (error) {
       console.error('Session refresh failed:', error);
       return null;
     }
-    
+
     return data.session;
   } catch (error) {
     console.error('Session refresh error:', error);

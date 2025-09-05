@@ -1,6 +1,7 @@
 # SmartHire AI - Development Commands
 
 ## Primary Development Commands
+
 ```bash
 # Start development server with Turbopack (fast bundler)
 npm run dev
@@ -16,6 +17,7 @@ npm run lint
 ```
 
 ## Project-Specific Development Workflow
+
 ```bash
 # Navigate to project root (all commands run from here)
 cd /Users/nouking/Workspace/SmartHR/smarthire
@@ -28,6 +30,7 @@ npm run dev
 ```
 
 ## System Commands (macOS Darwin)
+
 ```bash
 # File operations
 ls -la                    # List files with details
@@ -46,6 +49,7 @@ kill -9 PID              # Kill process by PID
 ```
 
 ## Task Completion Commands
+
 When completing development tasks, run these commands in order:
 
 ```bash
@@ -61,6 +65,7 @@ git commit -m "type(scope): description"
 ```
 
 ## Development Server Info
+
 - **Default Port**: 3000
 - **Turbopack**: Enabled for faster builds and hot reloading
 - **Hot Reload**: Automatic on file changes

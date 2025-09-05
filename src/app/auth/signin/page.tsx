@@ -1,29 +1,32 @@
 import { Suspense } from 'react';
+
 import { SignInForm } from '@/components/auth/signin-form';
 import { MobileContainer } from '@/components/layout';
 
 export default function SignInPage() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className='flex min-h-screen flex-col justify-center bg-gray-50 py-12 sm:px-6 lg:px-8'>
       <MobileContainer>
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">SmartHire AI</h1>
-            <p className="text-gray-600 mt-2">Intelligent recruitment matching</p>
+        <div className='sm:mx-auto sm:w-full sm:max-w-md'>
+          <div className='mb-8 text-center'>
+            <h1 className='text-3xl font-bold text-gray-900'>SmartHire AI</h1>
+            <p className='mt-2 text-gray-600'>Intelligent recruitment matching</p>
           </div>
-          
-          <Suspense fallback={
-            <div className="w-full max-w-md mx-auto p-6 bg-white shadow rounded-lg">
-              <div className="animate-pulse">
-                <div className="h-4 bg-gray-200 rounded w-3/4 mx-auto mb-4"></div>
-                <div className="space-y-4">
-                  <div className="h-10 bg-gray-200 rounded"></div>
-                  <div className="h-10 bg-gray-200 rounded"></div>
-                  <div className="h-10 bg-gray-200 rounded"></div>
+
+          <Suspense
+            fallback={
+              <div className='mx-auto w-full max-w-md rounded-lg bg-white p-6 shadow'>
+                <div className='animate-pulse'>
+                  <div className='mx-auto mb-4 h-4 w-3/4 rounded bg-gray-200'></div>
+                  <div className='space-y-4'>
+                    <div className='h-10 rounded bg-gray-200'></div>
+                    <div className='h-10 rounded bg-gray-200'></div>
+                    <div className='h-10 rounded bg-gray-200'></div>
+                  </div>
                 </div>
               </div>
-            </div>
-          }>
+            }
+          >
             <SignInForm />
           </Suspense>
         </div>

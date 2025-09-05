@@ -29,14 +29,14 @@ export async function validateDatabaseSetup(): Promise<DatabaseValidationResult>
       tablesAccessible: [],
       functionsAvailable: [],
       extensionsEnabled: [],
-      rlsPoliciesActive: false
-    }
+      rlsPoliciesActive: false,
+    },
   };
 
   try {
     // Test 1: Validate table accessibility
-    const tables = ['users', 'job_descriptions', 'candidates', 'cv_jd_matches'];
-    
+    const tables = ['users', 'job_descriptions', 'candidates', 'cv_jd_matches'] as const;
+
     for (const table of tables) {
       try {
         const { error } = await supabase.from(table).select('count').limit(1);
@@ -55,10 +55,10 @@ export async function validateDatabaseSetup(): Promise<DatabaseValidationResult>
     // Test 2: Check required functions
     const requiredFunctions = [
       'cleanup_expired_data',
-      'increment_user_usage', 
+      'increment_user_usage',
       'check_user_usage_limit',
       'match_candidates',
-      'match_job_descriptions'
+      'match_job_descriptions',
     ];
 
     // Note: Function existence checking would require admin privileges
@@ -79,14 +79,14 @@ export async function validateDatabaseSetup(): Promise<DatabaseValidationResult>
     // Test 4: Basic CRUD operation validation
     try {
       const testEmail = `validation-test-${Date.now()}@example.com`;
-      
+
       // Create test record
       const { data: created, error: createError } = await supabase
         .from('users')
         .insert({
           email: testEmail,
           full_name: 'Validation Test User',
-          subscription_tier: 'free'
+          subscription_tier: 'free',
         })
         .select()
         .single();
@@ -111,7 +111,6 @@ export async function validateDatabaseSetup(): Promise<DatabaseValidationResult>
     if (!result.details.functionsAvailable.includes('match_candidates')) {
       result.warnings.push('Vector search functions may not be available - check pgvector setup');
     }
-
   } catch (error) {
     result.errors.push(`Database validation failed: ${error}`);
     result.isValid = false;
@@ -126,11 +125,7 @@ export async function validateDatabaseSetup(): Promise<DatabaseValidationResult>
 export async function validateUserAccess(userId: string): Promise<boolean> {
   try {
     // Test user can access their own data
-    const { data, error } = await supabase
-      .from('users')
-      .select('id')
-      .eq('id', userId)
-      .single();
+    const { data, error } = await supabase.from('users').select('id').eq('id', userId).single();
 
     return !error && data?.id === userId;
   } catch {
@@ -152,20 +147,20 @@ export async function validatePerformance(): Promise<{
   const testQueries = [
     {
       name: 'user_lookup',
-      query: () => supabase.from('users').select('*').limit(1)
+      query: () => supabase.from('users').select('*').limit(1),
     },
     {
-      name: 'candidate_listing', 
-      query: () => supabase.from('candidates').select('*').limit(10)
+      name: 'candidate_listing',
+      query: () => supabase.from('candidates').select('*').limit(10),
     },
     {
       name: 'job_description_listing',
-      query: () => supabase.from('job_descriptions').select('*').limit(10)
+      query: () => supabase.from('job_descriptions').select('*').limit(10),
     },
     {
       name: 'match_results',
-      query: () => supabase.from('cv_jd_matches').select('*').limit(10)
-    }
+      query: () => supabase.from('cv_jd_matches').select('*').limit(10),
+    },
   ];
 
   for (const test of testQueries) {
@@ -201,7 +196,7 @@ export async function healthCheck(): Promise<{
   try {
     // Basic connectivity test
     const { error } = await supabase.from('users').select('count').limit(1);
-    
+
     if (error) {
       status = 'unhealthy';
       details.push(`Database connection failed: ${error.message}`);
@@ -211,14 +206,19 @@ export async function healthCheck(): Promise<{
 
     // Performance test
     const { queryTimes, warnings } = await validatePerformance();
-    
+
     if (warnings.length > 0) {
       status = status === 'healthy' ? 'degraded' : status;
       details.push(...warnings);
     }
 
-    details.push(`Average query time: ${Object.values(queryTimes).filter(t => t > 0).reduce((a, b) => a + b, 0) / Object.values(queryTimes).filter(t => t > 0).length}ms`);
-
+    details.push(
+      `Average query time: ${
+        Object.values(queryTimes)
+          .filter((t) => t > 0)
+          .reduce((a, b) => a + b, 0) / Object.values(queryTimes).filter((t) => t > 0).length
+      }ms`
+    );
   } catch (error) {
     status = 'unhealthy';
     details.push(`Health check failed: ${error}`);
@@ -227,6 +227,6 @@ export async function healthCheck(): Promise<{
   return {
     status,
     timestamp: new Date().toISOString(),
-    details
+    details,
   };
 }
