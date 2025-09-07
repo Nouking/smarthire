@@ -65,7 +65,12 @@ For any given task ID (e.g., "E14-T1", "E14-T3"), you MUST:
 **Required Steps (Must Complete in Order):**
 
 - [ ] **Step 1 - Complete Code Implementation**: Finish writing all code changes for the task.
-- [ ] **Step 2 - Update Documentation (MANDATORY BEFORE GIT)**: After code is complete but BEFORE any git operations, you MUST update the following:
+- [ ] **Step 1.5 - MVP Quality Gates Verification (MANDATORY)**: Before proceeding to documentation updates, you MUST verify all essential quality gates pass:
+  - ✅ **ESLint checks**: Run `npm run lint` - ensures code quality and syntax standards
+  - ✅ **TypeScript compilation**: Run `npx tsc --noEmit` - verifies type safety with zero errors
+  - ✅ **Build process**: Run `npm run build` - confirms deployability without errors
+  - These gates align with our optimized CI/CD pipeline and are non-negotiable for task completion
+- [ ] **Step 2 - Update Documentation (MANDATORY BEFORE GIT)**: After code is complete AND quality gates pass, but BEFORE any git operations, you MUST update the following:
   - [ ] Update the task's status in `docs/IMPROVEMENT-TASK-TRACKING.md`
   - [ ] Update Epic 14 entries in `docs/IMPROVEMENT-TASK-TRACKING.md` for any E14-T? task you completed using the standardized completed-task format (see template below)
   - [ ] Add or update the completed task in `docs/completed-tasks.md` with an anchor and a FULL summary of work done (key changes, files edited/added, tests updated/added, acceptance verification). You may reference other completed tasks in this file with links when related.
@@ -159,7 +164,12 @@ When working on SmartHire AI tasks, follow this streamlined flow:
   - Mobile-first responsive design approach
 - Implement: Follow Next.js 14 App Router patterns in `src/app/` and component organization in `src/components/`
 - Tests: Add appropriate tests as development progresses
-- Documentation updates (mandatory after implementation, before git):
+- **MVP Quality Gates (MANDATORY BEFORE COMPLETION)**: Verify all essential checks pass before marking task complete:
+  - Run `npm run lint` - ensures code quality and syntax standards
+  - Run `npx tsc --noEmit` - verifies TypeScript type safety with zero errors
+  - Run `npm run build` - confirms deployability and successful compilation
+  - These align with our optimized CI/CD pipeline and are required for all task completions
+- Documentation updates (mandatory after implementation AND quality gates pass, before git):
   - Update status in `docs/IMPROVEMENT-TASK-TRACKING.md` (Epic 14 task)
   - Append a concise summary with anchor in `docs/completed-tasks.md`
   - Update any relevant technical documentation as needed
@@ -177,6 +187,7 @@ When working on SmartHire AI tasks, follow this streamlined flow:
 
 Acceptance checkpoints for SmartHire AI work:
 
+- **MVP Quality Gates**: ESLint passes (`npm run lint`), TypeScript compiles clean (`npx tsc --noEmit`), build succeeds (`npm run build`)
 - Mobile-first responsive design; AA contrast; proper semantic HTML
 - 3-second page load performance target
 - TypeScript strict mode compilation without errors

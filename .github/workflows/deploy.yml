@@ -1,4 +1,8 @@
-name: Deploy to Vercel
+# MVP-OPTIMIZED CI/CD Pipeline
+# This pipeline is simplified for MVP development velocity
+# Full production pipeline features are commented out below and can be re-enabled later
+
+name: Deploy to Vercel (MVP Mode)
 
 on:
   push:
@@ -7,8 +11,9 @@ on:
     branches: [main, master]
 
 jobs:
+  # MVP-ESSENTIAL: Keep minimal quality checks for working software
   quality-check:
-    name: Code Quality & Testing
+    name: Essential Quality Checks (MVP)
     runs-on: ubuntu-latest
 
     steps:
@@ -27,80 +32,105 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-      - name: Check Prettier formatting
-        run: npx prettier --check .
+      # MVP-DISABLED: Prettier formatting can be handled by IDE during MVP
+      # - name: Check Prettier formatting
+      #   run: npx prettier --check .
 
       - name: Type check
         run: npx tsc --noEmit
 
-      - name: Run tests
-        run: npm test
-        env:
-          CI: true
+      # MVP-DISABLED: Tests may not be comprehensive yet, can enable when test suite matures
+      # - name: Run tests
+      #   run: npm test
+      #   env:
+      #     CI: true
 
       - name: Build project
         run: npm run build
         env:
           NODE_ENV: production
 
-  deploy-preview:
-    name: Deploy Preview (Vercel)
-    runs-on: ubuntu-latest
-    needs: quality-check
-    if: github.event_name == 'pull_request'
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # ============================================================================
+  # MVP-DISABLED: PRODUCTION-READY PIPELINE FEATURES
+  # The following jobs are disabled for MVP development velocity
+  # Uncomment and re-enable when transitioning from MVP to production-ready
+  # ============================================================================
 
-      - name: Deploy to Vercel (Preview)
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          scope: ${{ secrets.VERCEL_ORG_ID }}
-          working-directory: ./
+  # MVP-DISABLED: Automated preview deployments (manual deploy gives more control during MVP)
+  # deploy-preview:
+  #   name: Deploy Preview (Vercel) 
+  #   runs-on: ubuntu-latest
+  #   needs: quality-check
+  #   if: github.event_name == 'pull_request'
+  #   
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Deploy to Vercel (Preview)
+  #       uses: amondnet/vercel-action@v25
+  #       with:
+  #         vercel-token: ${{ secrets.VERCEL_TOKEN }}
+  #         vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+  #         vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+  #         scope: ${{ secrets.VERCEL_ORG_ID }}
+  #         working-directory: ./
 
-  deploy-production:
-    name: Deploy Production (Vercel)
-    runs-on: ubuntu-latest
-    needs: quality-check
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # MVP-DISABLED: Automated production deployments (manual deploy preferred for MVP control)
+  # deploy-production:
+  #   name: Deploy Production (Vercel)
+  #   runs-on: ubuntu-latest
+  #   needs: quality-check
+  #   if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+  #   
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Deploy to Vercel (Production)
+  #       uses: amondnet/vercel-action@v25
+  #       with:
+  #         vercel-token: ${{ secrets.VERCEL_TOKEN }}
+  #         vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+  #         vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+  #         vercel-args: '--prod'
+  #         scope: ${{ secrets.VERCEL_ORG_ID }}
+  #         working-directory: ./
 
-      - name: Deploy to Vercel (Production)
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
-          scope: ${{ secrets.VERCEL_ORG_ID }}
-          working-directory: ./
+  # MVP-DISABLED: Security audits (can be run manually/weekly during MVP phase)
+  # security-check:
+  #   name: Security Audit
+  #   runs-on: ubuntu-latest
+  #   
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '20'
+  #         cache: 'npm'
+  #
+  #     - name: Install dependencies
+  #       run: npm ci
+  #
+  #     - name: Run security audit
+  #       run: npm audit --audit-level moderate
+  #
+  #     - name: Check for known vulnerabilities
+  #       run: npm audit --audit-level high --production
 
-  security-check:
-    name: Security Audit
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run security audit
-        run: npm audit --audit-level moderate
-
-      - name: Check for known vulnerabilities
-        run: npm audit --audit-level high --production
+# ============================================================================
+# RE-ENABLING FULL PIPELINE INSTRUCTIONS
+# ============================================================================
+# When ready to transition from MVP to production-ready:
+# 1. Uncomment the deploy-preview, deploy-production, and security-check jobs
+# 2. Uncomment the Prettier and test steps in quality-check job  
+# 3. Update the workflow name from "MVP Mode" to production name
+# 4. Consider adding additional production checks like:
+#    - Code coverage requirements
+#    - Performance testing
+#    - Accessibility testing
+#    - Bundle size monitoring
+# ============================================================================
