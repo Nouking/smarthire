@@ -41,7 +41,9 @@
       "Bash(npm run lint:*)",
       "Bash(git config:*)",
       "Bash(git credential-store:*)",
-      "mcp__serena__read_memory"
+      "mcp__serena__read_memory",
+      "mcp__serena__find_symbol",
+      "Bash(npx shadcn@latest add:*)"
     ],
     "deny": [],
     "ask": []
