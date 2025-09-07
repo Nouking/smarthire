@@ -40,7 +40,8 @@
       "Bash(npm test:*)",
       "Bash(npm run lint:*)",
       "Bash(git config:*)",
-      "Bash(git credential-store:*)"
+      "Bash(git credential-store:*)",
+      "mcp__serena__read_memory"
     ],
     "deny": [],
     "ask": []
