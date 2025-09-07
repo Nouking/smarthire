@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartHire AI - Create Your Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="./smarthire_registration_theme.css">
+    <style>
+        /* Additional professional styling for enhanced UX */
+        .floating-label {
+            transition: all 0.2s ease-out;
+        }
+        
+        .input-focused .floating-label {
+            transform: translateY(-20px) scale(0.85);
+            color: var(--brand-blue);
+        }
+        
+        .company-size-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        .company-size-option {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--input-border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            background: var(--input);
+        }
+        
+        .company-size-option:hover {
+            border-color: var(--brand-blue);
+            background: var(--brand-blue-light);
+        }
+        
+        .company-size-option.selected {
+            border-color: var(--brand-blue);
+            background: var(--brand-blue);
+            color: white;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .progress-step {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--muted);
+            transition: all 0.3s ease-out;
+        }
+        
+        .progress-step.active {
+            background: var(--brand-blue);
+            transform: scale(1.2);
+        }
+        
+        .progress-step.completed {
+            background: var(--success);
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex items-center justify-center p-4 sm:p-8 animate-fade-in">
+        <div class="w-full max-w-md">
+            <!-- Brand Header -->
+            <div class="text-center mb-8 animate-slide-up">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mb-4 shadow-lg">
+                    <i data-lucide="sparkles" class="w-8 h-8 text-white"></i>
+                </div>
+                <h1 class="heading-primary">SmartHire AI</h1>
+                <div class="social-proof">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                    <span>Join 1,000+ companies using AI for recruitment</span>
+                </div>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="progress-steps">
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+            </div>
+
+            <!-- Registration Card -->
+            <div class="registration-card p-8 animate-slide-up" style="animation-delay: 0.1s;">
+                <div class="text-center mb-6">
+                    <h2 class="heading-primary">Create Your Account</h2>
+                    <p class="heading-secondary">Start hiring smarter with AI-powered candidate matching</p>
+                </div>
+
+                <form id="registrationForm" class="space-y-6">
+                    <!-- Personal Information Section -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">Personal Information</h3>
+                        
+                        <!-- Full Name Field -->
+                        <div class="form-group">
+                            <label for="fullName" class="form-label">Full Name *</label>
+                            <div class="relative">
+                                <input 
+                                    type="text" 
+                                    id="fullName" 
+                                    name="fullName" 
+                                    class="form-input w-full" 
+                                    placeholder="Enter your full name"
+                                    autocomplete="name"
+                                    required
+                                >
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i data-lucide="user" class="w-5 h-5 text-gray-400"></i>
+                                </div>
+                            </div>
+                            <div class="validation-message"></div>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">Work Email *</label>
+                            <div class="relative">
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    class="form-input w-full" 
+                                    placeholder="Enter your work email"
+                                    autocomplete="email"
+                                    required
+                                >
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i data-lucide="mail" class="w-5 h-5 text-gray-400"></i>
+                                </div>
+                            </div>
+                            <div class="validation-message"></div>
+                            <div class="email-suggestions hidden mt-2">
+                                <p class="text-sm text-gray-600">Did you mean:</p>
+                                <div class="email-suggestions-list"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Company Information Section -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">Company Information</h3>
+                        
+                        <!-- Company Name Field -->
+                        <div class="form-group">
+                            <label for="companyName" class="form-label">Company Name *</label>
+                            <div class="relative">
+                                <input 
+                                    type="text" 
+                                    id="companyName" 
+                                    name="companyName" 
+                                    class="form-input w-full" 
+                                    placeholder="Enter your company name"
+                                    autocomplete="organization"
+                                    required
+                                >
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i data-lucide="building" class="w-5 h-5 text-gray-400"></i>
+                                </div>
+                            </div>
+                            <div class="validation-message"></div>
+                        </div>
+
+                        <!-- Company Size Selection -->
+                        <div class="form-group">
+                            <label class="form-label">Company Size</label>
+                            <div class="company-size-grid">
+                                <div class="company-size-option" data-value="1-10">1-10</div>
+                                <div class="company-size-option" data-value="11-50">11-50</div>
+                                <div class="company-size-option" data-value="51-200">51-200</div>
+                                <div class="company-size-option" data-value="201-1000">201-1000</div>
+                                <div class="company-size-option" data-value="1000+">1000+</div>
+                            </div>
+                            <input type="hidden" id="companySize" name="companySize">
+                        </div>
+                    </div>
+
+                    <!-- Security Section -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">Security</h3>
+                        
+                        <!-- Password Field -->
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password *</label>
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    class="form-input w-full pr-12" 
+                                    placeholder="Create a strong password"
+                                    autocomplete="new-password"
+                                    required
+                                >
+                                <button 
+                                    type="button" 
+                                    class="absolute inset-y-0 right-0 flex items-center pr-3 password-toggle"
+                                    aria-label="Toggle password visibility"
+                                >
+                                    <i data-lucide="eye" class="w-5 h-5 text-gray-400 eye-open"></i>
+                                    <i data-lucide="eye-off" class="w-5 h-5 text-gray-400 eye-closed hidden"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Password Strength Indicator -->
+                            <div class="password-strength mt-3">
+                                <div class="password-strength-bar">
+                                    <div class="password-strength-fill" style="width: 0%"></div>
+                                </div>
+                                <div class="flex justify-between mt-1">
+                                    <span class="password-strength-text text-sm text-gray-600">Password strength</span>
+                                    <span class="password-requirements text-xs text-gray-500">8+ chars, number, special</span>
+                                </div>
+                            </div>
+                            <div class="validation-message"></div>
+                        </div>
+
+                        <!-- Confirm Password Field -->
+                        <div class="form-group">
+                            <label for="confirmPassword" class="form-label">Confirm Password *</label>
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="confirmPassword" 
+                                    name="confirmPassword" 
+                                    class="form-input w-full pr-12" 
+                                    placeholder="Confirm your password"
+                                    autocomplete="new-password"
+                                    required
+                                >
+                                <button 
+                                    type="button" 
+                                    class="absolute inset-y-0 right-0 flex items-center pr-3 password-toggle"
+                                    aria-label="Toggle confirm password visibility"
+                                >
+                                    <i data-lucide="eye" class="w-5 h-5 text-gray-400 eye-open"></i>
+                                    <i data-lucide="eye-off" class="w-5 h-5 text-gray-400 eye-closed hidden"></i>
+                                </button>
+                            </div>
+                            <div class="validation-message"></div>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Privacy -->
+                    <div class="form-group">
+                        <label class="flex items-start gap-3">
+                            <input type="checkbox" id="acceptTerms" name="acceptTerms" class="form-checkbox mt-0.5" required>
+                            <span class="text-sm text-gray-600">
+                                I agree to the 
+                                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Terms of Service</a>
+                                and 
+                                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Privacy Policy</a>
+                            </span>
+                        </label>
+                        <div class="validation-message"></div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit" 
+                        class="btn-primary w-full flex items-center justify-center gap-2"
+                        id="submitBtn"
+                    >
+                        <span class="button-text">Create Account</span>
+                        <div class="loading-spinner hidden"></div>
+                    </button>
+
+                    <!-- Sign In Link -->
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">
+                            Already have an account? 
+                            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Sign in</a>
+                        </p>
+                    </div>
+                </form>
+
+                <!-- Success State (Hidden by default) -->
+                <div id="successState" class="hidden text-center space-y-4">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                        <i data-lucide="check-circle" class="w-8 h-8 text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900">Account Created Successfully!</h3>
+                    <p class="text-gray-600">
+                        We've sent a verification email to your inbox. Please check your email and click the verification link to activate your account.
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p class="text-sm text-blue-800">
+                            <strong>Next steps:</strong><br>
+                            1. Check your email for verification link<br>
+                            2. Complete your company profile<br>
+                            3. Start your first AI-powered job search
+                        </p>
+                    </div>
+                    <button class="btn-primary">
+                        Resend Verification Email
+                    </button>
+                </div>
+            </div>
+
+            <!-- Additional Trust Signals -->
+            <div class="text-center mt-6 text-sm text-gray-500">
+                <p>🔒 Your data is encrypted and secure</p>
+                <p class="mt-1">Trusted by companies worldwide</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Form validation and interaction logic
+        class RegistrationForm {
+            constructor() {
+                this.form = document.getElementById('registrationForm');
+                this.progressSteps = document.querySelectorAll('.progress-step');
+                this.currentStep = 0;
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.initializePasswordStrength();
+                this.initializeEmailValidation();
+                this.initializeCompanySize();
+                this.initializeFormValidation();
+            }
+
+            setupEventListeners() {
+                // Password visibility toggles
+                document.querySelectorAll('.password-toggle').forEach(toggle => {
+                    toggle.addEventListener('click', this.togglePasswordVisibility.bind(this));
+                });
+
+                // Form submission
+                this.form.addEventListener('submit', this.handleSubmit.bind(this));
+
+                // Real-time validation
+                this.form.querySelectorAll('input').forEach(input => {
+                    input.addEventListener('blur', this.validateField.bind(this));
+                    input.addEventListener('input', this.handleInputChange.bind(this));
+                });
+
+                // Progress tracking
+                this.form.querySelectorAll('input, select').forEach(input => {
+                    input.addEventListener('change', this.updateProgress.bind(this));
+                });
+            }
+
+            togglePasswordVisibility(event) {
+                const toggle = event.currentTarget;
+                const input = toggle.parentElement.querySelector('input');
+                const eyeOpen = toggle.querySelector('.eye-open');
+                const eyeClosed = toggle.querySelector('.eye-closed');
+
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    eyeOpen.classList.add('hidden');
+                    eyeClosed.classList.remove('hidden');
+                } else {
+                    input.type = 'password';
+                    eyeOpen.classList.remove('hidden');
+                    eyeClosed.classList.add('hidden');
+                }
+            }
+
+            initializePasswordStrength() {
+                const passwordInput = document.getElementById('password');
+                const strengthFill = document.querySelector('.password-strength-fill');
+                const strengthText = document.querySelector('.password-strength-text');
+
+                passwordInput.addEventListener('input', (e) => {
+                    const password = e.target.value;
+                    const strength = this.calculatePasswordStrength(password);
+                    
+                    strengthFill.style.width = `${strength.percentage}%`;
+                    strengthFill.className = `password-strength-fill password-strength-${strength.level}`;
+                    strengthText.textContent = `Password strength: ${strength.level}`;
+                });
+            }
+
+            calculatePasswordStrength(password) {
+                let score = 0;
+                let feedback = [];
+
+                if (password.length >= 8) score += 25;
+                else feedback.push('8+ characters');
+
+                if (/[a-z]/.test(password)) score += 25;
+                if (/[A-Z]/.test(password)) score += 25;
+                if (/[0-9]/.test(password)) score += 25;
+                if (/[^A-Za-z0-9]/.test(password)) score += 25;
+                else feedback.push('special character');
+
+                let level = 'weak';
+                if (score >= 75) level = 'strong';
+                else if (score >= 50) level = 'good';
+                else if (score >= 25) level = 'fair';
+
+                return { percentage: score, level, feedback };
+            }
+
+            initializeEmailValidation() {
+                const emailInput = document.getElementById('email');
+                const suggestionsDiv = document.querySelector('.email-suggestions');
+                
+                emailInput.addEventListener('blur', async (e) => {
+                    const email = e.target.value;
+                    if (email && this.isValidEmail(email)) {
+                        // Simulate email validation
+                        setTimeout(() => {
+                            this.showValidationSuccess(emailInput, 'Email format is valid');
+                        }, 500);
+                    }
+                });
+            }
+
+            isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            initializeCompanySize() {
+                const companySizeOptions = document.querySelectorAll('.company-size-option');
+                const hiddenInput = document.getElementById('companySize');
+
+                companySizeOptions.forEach(option => {
+                    option.addEventListener('click', () => {
+                        // Remove previous selection
+                        companySizeOptions.forEach(opt => opt.classList.remove('selected'));
+                        
+                        // Add selection to clicked option
+                        option.classList.add('selected');
+                        hiddenInput.value = option.dataset.value;
+                        
+                        // Animate selection
+                        option.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            option.style.transform = 'scale(1)';
+                        }, 150);
+                    });
+                });
+            }
+
+            initializeFormValidation() {
+                // Real-time validation for confirm password
+                const passwordInput = document.getElementById('password');
+                const confirmPasswordInput = document.getElementById('confirmPassword');
+
+                confirmPasswordInput.addEventListener('input', () => {
+                    if (confirmPasswordInput.value && passwordInput.value !== confirmPasswordInput.value) {
+                        this.showValidationError(confirmPasswordInput, 'Passwords do not match');
+                    } else if (confirmPasswordInput.value && passwordInput.value === confirmPasswordInput.value) {
+                        this.showValidationSuccess(confirmPasswordInput, 'Passwords match');
+                    }
+                });
+            }
+
+            validateField(event) {
+                const field = event.target;
+                const value = field.value.trim();
+
+                // Clear previous validation
+                this.clearValidation(field);
+
+                if (!value && field.required) {
+                    this.showValidationError(field, `${field.labels[0].textContent.replace('*', '').trim()} is required`);
+                    return false;
+                }
+
+                // Specific field validations
+                switch (field.name) {
+                    case 'email':
+                        if (value && !this.isValidEmail(value)) {
+                            this.showValidationError(field, 'Please enter a valid email address');
+                            return false;
+                        }
+                        break;
+                    case 'password':
+                        if (value && value.length < 8) {
+                            this.showValidationError(field, 'Password must be at least 8 characters');
+                            return false;
+                        }
+                        break;
+                }
+
+                if (value) {
+                    this.showValidationSuccess(field);
+                }
+                return true;
+            }
+
+            showValidationError(field, message) {
+                field.classList.add('input-error');
+                field.classList.remove('input-success');
+                
+                const validationDiv = field.closest('.form-group').querySelector('.validation-message');
+                validationDiv.textContent = message;
+                validationDiv.className = 'validation-message form-error animate-slide-up';
+            }
+
+            showValidationSuccess(field, message = '') {
+                field.classList.add('input-success');
+                field.classList.remove('input-error');
+                
+                const validationDiv = field.closest('.form-group').querySelector('.validation-message');
+                validationDiv.textContent = message;
+                validationDiv.className = 'validation-message form-success';
+            }
+
+            clearValidation(field) {
+                field.classList.remove('input-error', 'input-success');
+                
+                const validationDiv = field.closest('.form-group').querySelector('.validation-message');
+                validationDiv.textContent = '';
+                validationDiv.className = 'validation-message';
+            }
+
+            updateProgress() {
+                const requiredFields = this.form.querySelectorAll('input[required], input[type="checkbox"][required]');
+                let filledFields = 0;
+
+                requiredFields.forEach(field => {
+                    if ((field.type === 'checkbox' && field.checked) || 
+                        (field.type !== 'checkbox' && field.value.trim())) {
+                        filledFields++;
+                    }
+                });
+
+                const progress = Math.floor((filledFields / requiredFields.length) * this.progressSteps.length);
+                
+                this.progressSteps.forEach((step, index) => {
+                    step.classList.remove('active', 'completed');
+                    if (index < progress) {
+                        step.classList.add('completed');
+                    } else if (index === progress) {
+                        step.classList.add('active');
+                    }
+                });
+            }
+
+            async handleSubmit(event) {
+                event.preventDefault();
+                
+                // Validate all fields
+                const isValid = Array.from(this.form.querySelectorAll('input')).every(field => 
+                    this.validateField({ target: field })
+                );
+
+                if (!isValid) {
+                    // Shake form for errors
+                    this.form.style.animation = 'shake 0.4s ease-in-out';
+                    setTimeout(() => {
+                        this.form.style.animation = '';
+                    }, 400);
+                    return;
+                }
+
+                // Show loading state
+                const submitBtn = document.getElementById('submitBtn');
+                const buttonText = submitBtn.querySelector('.button-text');
+                const loadingSpinner = submitBtn.querySelector('.loading-spinner');
+
+                buttonText.textContent = 'Creating Account...';
+                loadingSpinner.classList.remove('hidden');
+                submitBtn.disabled = true;
+
+                try {
+                    // Simulate API call
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+
+                    // Show success state
+                    this.showSuccessState();
+                } catch (error) {
+                    // Handle error
+                    this.showError('Failed to create account. Please try again.');
+                } finally {
+                    // Reset button state
+                    buttonText.textContent = 'Create Account';
+                    loadingSpinner.classList.add('hidden');
+                    submitBtn.disabled = false;
+                }
+            }
+
+            showSuccessState() {
+                this.form.classList.add('hidden');
+                document.getElementById('successState').classList.remove('hidden');
+                document.getElementById('successState').classList.add('animate-fade-in');
+            }
+
+            showError(message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'form-error text-center p-4 mb-4 bg-red-50 border border-red-200 rounded-lg animate-slide-up';
+                errorDiv.textContent = message;
+                
+                this.form.insertBefore(errorDiv, this.form.firstChild);
+                
+                setTimeout(() => {
+                    errorDiv.remove();
+                }, 5000);
+            }
+
+            handleInputChange(event) {
+                const field = event.target;
+                
+                // Add input animation
+                field.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    field.style.transform = 'scale(1)';
+                }, 100);
+            }
+        }
+
+        // Initialize the registration form
+        document.addEventListener('DOMContentLoaded', () => {
+            new RegistrationForm();
+        });
+
+        // Add shake animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="description" content="SmartHire AI - Secure login for intelligent hiring platform">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="SmartHire AI">
+  
+  <title>Sign In - SmartHire AI</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  
+  <!-- Custom Theme -->
+  <link rel="stylesheet" href="login_theme.css">
+  
+  <style>
+    /* Additional custom styles for demo */
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      min-height: 100vh;
+    }
+    
+    .brand-gradient {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .glass-effect {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .pulse-ring {
+      animation: pulse-ring 2s infinite;
+    }
+    
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(0.9);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.1);
+        opacity: 0;
+      }
+    }
+    
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .login-button:hover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Background Pattern -->
+  <div class="fixed inset-0 opacity-30">
+    <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25px 25px, #2563eb 1px, transparent 1px); background-size: 50px 50px;"></div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="relative min-h-screen flex items-center justify-center p-4">
+    
+    <!-- Brand Header -->
+    <div class="absolute top-8 left-1/2 transform -translate-x-1/2 text-center fade-in-up">
+      <div class="flex items-center justify-center space-x-2 mb-2">
+        <!-- Logo Icon -->
+        <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+          <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+        </div>
+        <h1 class="text-2xl font-bold brand-gradient">SmartHire AI</h1>
+      </div>
+      <p class="text-sm text-gray-600 font-medium">Intelligent Hiring Platform</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="w-full max-w-md fade-in-up" style="animation-delay: 0.2s;">
+      <div class="login-card glass-effect bg-white rounded-xl shadow-2xl p-8 relative overflow-hidden">
+        
+        <!-- Card Header -->
+        <div class="text-center mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">Welcome back</h2>
+          <p class="text-gray-600">Sign in to your account</p>
+        </div>
+
+        <!-- Error Alert (Hidden by default) -->
+        <div id="error-alert" class="hidden mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="alert-circle" class="w-5 h-5 text-red-600"></i>
+            <span id="error-message" class="text-sm text-red-800 font-medium"></span>
+          </div>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="space-y-6">
+          
+          <!-- Email Field -->
+          <div class="space-y-2">
+            <label for="email" class="block text-sm font-semibold text-gray-700">
+              Email address
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i data-lucide="mail" class="w-5 h-5 text-gray-400"></i>
+              </div>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                class="login-input w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white placeholder-gray-500 text-gray-900 text-base"
+                placeholder="you@company.com"
+                aria-describedby="email-error"
+              />
+            </div>
+            <div id="email-error" class="hidden text-sm text-red-600" role="alert"></div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="space-y-2">
+            <label for="password" class="block text-sm font-semibold text-gray-700">
+              Password
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i data-lucide="lock" class="w-5 h-5 text-gray-400"></i>
+              </div>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+                class="login-input w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white placeholder-gray-500 text-gray-900 text-base"
+                placeholder="Enter your password"
+                aria-describedby="password-error"
+              />
+              <button
+                type="button"
+                id="toggle-password"
+                class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                aria-label="Toggle password visibility"
+              >
+                <i data-lucide="eye" class="w-5 h-5 text-gray-400 hover:text-gray-600 transition-colors"></i>
+              </button>
+            </div>
+            <div id="password-error" class="hidden text-sm text-red-600" role="alert"></div>
+          </div>
+
+          <!-- Remember Me -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+              />
+              <label for="remember-me" class="ml-2 block text-sm text-gray-700">
+                Remember me for 30 days
+              </label>
+            </div>
+            <a href="#" class="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+              Forgot password?
+            </a>
+          </div>
+
+          <!-- Sign In Button -->
+          <button
+            type="submit"
+            id="sign-in-btn"
+            class="login-button relative w-full py-3 px-4 border border-transparent rounded-lg text-white font-semibold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform transition-all duration-150 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
+            aria-describedby="sign-in-status"
+          >
+            <span id="button-text">Sign in</span>
+            <div id="loading-spinner" class="hidden absolute inset-0 flex items-center justify-center">
+              <div class="loading-spinner w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          </button>
+          
+          <!-- Loading Status for Screen Readers -->
+          <div id="sign-in-status" class="sr-only" role="status" aria-live="polite"></div>
+        </form>
+
+        <!-- Sign Up Link -->
+        <div class="mt-8 text-center">
+          <p class="text-sm text-gray-600">
+            Don't have an account?
+            <a href="#" class="font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+              Sign up for free
+            </a>
+          </p>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="mt-8 pt-6 border-t border-gray-200">
+          <div class="flex items-center justify-center space-x-6 text-xs text-gray-500">
+            <div class="flex items-center space-x-1">
+              <i data-lucide="shield-check" class="w-4 h-4 text-green-500"></i>
+              <span>Secure</span>
+            </div>
+            <div class="flex items-center space-x-1">
+              <i data-lucide="zap" class="w-4 h-4 text-blue-500"></i>
+              <span>Fast</span>
+            </div>
+            <div class="flex items-center space-x-1">
+              <i data-lucide="users" class="w-4 h-4 text-purple-500"></i>
+              <span>Built for Teams</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Form validation and interaction
+    class LoginForm {
+      constructor() {
+        this.form = document.getElementById('login-form');
+        this.emailInput = document.getElementById('email');
+        this.passwordInput = document.getElementById('password');
+        this.signInBtn = document.getElementById('sign-in-btn');
+        this.buttonText = document.getElementById('button-text');
+        this.loadingSpinner = document.getElementById('loading-spinner');
+        this.errorAlert = document.getElementById('error-alert');
+        this.errorMessage = document.getElementById('error-message');
+        this.togglePassword = document.getElementById('toggle-password');
+        this.signInStatus = document.getElementById('sign-in-status');
+        
+        this.isLoading = false;
+        this.init();
+      }
+
+      init() {
+        this.form.addEventListener('submit', this.handleSubmit.bind(this));
+        this.emailInput.addEventListener('blur', this.validateEmail.bind(this));
+        this.passwordInput.addEventListener('blur', this.validatePassword.bind(this));
+        this.togglePassword.addEventListener('click', this.togglePasswordVisibility.bind(this));
+        
+        // Real-time validation
+        this.emailInput.addEventListener('input', this.clearFieldError.bind(this, 'email'));
+        this.passwordInput.addEventListener('input', this.clearFieldError.bind(this, 'password'));
+      }
+
+      validateEmail() {
+        const email = this.emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (!email) {
+          this.showFieldError('email', 'Email is required');
+          return false;
+        }
+        
+        if (!emailRegex.test(email)) {
+          this.showFieldError('email', 'Please enter a valid email address');
+          return false;
+        }
+        
+        this.clearFieldError('email');
+        return true;
+      }
+
+      validatePassword() {
+        const password = this.passwordInput.value;
+        
+        if (!password) {
+          this.showFieldError('password', 'Password is required');
+          return false;
+        }
+        
+        if (password.length < 6) {
+          this.showFieldError('password', 'Password must be at least 6 characters');
+          return false;
+        }
+        
+        this.clearFieldError('password');
+        return true;
+      }
+
+      showFieldError(field, message) {
+        const input = document.getElementById(field);
+        const errorDiv = document.getElementById(`${field}-error`);
+        
+        input.classList.add('border-red-500', 'ring-red-500');
+        input.classList.remove('border-gray-300');
+        errorDiv.textContent = message;
+        errorDiv.classList.remove('hidden');
+        
+        // Shake animation
+        input.style.animation = 'shake 400ms ease-in-out';
+        setTimeout(() => {
+          input.style.animation = '';
+        }, 400);
+      }
+
+      clearFieldError(field) {
+        const input = document.getElementById(field);
+        const errorDiv = document.getElementById(`${field}-error`);
+        
+        input.classList.remove('border-red-500', 'ring-red-500');
+        input.classList.add('border-gray-300');
+        errorDiv.classList.add('hidden');
+      }
+
+      showError(message) {
+        this.errorMessage.textContent = message;
+        this.errorAlert.classList.remove('hidden');
+        this.errorAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      hideError() {
+        this.errorAlert.classList.add('hidden');
+      }
+
+      setLoading(loading) {
+        this.isLoading = loading;
+        
+        if (loading) {
+          this.buttonText.classList.add('invisible');
+          this.loadingSpinner.classList.remove('hidden');
+          this.signInBtn.disabled = true;
+          this.signInBtn.classList.add('cursor-not-allowed', 'opacity-75');
+          this.signInStatus.textContent = 'Signing in...';
+          
+          // Disable inputs
+          this.emailInput.disabled = true;
+          this.passwordInput.disabled = true;
+        } else {
+          this.buttonText.classList.remove('invisible');
+          this.loadingSpinner.classList.add('hidden');
+          this.signInBtn.disabled = false;
+          this.signInBtn.classList.remove('cursor-not-allowed', 'opacity-75');
+          this.signInStatus.textContent = '';
+          
+          // Re-enable inputs
+          this.emailInput.disabled = false;
+          this.passwordInput.disabled = false;
+        }
+      }
+
+      togglePasswordVisibility() {
+        const type = this.passwordInput.type === 'password' ? 'text' : 'password';
+        this.passwordInput.type = type;
+        
+        const icon = this.togglePassword.querySelector('i');
+        if (type === 'text') {
+          icon.setAttribute('data-lucide', 'eye-off');
+          this.togglePassword.setAttribute('aria-label', 'Hide password');
+        } else {
+          icon.setAttribute('data-lucide', 'eye');
+          this.togglePassword.setAttribute('aria-label', 'Show password');
+        }
+        
+        lucide.createIcons();
+      }
+
+      async handleSubmit(e) {
+        e.preventDefault();
+        
+        if (this.isLoading) return;
+        
+        this.hideError();
+        
+        // Validate form
+        const isEmailValid = this.validateEmail();
+        const isPasswordValid = this.validatePassword();
+        
+        if (!isEmailValid || !isPasswordValid) {
+          return;
+        }
+        
+        this.setLoading(true);
+        
+        // Simulate authentication
+        try {
+          await this.simulateAuth();
+        } catch (error) {
+          this.showError(error.message);
+        } finally {
+          this.setLoading(false);
+        }
+      }
+
+      async simulateAuth() {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        const email = this.emailInput.value.trim();
+        
+        // Demo: reject if email is "test@error.com"
+        if (email === 'test@error.com') {
+          throw new Error('Invalid credentials. Please check your email and password.');
+        }
+        
+        // Success simulation
+        this.signInStatus.textContent = 'Sign in successful! Redirecting...';
+        
+        // Simulate redirect after success
+        setTimeout(() => {
+          alert('Login successful! In a real app, you would be redirected to the dashboard.');
+        }, 1000);
+      }
+    }
+
+    // Initialize form when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      new LoginForm();
+    });
+
+    // PWA Installation prompt (basic)
+    let deferredPrompt;
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+      deferredPrompt = e;
+      // Show install button or banner here if desired
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Ctrl/Cmd + Enter to submit form
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        document.getElementById('sign-in-btn').click();
+      }
+    });
+  </script>
+</body>
+</html>

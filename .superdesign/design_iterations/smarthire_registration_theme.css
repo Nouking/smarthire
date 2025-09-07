@@ -1,0 +1,340 @@
+/* SmartHire AI Professional B2B SaaS Registration Theme */
+:root {
+  /* Brand Colors */
+  --brand-blue: #2563eb;
+  --brand-blue-hover: #1d4ed8;
+  --brand-blue-light: #dbeafe;
+  --brand-blue-dark: #1e40af;
+  
+  /* Professional Palette */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  
+  /* Primary (Brand Blue) */
+  --primary: var(--brand-blue);
+  --primary-foreground: #ffffff;
+  
+  /* Secondary (Professional Gray) */
+  --secondary: #f1f5f9;
+  --secondary-foreground: #334155;
+  
+  /* Muted (Subtle Grays) */
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  
+  /* Accent (Interactive Blue) */
+  --accent: #f0f9ff;
+  --accent-foreground: var(--brand-blue);
+  
+  /* Form States */
+  --success: #059669;
+  --success-foreground: #ffffff;
+  --warning: #d97706;
+  --warning-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  
+  /* Borders and Inputs */
+  --border: #e2e8f0;
+  --input: #ffffff;
+  --input-border: #cbd5e1;
+  --input-border-focus: var(--brand-blue);
+  --ring: var(--brand-blue);
+  
+  /* Professional Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* Professional Spacing & Sizing */
+  --radius: 0.5rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Professional Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* Form Focus Ring */
+  --focus-ring: 0 0 0 2px var(--brand-blue-light);
+}
+
+/* Professional Body Styling */
+body {
+  font-family: var(--font-sans) !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  color: var(--foreground) !important;
+  line-height: 1.6 !important;
+}
+
+/* Professional Card Styling */
+.registration-card {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-xl) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Professional Button Styling */
+.btn-primary {
+  background: var(--brand-blue) !important;
+  color: var(--primary-foreground) !important;
+  border: none !important;
+  border-radius: var(--radius) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1.5rem !important;
+  transition: all 0.2s ease-in-out !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.btn-primary:hover {
+  background: var(--brand-blue-hover) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.btn-primary:active {
+  transform: translateY(0) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.btn-primary:disabled {
+  background: var(--muted-foreground) !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Professional Form Input Styling */
+.form-input {
+  background: var(--input) !important;
+  border: 1px solid var(--input-border) !important;
+  border-radius: var(--radius) !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 0.875rem !important;
+  transition: all 0.2s ease-in-out !important;
+  font-family: var(--font-sans) !important;
+}
+
+.form-input:focus {
+  outline: none !important;
+  border-color: var(--input-border-focus) !important;
+  box-shadow: var(--focus-ring) !important;
+}
+
+.form-input::placeholder {
+  color: var(--muted-foreground) !important;
+}
+
+/* Professional Form Label Styling */
+.form-label {
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  color: var(--foreground) !important;
+  margin-bottom: 0.5rem !important;
+  display: block !important;
+}
+
+/* Password Strength Indicator */
+.password-strength {
+  margin-top: 0.5rem !important;
+}
+
+.password-strength-bar {
+  height: 4px !important;
+  border-radius: 2px !important;
+  background: var(--muted) !important;
+  overflow: hidden !important;
+}
+
+.password-strength-fill {
+  height: 100% !important;
+  transition: all 0.3s ease-in-out !important;
+  border-radius: 2px !important;
+}
+
+.password-strength-weak { background: var(--destructive) !important; }
+.password-strength-fair { background: var(--warning) !important; }
+.password-strength-good { background: var(--brand-blue) !important; }
+.password-strength-strong { background: var(--success) !important; }
+
+/* Professional Validation States */
+.form-error {
+  color: var(--destructive) !important;
+  font-size: 0.875rem !important;
+  margin-top: 0.25rem !important;
+  font-weight: 500 !important;
+}
+
+.form-success {
+  color: var(--success) !important;
+  font-size: 0.875rem !important;
+  margin-top: 0.25rem !important;
+  font-weight: 500 !important;
+}
+
+.input-error {
+  border-color: var(--destructive) !important;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1) !important;
+}
+
+.input-success {
+  border-color: var(--success) !important;
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.1) !important;
+}
+
+/* Professional Checkbox Styling */
+.form-checkbox {
+  appearance: none !important;
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  border: 2px solid var(--input-border) !important;
+  border-radius: var(--radius-sm) !important;
+  position: relative !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.form-checkbox:checked {
+  background: var(--brand-blue) !important;
+  border-color: var(--brand-blue) !important;
+}
+
+.form-checkbox:checked::after {
+  content: '✓' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: white !important;
+  font-size: 0.875rem !important;
+  font-weight: bold !important;
+}
+
+/* Professional Select Styling */
+.form-select {
+  background: var(--input) !important;
+  border: 1px solid var(--input-border) !important;
+  border-radius: var(--radius) !important;
+  padding: 0.75rem 2.5rem 0.75rem 1rem !important;
+  font-size: 0.875rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease-in-out !important;
+  appearance: none !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+  background-position: right 0.5rem center !important;
+  background-repeat: no-repeat !important;
+  background-size: 1.5em 1.5em !important;
+}
+
+.form-select:focus {
+  outline: none !important;
+  border-color: var(--input-border-focus) !important;
+  box-shadow: var(--focus-ring) !important;
+}
+
+/* Professional Typography */
+.heading-primary {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: var(--foreground) !important;
+  margin-bottom: 0.5rem !important;
+  text-align: center !important;
+}
+
+.heading-secondary {
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  color: var(--muted-foreground) !important;
+  text-align: center !important;
+  margin-bottom: 2rem !important;
+}
+
+.social-proof {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  font-size: 0.875rem !important;
+  color: var(--muted-foreground) !important;
+  margin-bottom: 1.5rem !important;
+  font-weight: 500 !important;
+}
+
+/* Professional Animation Classes */
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out !important;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out !important;
+}
+
+.animate-bounce {
+  animation: bounce 0.6s ease-out !important;
+}
+
+/* Professional Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% { transform: translate3d(0, 0, 0); }
+  40%, 43% { transform: translate3d(0, -8px, 0); }
+  70% { transform: translate3d(0, -4px, 0); }
+  90% { transform: translate3d(0, -2px, 0); }
+}
+
+/* Professional Loading States */
+.loading-spinner {
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  border: 2px solid transparent !important;
+  border-top: 2px solid currentColor !important;
+  border-radius: 50% !important;
+  animation: spin 1s linear infinite !important;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Professional Responsive Design */
+@media (max-width: 640px) {
+  .registration-card {
+    margin: 1rem !important;
+    border-radius: var(--radius) !important;
+  }
+  
+  .heading-primary {
+    font-size: 1.75rem !important;
+  }
+  
+  .btn-primary {
+    width: 100% !important;
+    padding: 0.875rem 1.5rem !important;
+    font-size: 1rem !important;
+  }
+  
+  .form-input, .form-select {
+    padding: 0.875rem 1rem !important;
+    font-size: 1rem !important;
+  }
+}

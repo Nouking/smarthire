@@ -1,0 +1,182 @@
+:root {
+  /* B2B Professional Theme - SmartHire AI Login */
+  
+  /* Primary Brand Colors */
+  --background: oklch(0.9980 0.0020 264.4822); /* Clean white with subtle blue tint */
+  --foreground: oklch(0.1448 0.0200 264.4822); /* Deep professional navy */
+  --card: oklch(1.0000 0 0); /* Pure white for card backgrounds */
+  --card-foreground: oklch(0.1448 0.0200 264.4822);
+  
+  /* Interactive Elements */
+  --primary: oklch(0.5470 0.2080 264.4822); /* Professional blue #2563eb */
+  --primary-foreground: oklch(0.9950 0 0); /* Clean white text */
+  --secondary: oklch(0.9600 0.0080 264.4822); /* Subtle blue-gray */
+  --secondary-foreground: oklch(0.2046 0.0150 264.4822);
+  
+  /* Input & Form States */
+  --muted: oklch(0.9702 0.0050 264.4822); /* Light background for inputs */
+  --muted-foreground: oklch(0.5486 0.0100 264.4822); /* Placeholder text */
+  --input: oklch(0.9850 0.0030 264.4822); /* Input background */
+  --border: oklch(0.8900 0.0080 264.4822); /* Subtle borders */
+  --ring: oklch(0.5470 0.2080 264.4822); /* Focus ring color */
+  
+  /* Status Colors */
+  --destructive: oklch(0.5830 0.2387 28.4765); /* Error red */
+  --destructive-foreground: oklch(0.9950 0 0);
+  --accent: oklch(0.9400 0.0200 264.4822); /* Hover states */
+  --accent-foreground: oklch(0.2046 0.0150 264.4822);
+  
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  
+  /* Spacing & Layout */
+  --radius: 0.75rem; /* Moderate border radius for professional look */
+  --spacing: 0.25rem; /* Base spacing unit */
+  
+  /* Shadows - Professional depth */
+  --shadow-xs: 0 1px 2px 0 rgba(37, 99, 235, 0.08);
+  --shadow-sm: 0 1px 3px 0 rgba(37, 99, 235, 0.10), 0 1px 2px -1px rgba(37, 99, 235, 0.06);
+  --shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.08), 0 2px 4px -2px rgba(37, 99, 235, 0.06);
+  --shadow-md: 0 10px 15px -3px rgba(37, 99, 235, 0.08), 0 4px 6px -4px rgba(37, 99, 235, 0.06);
+  --shadow-lg: 0 20px 25px -5px rgba(37, 99, 235, 0.08), 0 8px 10px -6px rgba(37, 99, 235, 0.06);
+  --shadow-xl: 0 25px 50px -12px rgba(37, 99, 235, 0.12);
+  
+  /* Focus States - Accessibility */
+  --focus-ring: 0 0 0 2px oklch(0.5470 0.2080 264.4822 / 0.2);
+  --focus-ring-offset: 2px;
+  
+  /* B2B Specific Variables */
+  --trust-indicator: oklch(0.4500 0.1800 152.4000); /* Success green */
+  --warning: oklch(0.7200 0.1400 60.0000); /* Warning amber */
+  --info: oklch(0.6000 0.1500 220.0000); /* Info blue */
+  
+  /* Gradient for premium feel */
+  --gradient-primary: linear-gradient(135deg, oklch(0.5470 0.2080 264.4822) 0%, oklch(0.4800 0.2200 280.0000) 100%);
+  --gradient-hover: linear-gradient(135deg, oklch(0.5000 0.2200 264.4822) 0%, oklch(0.4200 0.2400 280.0000) 100%);
+}
+
+/* Component-specific styling */
+.login-card {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-lg) !important;
+  border-radius: var(--radius) !important;
+}
+
+.login-input {
+  background: var(--input) !important;
+  border: 1px solid var(--border) !important;
+  font-family: var(--font-sans) !important;
+  transition: all 200ms ease-out !important;
+}
+
+.login-input:focus {
+  outline: none !important;
+  border-color: var(--primary) !important;
+  box-shadow: var(--focus-ring) !important;
+}
+
+.login-button {
+  background: var(--gradient-primary) !important;
+  color: var(--primary-foreground) !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  min-height: 44px !important; /* Touch-friendly */
+  border-radius: calc(var(--radius) - 2px) !important;
+  transition: all 150ms ease-out !important;
+}
+
+.login-button:hover {
+  background: var(--gradient-hover) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.login-button:active {
+  transform: translateY(0) !important;
+}
+
+.login-button:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Brand typography */
+.brand-title {
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  color: var(--foreground) !important;
+  letter-spacing: -0.02em !important;
+}
+
+.brand-subtitle {
+  font-family: var(--font-sans) !important;
+  font-weight: 400 !important;
+  color: var(--muted-foreground) !important;
+}
+
+/* Error states */
+.error-message {
+  color: var(--destructive) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.875rem !important;
+  animation: shake 400ms ease-in-out !important;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* Loading states */
+.loading-spinner {
+  border: 2px solid var(--primary-foreground) !important;
+  border-top-color: transparent !important;
+  animation: spin 1s linear infinite !important;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .login-card {
+    margin: 1rem !important;
+    box-shadow: var(--shadow-sm) !important;
+  }
+  
+  .login-input {
+    font-size: 16px !important; /* Prevent zoom on iOS */
+    min-height: 48px !important; /* Touch-friendly */
+  }
+  
+  .login-button {
+    min-height: 48px !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: oklch(0.0000 0 0);
+    --ring: oklch(0.0000 0 0);
+    --primary: oklch(0.0000 0 0);
+    --background: oklch(1.0000 0 0);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
