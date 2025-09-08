@@ -43,7 +43,10 @@
       "Bash(git credential-store:*)",
       "mcp__serena__read_memory",
       "mcp__serena__find_symbol",
-      "Bash(npx shadcn@latest add:*)"
+      "Bash(npx shadcn@latest add:*)",
+      "mcp__serena__insert_after_symbol",
+      "mcp__serena__create_text_file",
+      "mcp__serena__execute_shell_command"
     ],
     "deny": [],
     "ask": []

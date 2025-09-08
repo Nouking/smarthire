@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## AI Task Workflow
 
-<Importance> 
-No illusion, No overthinking, only do the task scope
-<Importance>
+## Core Development Principles
+- **KISS (Keep it simple, stupid)**: Make solutions as simple as possible. Use existing methods and patterns rather than creating complex new ones.
+- **YAGNI (You aren't gonna need it)**: Don't add features, methods, or complexity until actually needed. If existing functionality covers the requirement, use it.
 
 ### 1. Project Understanding (Mandatory - SmartHire AI Project)
 

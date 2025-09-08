@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to SmartHire AI - Onboarding</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <!-- Custom Theme -->
+    <link rel="stylesheet" href="smarthire_onboarding_theme.css">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+                        mono: ['JetBrains Mono', 'ui-monospace']
+                    },
+                    colors: {
+                        primary: 'hsl(252 55% 55%)',
+                        secondary: 'hsl(252 14% 94%)',
+                        success: 'hsl(142 65% 18%)',
+                        muted: 'hsl(252 14% 94%)'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <div class="onboarding-container">
+        <!-- Logo Header -->
+        <header class="text-center mb-8">
+            <div class="flex items-center justify-center mb-4">
+                <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
+                    <span class="text-white font-bold text-xl">S</span>
+                </div>
+                <h1 class="ml-3 text-2xl font-bold text-gray-900">SmartHire AI</h1>
+            </div>
+        </header>
+
+        <!-- Welcome Section -->
+        <section class="welcome-section fade-in">
+            <div class="welcome-icon">
+                <i data-lucide="check" class="w-6 h-6"></i>
+            </div>
+            <h1 class="heading-2 mb-2">Welcome, John Smith!</h1>
+            <p class="text-muted text-large">Registration Complete - Your SmartHire AI account is ready to set up</p>
+        </section>
+
+        <!-- Progress Section -->
+        <section class="progress-section slide-up stagger-1">
+            <div class="mb-4">
+                <h2 class="heading-3 mb-2">Step 1 of 4 - Company Profile</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%" id="progressFill"></div>
+                </div>
+                <p class="text-small text-muted">25% Complete</p>
+            </div>
+        </section>
+
+        <!-- Steps Grid -->
+        <section class="steps-grid">
+            <!-- Step 1 -->
+            <div class="step-card slide-up stagger-1" data-step="1">
+                <div class="step-icon">
+                    <i data-lucide="building" class="w-10 h-10 text-blue-600"></i>
+                </div>
+                <h3 class="step-title">Company Profile</h3>
+                <p class="step-description">
+                    Set up your company information, preferences, and hiring goals to personalize your SmartHire AI experience.
+                </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card slide-up stagger-2" data-step="2">
+                <div class="step-icon">
+                    <i data-lucide="file-text" class="w-10 h-10 text-gray-400"></i>
+                </div>
+                <h3 class="step-title">First Job Description</h3>
+                <p class="step-description">
+                    Create your first job description to help our AI understand your hiring criteria and requirements.
+                </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card slide-up stagger-3" data-step="3">
+                <div class="step-icon">
+                    <i data-lucide="upload" class="w-10 h-10 text-gray-400"></i>
+                </div>
+                <h3 class="step-title">Upload CV Demo</h3>
+                <p class="step-description">
+                    Upload a sample CV to see our AI-powered matching and analysis capabilities in action.
+                </p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card slide-up stagger-4" data-step="4">
+                <div class="step-icon">
+                    <i data-lucide="zap" class="w-10 h-10 text-gray-400"></i>
+                </div>
+                <h3 class="step-title">First AI Match</h3>
+                <p class="step-description">
+                    Experience your first AI-powered candidate match and see detailed compatibility insights.
+                </p>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section slide-up stagger-2">
+            <div class="mb-6">
+                <div class="flex items-center justify-center mb-4">
+                    <i data-lucide="rocket" class="w-6 h-6 text-blue-600 mr-2"></i>
+                    <span class="text-large font-medium text-gray-900">Ready to get started? Only takes 5 minutes!</span>
+                </div>
+            </div>
+            
+            <button class="primary-button" onclick="continueSetup()">
+                <span>Continue Setup</span>
+                <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+            </button>
+            
+            <button class="secondary-button" onclick="skipToDashboard()">
+                Already familiar? Skip to Dashboard
+            </button>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center mt-8 pt-8 border-t border-gray-200">
+            <p class="text-small text-muted">
+                Need help? Check out our 
+                <a href="#" class="text-blue-600 hover:underline">getting started guide</a>
+                or <a href="#" class="text-blue-600 hover:underline">contact support</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay (hidden by default) -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg p-8 text-center">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p class="text-gray-600">Setting up your account...</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Animation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bar
+            setTimeout(() => {
+                const progressFill = document.getElementById('progressFill');
+                if (progressFill) {
+                    progressFill.style.width = '25%';
+                }
+            }, 800);
+
+            // Add staggered animations to cards
+            const cards = document.querySelectorAll('.step-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${(index + 1) * 100}ms`;
+            });
+        });
+
+        // Interactive functions
+        function continueSetup() {
+            const button = event.target.closest('.primary-button');
+            
+            // Add loading state
+            button.innerHTML = `
+                <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                <span>Continuing...</span>
+            `;
+            button.disabled = true;
+            
+            // Show loading overlay
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+            
+            // Simulate navigation
+            setTimeout(() => {
+                // In real app, this would navigate to Step 1
+                alert('Navigating to Company Profile setup...');
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                button.disabled = false;
+                button.innerHTML = `
+                    <span>Continue Setup</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                `;
+                lucide.createIcons();
+            }, 2000);
+        }
+
+        function skipToDashboard() {
+            const button = event.target.closest('.secondary-button');
+            
+            // Add confirmation
+            if (confirm('Are you sure you want to skip the onboarding? You can always complete it later from your dashboard.')) {
+                button.innerHTML = 'Redirecting...';
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    // In real app, this would navigate to dashboard
+                    alert('Navigating to dashboard...');
+                    button.disabled = false;
+                    button.innerHTML = 'Already familiar? Skip to Dashboard';
+                }, 1500);
+            }
+        }
+
+        // Card hover interactions
+        document.querySelectorAll('.step-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-4px)';
+                this.style.boxShadow = '0 10px 15px -3px rgba(59, 130, 246, 0.1), 0 4px 6px -4px rgba(59, 130, 246, 0.1)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 1px 3px 0 rgba(59, 130, 246, 0.1), 0 1px 2px -1px rgba(59, 130, 246, 0.1)';
+            });
+        });
+
+        // Progress animation function
+        function animateProgress(targetWidth, duration = 800) {
+            const progressFill = document.getElementById('progressFill');
+            const startWidth = parseInt(progressFill.style.width) || 0;
+            const startTime = performance.now();
+            
+            function updateProgress(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function (ease-out)
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const currentWidth = startWidth + (targetWidth - startWidth) * easeOut;
+                
+                progressFill.style.width = `${currentWidth}%`;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateProgress);
+                }
+            }
+            
+            requestAnimationFrame(updateProgress);
+        }
+
+        // Simulate step progression (for demo)
+        function simulateStepProgression() {
+            const steps = [25, 50, 75, 100];
+            let currentStep = 0;
+            
+            setInterval(() => {
+                if (currentStep < steps.length) {
+                    animateProgress(steps[currentStep]);
+                    currentStep++;
+                }
+            }, 3000);
+        }
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 400ms ease-out;
+                    pointer-events: none;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 400);
+            });
+        });
+
+        // Add CSS animation for ripple
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.classList.contains('primary-button')) {
+                continueSetup();
+            }
+        });
+
+        // Accessibility enhancements
+        document.querySelectorAll('.step-card').forEach((card, index) => {
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-label', `Step ${index + 1} overview`);
+            
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    // In real app, this might show step details
+                    console.log(`Focused on step ${index + 1}`);
+                }
+            });
+        });
+    </script>
+
+    <style>
+        /* Additional custom animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 600ms ease-out;
+        }
+
+        .slide-up {
+            animation: slideUp 400ms ease-out;
+        }
+
+        .stagger-1 { animation-delay: 100ms; }
+        .stagger-2 { animation-delay: 200ms; }
+        .stagger-3 { animation-delay: 300ms; }
+        .stagger-4 { animation-delay: 400ms; }
+
+        /* Ensure smooth transitions */
+        * {
+            transition-property: transform, box-shadow, background-color, border-color, color;
+            transition-timing-function: ease-out;
+            transition-duration: 200ms;
+        }
+
+        /* Focus styles for accessibility */
+        button:focus,
+        .step-card:focus {
+            outline: 2px solid #2563eb;
+            outline-offset: 2px;
+        }
+
+        /* Loading state styles */
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+    </style>
+</body>
+</html>
