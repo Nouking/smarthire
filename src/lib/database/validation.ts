@@ -3,7 +3,7 @@
  * Provides runtime validation for database operations and schema
  */
 
-import { supabase } from './supabase';
+import { supabase, getSupabaseClient } from './supabase';
 
 export interface DatabaseValidationResult {
   isValid: boolean;
@@ -45,7 +45,8 @@ export async function validateDatabaseSetup(): Promise<DatabaseValidationResult>
 
     for (const table of tables) {
       try {
-        const { error } = await supabase!.from(table).select('count').limit(1);
+        const supabaseClient = getSupabaseClient();
+        const { error } = await supabaseClient.from(table).select('count').limit(1);
         if (error) {
           result.errors.push(`Table '${table}' is not accessible: ${error.message}`);
           result.isValid = false;
@@ -87,7 +88,8 @@ export async function validateDatabaseSetup(): Promise<DatabaseValidationResult>
       const testEmail = `validation-test-${Date.now()}@example.com`;
 
       // Create test record
-      const { data: created, error: createError } = await supabase!
+      const supabaseClient = getSupabaseClient();
+      const { data: created, error: createError } = await supabaseClient
         .from('users')
         .insert({
           email: testEmail,
@@ -102,7 +104,7 @@ export async function validateDatabaseSetup(): Promise<DatabaseValidationResult>
         result.isValid = false;
       } else {
         // Clean up test record
-        await supabase!.from('users').delete().eq('id', created.id);
+        await supabaseClient.from('users').delete().eq('id', created.id);
       }
     } catch (err) {
       result.errors.push(`CRUD validation failed: ${err}`);
@@ -133,7 +135,12 @@ export async function validateUserAccess(userId: string): Promise<boolean> {
 
   try {
     // Test user can access their own data
-    const { data, error } = await supabase!.from('users').select('id').eq('id', userId).single();
+    const supabaseClient = getSupabaseClient();
+    const { data, error } = await supabaseClient
+      .from('users')
+      .select('id')
+      .eq('id', userId)
+      .single();
 
     return !error && data?.id === userId;
   } catch {
@@ -160,19 +167,31 @@ export async function validatePerformance(): Promise<{
   const testQueries = [
     {
       name: 'user_lookup',
-      query: () => supabase!.from('users').select('*').limit(1),
+      query: () => {
+        const supabaseClient = getSupabaseClient();
+        return supabaseClient.from('users').select('*').limit(1);
+      },
     },
     {
       name: 'candidate_listing',
-      query: () => supabase!.from('candidates').select('*').limit(10),
+      query: () => {
+        const supabaseClient = getSupabaseClient();
+        return supabaseClient.from('candidates').select('*').limit(10);
+      },
     },
     {
       name: 'job_description_listing',
-      query: () => supabase!.from('job_descriptions').select('*').limit(10),
+      query: () => {
+        const supabaseClient = getSupabaseClient();
+        return supabaseClient.from('job_descriptions').select('*').limit(10);
+      },
     },
     {
       name: 'match_results',
-      query: () => supabase!.from('cv_jd_matches').select('*').limit(10),
+      query: () => {
+        const supabaseClient = getSupabaseClient();
+        return supabaseClient.from('cv_jd_matches').select('*').limit(10);
+      },
     },
   ];
 
@@ -216,7 +235,8 @@ export async function healthCheck(): Promise<{
 
   try {
     // Basic connectivity test
-    const { error } = await supabase!.from('users').select('count').limit(1);
+    const supabaseClient = getSupabaseClient();
+    const { error } = await supabaseClient.from('users').select('count').limit(1);
 
     if (error) {
       status = 'unhealthy';

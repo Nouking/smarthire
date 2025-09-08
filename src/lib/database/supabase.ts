@@ -46,6 +46,14 @@ if (supabaseUrl && supabaseAnonKey) {
 // Export with null check
 export { supabase };
 
+// Safe database client function
+export const getSupabaseClient = (): SupabaseClient<Database> => {
+  if (!supabase) {
+    throw new Error('Database client not initialized');
+  }
+  return supabase;
+};
+
 // Connection health check utility
 export const checkDatabaseConnection = async (): Promise<boolean> => {
   if (!supabase) {
@@ -54,7 +62,7 @@ export const checkDatabaseConnection = async (): Promise<boolean> => {
   }
 
   try {
-    const { error } = await supabase!.from('users').select('id').limit(1);
+    const { error } = await supabase.from('users').select('id').limit(1);
     return !error;
   } catch (error) {
     console.error('Database connection check failed:', error);
