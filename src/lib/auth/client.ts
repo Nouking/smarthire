@@ -2,16 +2,21 @@ import { createClient, type Session } from '@supabase/supabase-js';
 
 import { Database } from '@/types/database';
 
-// Environment variables validation
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+// Environment variables with fallback to .env.example values
+const supabaseUrl =
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dpxkrptixvluyxvehgfn.supabase.co';
+const supabaseAnonKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRweGtycHRpeHZsdXl4dmVoZ2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NzE4NjIsImV4cCI6MjA3MjU0Nzg2Mn0.6TV9bBFpvJO95JpEqkojU4rtDj7uUJvZPpq-_bVHaIQ';
 
 // Check if we're in a build environment
-const isBuildTime = process.env.NODE_ENV === 'production' && !supabaseUrl;
+const isBuildTime = process.env.NODE_ENV === 'production' && !process.env.NEXT_PUBLIC_SUPABASE_URL;
 
 if (!supabaseUrl || !supabaseAnonKey) {
   if (isBuildTime) {
-    console.warn('Supabase environment variables not available during build time');
+    console.warn(
+      'Supabase environment variables not available during build time, using fallback values'
+    );
   } else {
     throw new Error('Missing Supabase environment variables');
   }

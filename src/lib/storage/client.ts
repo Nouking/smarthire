@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { supabase } from '@/lib/database/supabase';
+import { getSupabaseClient } from '@/lib/database/supabase';
 
 import { STORAGE_CONFIG, STORAGE_ERRORS } from './config';
 
@@ -53,6 +53,7 @@ export async function uploadFile(
     const filePath = generateSecureFilePath(userId, file.name);
 
     // Upload to Supabase Storage
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase.storage
       .from(STORAGE_CONFIG.BUCKETS.CV_UPLOADS)
       .upload(filePath, file, {
@@ -91,6 +92,7 @@ export async function getSignedUrl(
   error?: string;
 }> {
   try {
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase.storage
       .from(STORAGE_CONFIG.BUCKETS.CV_UPLOADS)
       .createSignedUrl(filePath, expiresIn);
@@ -113,6 +115,7 @@ export async function deleteFile(filePath: string): Promise<{
   error?: string;
 }> {
   try {
+    const supabase = getSupabaseClient();
     const { error } = await supabase.storage
       .from(STORAGE_CONFIG.BUCKETS.CV_UPLOADS)
       .remove([filePath]);
@@ -138,6 +141,7 @@ export async function listUserFiles(userId: string): Promise<{
   try {
     const userPath = STORAGE_CONFIG.PATHS.USER_CV(userId);
 
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase.storage
       .from(STORAGE_CONFIG.BUCKETS.CV_UPLOADS)
       .list(userPath);
@@ -173,6 +177,7 @@ export async function getFileMetadata(filePath: string): Promise<{
     const fileName = pathParts.pop();
     const folderPath = pathParts.join('/');
 
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase.storage
       .from(STORAGE_CONFIG.BUCKETS.CV_UPLOADS)
       .list(folderPath);

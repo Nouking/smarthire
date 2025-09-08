@@ -1,59 +1,66 @@
 :root {
   /* B2B Professional Theme - SmartHire AI Login */
-  
+
   /* Primary Brand Colors */
-  --background: oklch(0.9980 0.0020 264.4822); /* Clean white with subtle blue tint */
-  --foreground: oklch(0.1448 0.0200 264.4822); /* Deep professional navy */
-  --card: oklch(1.0000 0 0); /* Pure white for card backgrounds */
-  --card-foreground: oklch(0.1448 0.0200 264.4822);
-  
+  --background: oklch(0.998 0.002 264.4822); /* Clean white with subtle blue tint */
+  --foreground: oklch(0.1448 0.02 264.4822); /* Deep professional navy */
+  --card: oklch(1 0 0); /* Pure white for card backgrounds */
+  --card-foreground: oklch(0.1448 0.02 264.4822);
+
   /* Interactive Elements */
-  --primary: oklch(0.5470 0.2080 264.4822); /* Professional blue #2563eb */
-  --primary-foreground: oklch(0.9950 0 0); /* Clean white text */
-  --secondary: oklch(0.9600 0.0080 264.4822); /* Subtle blue-gray */
-  --secondary-foreground: oklch(0.2046 0.0150 264.4822);
-  
+  --primary: oklch(0.547 0.208 264.4822); /* Professional blue #2563eb */
+  --primary-foreground: oklch(0.995 0 0); /* Clean white text */
+  --secondary: oklch(0.96 0.008 264.4822); /* Subtle blue-gray */
+  --secondary-foreground: oklch(0.2046 0.015 264.4822);
+
   /* Input & Form States */
-  --muted: oklch(0.9702 0.0050 264.4822); /* Light background for inputs */
-  --muted-foreground: oklch(0.5486 0.0100 264.4822); /* Placeholder text */
-  --input: oklch(0.9850 0.0030 264.4822); /* Input background */
-  --border: oklch(0.8900 0.0080 264.4822); /* Subtle borders */
-  --ring: oklch(0.5470 0.2080 264.4822); /* Focus ring color */
-  
+  --muted: oklch(0.9702 0.005 264.4822); /* Light background for inputs */
+  --muted-foreground: oklch(0.5486 0.01 264.4822); /* Placeholder text */
+  --input: oklch(0.985 0.003 264.4822); /* Input background */
+  --border: oklch(0.89 0.008 264.4822); /* Subtle borders */
+  --ring: oklch(0.547 0.208 264.4822); /* Focus ring color */
+
   /* Status Colors */
-  --destructive: oklch(0.5830 0.2387 28.4765); /* Error red */
-  --destructive-foreground: oklch(0.9950 0 0);
-  --accent: oklch(0.9400 0.0200 264.4822); /* Hover states */
-  --accent-foreground: oklch(0.2046 0.0150 264.4822);
-  
+  --destructive: oklch(0.583 0.2387 28.4765); /* Error red */
+  --destructive-foreground: oklch(0.995 0 0);
+  --accent: oklch(0.94 0.02 264.4822); /* Hover states */
+  --accent-foreground: oklch(0.2046 0.015 264.4822);
+
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-  
+  --font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-mono:
+    'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+
   /* Spacing & Layout */
   --radius: 0.75rem; /* Moderate border radius for professional look */
   --spacing: 0.25rem; /* Base spacing unit */
-  
+
   /* Shadows - Professional depth */
   --shadow-xs: 0 1px 2px 0 rgba(37, 99, 235, 0.08);
-  --shadow-sm: 0 1px 3px 0 rgba(37, 99, 235, 0.10), 0 1px 2px -1px rgba(37, 99, 235, 0.06);
+  --shadow-sm: 0 1px 3px 0 rgba(37, 99, 235, 0.1), 0 1px 2px -1px rgba(37, 99, 235, 0.06);
   --shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.08), 0 2px 4px -2px rgba(37, 99, 235, 0.06);
   --shadow-md: 0 10px 15px -3px rgba(37, 99, 235, 0.08), 0 4px 6px -4px rgba(37, 99, 235, 0.06);
   --shadow-lg: 0 20px 25px -5px rgba(37, 99, 235, 0.08), 0 8px 10px -6px rgba(37, 99, 235, 0.06);
   --shadow-xl: 0 25px 50px -12px rgba(37, 99, 235, 0.12);
-  
+
   /* Focus States - Accessibility */
-  --focus-ring: 0 0 0 2px oklch(0.5470 0.2080 264.4822 / 0.2);
+  --focus-ring: 0 0 0 2px oklch(0.547 0.208 264.4822 / 0.2);
   --focus-ring-offset: 2px;
-  
+
   /* B2B Specific Variables */
-  --trust-indicator: oklch(0.4500 0.1800 152.4000); /* Success green */
-  --warning: oklch(0.7200 0.1400 60.0000); /* Warning amber */
-  --info: oklch(0.6000 0.1500 220.0000); /* Info blue */
-  
+  --trust-indicator: oklch(0.45 0.18 152.4); /* Success green */
+  --warning: oklch(0.72 0.14 60); /* Warning amber */
+  --info: oklch(0.6 0.15 220); /* Info blue */
+
   /* Gradient for premium feel */
-  --gradient-primary: linear-gradient(135deg, oklch(0.5470 0.2080 264.4822) 0%, oklch(0.4800 0.2200 280.0000) 100%);
-  --gradient-hover: linear-gradient(135deg, oklch(0.5000 0.2200 264.4822) 0%, oklch(0.4200 0.2400 280.0000) 100%);
+  --gradient-primary: linear-gradient(
+    135deg,
+    oklch(0.547 0.208 264.4822) 0%,
+    oklch(0.48 0.22 280) 100%
+  );
+  --gradient-hover: linear-gradient(135deg, oklch(0.5 0.22 264.4822) 0%, oklch(0.42 0.24 280) 100%);
 }
 
 /* Component-specific styling */
@@ -126,9 +133,16 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
 }
 
 /* Loading states */
@@ -150,12 +164,12 @@
     margin: 1rem !important;
     box-shadow: var(--shadow-sm) !important;
   }
-  
+
   .login-input {
     font-size: 16px !important; /* Prevent zoom on iOS */
     min-height: 48px !important; /* Touch-friendly */
   }
-  
+
   .login-button {
     min-height: 48px !important;
     font-size: 1rem !important;
@@ -165,10 +179,10 @@
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
-    --border: oklch(0.0000 0 0);
-    --ring: oklch(0.0000 0 0);
-    --primary: oklch(0.0000 0 0);
-    --background: oklch(1.0000 0 0);
+    --border: oklch(0 0 0);
+    --ring: oklch(0 0 0);
+    --primary: oklch(0 0 0);
+    --background: oklch(1 0 0);
   }
 }
 

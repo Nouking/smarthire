@@ -1,6 +1,6 @@
 import { Database } from '@/types/database';
 
-import { supabase, handleDatabaseError, withPerformanceMonitoring } from './supabase';
+import { getSupabaseClient, handleDatabaseError, withPerformanceMonitoring } from './supabase';
 
 type Candidate = Database['public']['Tables']['candidates']['Row'];
 type CandidateInsert = Database['public']['Tables']['candidates']['Insert'];
@@ -13,6 +13,7 @@ export class CandidateService {
   // Create a new candidate
   static async create(candidateData: CandidateInsert): Promise<Candidate | null> {
     return withPerformanceMonitoring(async () => {
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('candidates')
         .insert(candidateData)
@@ -30,6 +31,7 @@ export class CandidateService {
   // Get candidate by ID
   static async getById(id: string): Promise<Candidate | null> {
     return withPerformanceMonitoring(async () => {
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase.from('candidates').select('*').eq('id', id).single();
 
       if (error && error.code !== 'PGRST116') {
@@ -43,6 +45,7 @@ export class CandidateService {
   // Get all candidates for a user
   static async getByUser(userId: string, limit = 20, offset = 0): Promise<Candidate[]> {
     return withPerformanceMonitoring(async () => {
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('candidates')
         .select('*')
@@ -61,6 +64,7 @@ export class CandidateService {
   // Update candidate
   static async update(id: string, updates: CandidateUpdate): Promise<Candidate | null> {
     return withPerformanceMonitoring(async () => {
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('candidates')
         .update(updates)
@@ -79,6 +83,7 @@ export class CandidateService {
   // Delete candidate
   static async delete(id: string): Promise<void> {
     return withPerformanceMonitoring(async () => {
+      const supabase = getSupabaseClient();
       const { error } = await supabase.from('candidates').delete().eq('id', id);
 
       if (error) {
@@ -95,6 +100,7 @@ export class CandidateService {
     limit = 10
   ): Promise<CandidateWithSimilarity[]> {
     return withPerformanceMonitoring(async () => {
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase.rpc('match_candidates', {
         query_embedding: embedding,
         match_threshold: threshold,
@@ -116,6 +122,7 @@ export class CandidateService {
       const expirationDate = new Date();
       expirationDate.setDate(expirationDate.getDate() + daysAhead);
 
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('candidates')
         .select('*')
@@ -137,6 +144,7 @@ export class CandidateService {
       const newExpirationDate = new Date();
       newExpirationDate.setDate(newExpirationDate.getDate() + additionalDays);
 
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('candidates')
         .update({ expires_at: newExpirationDate.toISOString() })
@@ -155,6 +163,7 @@ export class CandidateService {
   // Get candidates by skill
   static async getBySkill(userId: string, skill: string): Promise<Candidate[]> {
     return withPerformanceMonitoring(async () => {
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('candidates')
         .select('*')
@@ -183,6 +192,7 @@ export class CandidateService {
       const expirationDate = new Date();
       expirationDate.setDate(expirationDate.getDate() + 7);
 
+      const supabase = getSupabaseClient();
       const [totalResult, monthResult, expiringResult] = await Promise.all([
         supabase.from('candidates').select('id', { count: 'exact' }).eq('user_id', userId),
         supabase
