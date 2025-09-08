@@ -110,7 +110,7 @@ export async function signUpWithCompanyProfile(
     try {
       await UserService.create({
         id: data.user.id,
-        email: data.user.email!,
+        email: data.user.email ?? '',
         full_name: fullName,
         company: companyName,
         subscription_tier: 'free', // Default to free tier
@@ -128,7 +128,7 @@ export async function signUpWithCompanyProfile(
       success: true,
       data: {
         userId: data.user.id,
-        email: data.user.email!,
+        email: data.user.email ?? '',
         requiresEmailVerification: !data.user.email_confirmed_at,
       },
     };

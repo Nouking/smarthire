@@ -150,7 +150,7 @@ export function EnhancedSignUpForm({ onSubmit, isLoading = false }: EnhancedSign
                             type='button'
                             className='font-medium underline'
                             onClick={() => {
-                              field.onChange(emailValidation.suggestions![0]);
+                              field.onChange(emailValidation.suggestions?.[0] ?? '');
                               setEmailValidation(undefined);
                             }}
                           >

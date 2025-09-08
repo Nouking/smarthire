@@ -240,7 +240,6 @@ describe('EnhancedSignUpForm', () => {
     });
 
     test('shows loading state during submission', async () => {
-      const user = userEvent.setup();
       renderForm({ isLoading: true });
 
       const submitButton = screen.getByRole('button', { name: /creating account/i });

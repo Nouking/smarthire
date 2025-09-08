@@ -114,3 +114,74 @@ export class UserService {
     }, 'UserService.getUsageStats');
   }
 }
+
+// Convenience functions for Server Components
+export async function getUserProfile(userId: string): Promise<User | null> {
+  try {
+    return await UserService.getById(userId);
+  } catch (error) {
+    console.error('Failed to get user profile:', error);
+    return null;
+  }
+}
+
+export async function updateUserProfile(userId: string, updates: UserUpdate): Promise<User | null> {
+  try {
+    return await UserService.update(userId, updates);
+  } catch (error) {
+    console.error('Failed to update user profile:', error);
+    return null;
+  }
+}
+
+// Onboarding-specific functions
+export interface OnboardingProgress {
+  currentStep: number;
+  totalSteps: number;
+  completedSteps: string[];
+  skipped: boolean;
+}
+
+export async function getUserOnboardingProgress(
+  userId: string
+): Promise<OnboardingProgress | null> {
+  try {
+    const user = await UserService.getById(userId);
+    if (!user) return null;
+
+    // For now, we'll use a simple approach with user metadata
+    // In a full implementation, you might add onboarding fields to the users table
+    // or create a separate onboarding_progress table
+
+    return {
+      currentStep: 1,
+      totalSteps: 4,
+      completedSteps: [],
+      skipped: false,
+    };
+  } catch (error) {
+    console.error('Failed to get user onboarding progress:', error);
+    return null;
+  }
+}
+
+export async function updateUserOnboardingProgress(
+  userId: string,
+  progress: Partial<OnboardingProgress>
+): Promise<boolean> {
+  try {
+    // In a full implementation, you would store this in the database
+    // For now, we'll just log it
+    console.warn('Updating onboarding progress for user:', userId, progress);
+
+    // Example: You might update a JSON field in the users table
+    // await UserService.update(userId, {
+    //   onboarding_progress: progress
+    // });
+
+    return true;
+  } catch (error) {
+    console.error('Failed to update user onboarding progress:', error);
+    return false;
+  }
+}
