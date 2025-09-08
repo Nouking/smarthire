@@ -2,71 +2,75 @@
   /* Professional B2B SaaS Color Palette */
   --background: oklch(0.9851 0 0);
   --foreground: oklch(0.1448 0 0);
-  --card: oklch(1.0000 0 0);
+  --card: oklch(1 0 0);
   --card-foreground: oklch(0.1448 0 0);
-  --popover: oklch(1.0000 0 0);
+  --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.1448 0 0);
-  
+
   /* SmartHire AI Brand Colors */
-  --primary: oklch(0.5555 0.2500 252.0000); /* Professional Blue #2563eb */
+  --primary: oklch(0.5555 0.25 252); /* Professional Blue #2563eb */
   --primary-foreground: oklch(0.9851 0 0);
-  --secondary: oklch(0.9419 0.0141 252.0000); /* Light Blue Gray */
+  --secondary: oklch(0.9419 0.0141 252); /* Light Blue Gray */
   --secondary-foreground: oklch(0.2046 0 0);
-  
+
   /* Neutral Palette */
-  --muted: oklch(0.9419 0.0141 252.0000);
+  --muted: oklch(0.9419 0.0141 252);
   --muted-foreground: oklch(0.5486 0 0);
-  --accent: oklch(0.9702 0.0200 252.0000);
+  --accent: oklch(0.9702 0.02 252);
   --accent-foreground: oklch(0.2046 0 0);
-  
+
   /* Success & Status Colors */
-  --success: oklch(0.6500 0.1800 142.0000); /* Green for checkmarks */
-  --success-foreground: oklch(1.0000 0 0);
-  --warning: oklch(0.7500 0.1500 65.0000); /* Orange for progress */
+  --success: oklch(0.65 0.18 142); /* Green for checkmarks */
+  --success-foreground: oklch(1 0 0);
+  --warning: oklch(0.75 0.15 65); /* Orange for progress */
   --warning-foreground: oklch(0.1448 0 0);
-  --destructive: oklch(0.5830 0.2387 28.4765);
+  --destructive: oklch(0.583 0.2387 28.4765);
   --destructive-foreground: oklch(0.9702 0 0);
-  
+
   /* Interface Elements */
-  --border: oklch(0.9219 0.0100 252.0000);
-  --input: oklch(0.9219 0.0100 252.0000);
-  --ring: oklch(0.5555 0.2500 252.0000);
-  
+  --border: oklch(0.9219 0.01 252);
+  --input: oklch(0.9219 0.01 252);
+  --ring: oklch(0.5555 0.25 252);
+
   /* Typography */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+
   /* Modern Border Radius */
   --radius: 0.75rem;
   --radius-sm: 0.5rem;
   --radius-md: 0.625rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
-  
+
   /* Professional Shadows */
   --shadow-2xs: 0 1px 2px 0px hsl(252 25% 55% / 0.04);
   --shadow-xs: 0 1px 3px 0px hsl(252 25% 55% / 0.06);
   --shadow-sm: 0 1px 3px 0px hsl(252 25% 55% / 0.08), 0 1px 2px -1px hsl(252 25% 55% / 0.08);
-  --shadow: 0 1px 3px 0px hsl(252 25% 55% / 0.10), 0 1px 2px -1px hsl(252 25% 55% / 0.10);
+  --shadow: 0 1px 3px 0px hsl(252 25% 55% / 0.1), 0 1px 2px -1px hsl(252 25% 55% / 0.1);
   --shadow-md: 0 4px 6px -1px hsl(252 25% 55% / 0.08), 0 2px 4px -2px hsl(252 25% 55% / 0.08);
   --shadow-lg: 0 10px 15px -3px hsl(252 25% 55% / 0.08), 0 4px 6px -4px hsl(252 25% 55% / 0.08);
   --shadow-xl: 0 20px 25px -5px hsl(252 25% 55% / 0.08), 0 8px 10px -6px hsl(252 25% 55% / 0.08);
   --shadow-2xl: 0 25px 50px -12px hsl(252 25% 55% / 0.12);
-  
+
   /* Layout Spacing */
   --spacing: 0.25rem;
   --spacing-sm: 0.125rem;
   --spacing-md: 0.375rem;
   --spacing-lg: 0.5rem;
   --spacing-xl: 0.75rem;
-  
+
   /* Animation Timing */
   --timing-fast: 150ms;
   --timing-normal: 200ms;
   --timing-slow: 300ms;
   --timing-slower: 400ms;
-  
+
   /* Z-index Stack */
   --z-dropdown: 1000;
   --z-overlay: 1010;
@@ -80,17 +84,17 @@
   --progress-bg: var(--muted);
   --progress-fill: var(--primary);
   --progress-height: 0.5rem;
-  
+
   /* Cards */
   --card-padding: 1.5rem;
   --card-gap: 1rem;
   --card-hover-translate: -0.25rem;
-  
+
   /* Buttons */
   --button-padding-x: 2rem;
   --button-padding-y: 0.75rem;
   --button-font-weight: 500;
-  
+
   /* Welcome Section */
   --welcome-icon-size: 1.5rem;
   --welcome-title-size: 1.875rem;
@@ -299,20 +303,20 @@ body {
     padding: 1rem 0.75rem !important;
     gap: 1.5rem !important;
   }
-  
+
   .steps-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
   }
-  
+
   .heading-2 {
     font-size: 1.5rem !important;
   }
-  
+
   .step-card {
     padding: 1.25rem !important;
   }
-  
+
   .primary-button {
     width: 100% !important;
     max-width: 300px !important;
@@ -328,10 +332,18 @@ body {
   animation: slideUp 400ms ease-out !important;
 }
 
-.stagger-1 { animation-delay: 100ms !important; }
-.stagger-2 { animation-delay: 200ms !important; }
-.stagger-3 { animation-delay: 300ms !important; }
-.stagger-4 { animation-delay: 400ms !important; }
+.stagger-1 {
+  animation-delay: 100ms !important;
+}
+.stagger-2 {
+  animation-delay: 200ms !important;
+}
+.stagger-3 {
+  animation-delay: 300ms !important;
+}
+.stagger-4 {
+  animation-delay: 400ms !important;
+}
 
 @keyframes fadeIn {
   from {

@@ -19,22 +19,26 @@ This guide provides detailed instructions for setting up your local development 
 #### 1. Node.js & npm
 
 **Minimum Versions:**
+
 - Node.js: 18.17.0 or later
 - npm: 9.6.7 or later
 
 **Installation:**
 
 **macOS (using Homebrew):**
+
 ```bash
 brew install node
 ```
 
 **Windows:**
+
 1. Download from [nodejs.org](https://nodejs.org/)
 2. Run the installer with default settings
 3. Restart your terminal
 
 **Linux (Ubuntu/Debian):**
+
 ```bash
 # Using NodeSource repository
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
@@ -42,6 +46,7 @@ sudo apt-get install -y nodejs
 ```
 
 **Verification:**
+
 ```bash
 node --version    # Should be v18.17.0 or later
 npm --version     # Should be 9.6.7 or later
@@ -52,6 +57,7 @@ npm --version     # Should be 9.6.7 or later
 **Installation:**
 
 **macOS:**
+
 ```bash
 # Using Homebrew
 brew install git
@@ -61,16 +67,19 @@ xcode-select --install
 ```
 
 **Windows:**
+
 1. Download from [git-scm.com](https://git-scm.com/)
 2. Install with default settings
 3. Use Git Bash or Command Prompt
 
 **Linux:**
+
 ```bash
 sudo apt-get install git
 ```
 
 **Configuration:**
+
 ```bash
 git config --global user.name "Your Name"
 git config --global user.email "your.email@example.com"
@@ -79,6 +88,7 @@ git config --global user.email "your.email@example.com"
 #### 3. Code Editor (Recommended)
 
 **Visual Studio Code** with these extensions:
+
 - TypeScript and JavaScript Language Features
 - Prettier - Code formatter
 - ESLint
@@ -86,6 +96,7 @@ git config --global user.email "your.email@example.com"
 - GitLens
 
 **Installation:**
+
 1. Download from [code.visualstudio.com](https://code.visualstudio.com/)
 2. Install recommended extensions when prompted
 
@@ -96,6 +107,7 @@ git config --global user.email "your.email@example.com"
 ### 1. Repository Setup
 
 **Fork the Repository:**
+
 1. Visit the SmartHire AI repository on GitHub
 2. Click "Fork" to create your own copy
 3. Clone your fork locally:
@@ -115,6 +127,7 @@ git remote -v
 ### 2. Dependency Installation
 
 **Install Project Dependencies:**
+
 ```bash
 # Install all dependencies (this may take 2-5 minutes)
 npm install
@@ -126,6 +139,7 @@ npm list --depth=0
 **Common Installation Issues:**
 
 **Issue:** Permission errors on macOS/Linux
+
 ```bash
 # Solution: Use npm's built-in fix
 npm config set prefix ~/.npm-global
@@ -133,6 +147,7 @@ export PATH=~/.npm-global/bin:$PATH
 ```
 
 **Issue:** Network timeout errors
+
 ```bash
 # Solution: Increase timeout and try alternative registry
 npm config set timeout 60000
@@ -142,11 +157,13 @@ npm install --registry https://registry.npmjs.org/
 ### 3. Environment Configuration
 
 **Copy Environment Template:**
+
 ```bash
 cp .env.local.example .env.local
 ```
 
 **Edit `.env.local` with your values:**
+
 ```bash
 # Next.js Configuration
 NEXT_PUBLIC_APP_URL=http://localhost:3000
@@ -202,12 +219,14 @@ npm run db:migrate
 For local AI development (optional during initial setup):
 
 #### OpenRouter API
+
 1. Visit [openrouter.ai](https://openrouter.ai)
 2. Sign up for an account
 3. Generate API key in dashboard
 4. Add to `.env.local` as `OPENROUTER_API_KEY`
 
 #### DeepSeek API (Fallback)
+
 1. Visit [deepseek.com](https://deepseek.com)
 2. Create account and generate API key
 3. Add to `.env.local` as `DEEPSEEK_API_KEY`
@@ -224,6 +243,7 @@ npm run dev
 ```
 
 **Expected Output:**
+
 ```
   ▲ Next.js 15.5.2
   - Local:        http://localhost:3000
@@ -264,6 +284,7 @@ ls -la .git/hooks/
 ### IDE Integration
 
 **VS Code Settings** (`.vscode/settings.json`):
+
 ```json
 {
   "editor.formatOnSave": true,
@@ -287,12 +308,13 @@ npm run quality
 
 # Individual checks
 npm run type-check    # TypeScript compilation
-npm run lint          # ESLint checks  
+npm run lint          # ESLint checks
 npm run build         # Production build
 npm test              # Test execution
 ```
 
 **Expected Results:**
+
 - ✅ TypeScript: No compilation errors
 - ✅ ESLint: No warnings or errors
 - ✅ Build: Successful production build
@@ -301,11 +323,13 @@ npm test              # Test execution
 ### Development Workflow Test
 
 1. **Create Test Branch:**
+
    ```bash
    git checkout -b test-setup
    ```
 
 2. **Make a Small Change:**
+
    ```bash
    # Edit src/app/page.tsx to add a comment
    # Commit the change
@@ -330,6 +354,7 @@ npm test              # Test execution
 ### Common Setup Issues
 
 **Issue**: "npm ERR! permission denied"
+
 ```bash
 # Solution: Fix npm permissions
 sudo chown -R $(whoami) ~/.npm
@@ -337,6 +362,7 @@ npm cache clean --force
 ```
 
 **Issue**: "Port 3000 already in use"
+
 ```bash
 # Solution: Kill process using port 3000
 lsof -ti:3000 | xargs kill -9
@@ -345,6 +371,7 @@ PORT=3001 npm run dev
 ```
 
 **Issue**: "Module not found" errors
+
 ```bash
 # Solution: Clear cache and reinstall
 npm run clean
@@ -352,6 +379,7 @@ npm run reinstall
 ```
 
 **Issue**: TypeScript compilation errors
+
 ```bash
 # Solution: Restart TypeScript server in VS Code
 # Command Palette > TypeScript: Restart TS Server
@@ -360,6 +388,7 @@ npx tsc --noEmit
 ```
 
 **Issue**: Supabase connection errors
+
 ```bash
 # Solution: Verify environment variables
 node -e "console.log(process.env.NEXT_PUBLIC_SUPABASE_URL)"
@@ -369,11 +398,13 @@ node -e "console.log(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)"
 ### Performance Issues
 
 **Slow Installation:**
+
 - Use `npm ci` for faster, clean installs
 - Clear npm cache: `npm cache clean --force`
 - Check network connection and try different registry
 
 **Slow Development Server:**
+
 - Ensure sufficient RAM (8GB+)
 - Close unnecessary applications
 - Use `npm run dev` instead of `npm run dev --turbo` if issues persist
@@ -381,16 +412,19 @@ node -e "console.log(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)"
 ### Environment-Specific Issues
 
 **Windows-Specific:**
+
 - Use Git Bash for Unix-like commands
 - Ensure Windows Defender isn't scanning node_modules
 - Use `npm run` instead of direct binary calls
 
 **macOS-Specific:**
+
 - Install Xcode Command Line Tools if missing
 - Use Homebrew for package management
 - Check file permissions in project directory
 
 **Linux-Specific:**
+
 - Install build-essential: `sudo apt-get install build-essential`
 - Ensure proper Node.js permissions
 - Check firewall settings for port 3000
@@ -413,30 +447,35 @@ Once your environment is set up:
 Use this checklist to verify your setup:
 
 ### Prerequisites ✅
+
 - [ ] Node.js 18.17+ installed and verified
 - [ ] npm 9.6.7+ installed and verified
 - [ ] Git installed and configured
 - [ ] VS Code installed with recommended extensions
 
 ### Project Setup ✅
+
 - [ ] Repository cloned with upstream remote
 - [ ] Dependencies installed successfully
 - [ ] Environment variables configured
 - [ ] Development server starts without errors
 
-### Quality Tools ✅  
+### Quality Tools ✅
+
 - [ ] Pre-commit hooks installed and working
 - [ ] All quality checks pass (`npm run quality`)
 - [ ] IDE integration working (formatting, linting)
 - [ ] Test suite runs successfully
 
 ### Service Integration ✅
+
 - [ ] Supabase project created and configured
 - [ ] Database connection verified
 - [ ] Authentication flow accessible
 - [ ] File storage accessible (if applicable)
 
 ### Development Workflow ✅
+
 - [ ] Can create and switch branches
 - [ ] Hot reload working in development
 - [ ] Build process successful

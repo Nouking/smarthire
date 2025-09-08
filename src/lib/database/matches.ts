@@ -10,7 +10,7 @@ export class MatchService {
   // Create a new CV-JD match analysis
   static async create(matchData: CVJDMatchInsert): Promise<CVJDMatch | null> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('cv_jd_matches')
         .insert(matchData)
         .select()
@@ -27,7 +27,7 @@ export class MatchService {
   // Get match by ID
   static async getById(id: string): Promise<CVJDMatch | null> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('cv_jd_matches')
         .select(
           `
@@ -57,7 +57,7 @@ export class MatchService {
   // Get all matches for a user
   static async getByUser(userId: string, limit = 20, offset = 0): Promise<CVJDMatch[]> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('cv_jd_matches')
         .select(
           `
@@ -88,7 +88,7 @@ export class MatchService {
   // Get matches for a specific job description
   static async getByJobDescription(jobDescriptionId: string, userId: string): Promise<CVJDMatch[]> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('cv_jd_matches')
         .select(
           `
@@ -115,7 +115,7 @@ export class MatchService {
   // Get matches for a specific candidate
   static async getByCandidate(candidateId: string, userId: string): Promise<CVJDMatch[]> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('cv_jd_matches')
         .select(
           `
@@ -148,7 +148,7 @@ export class MatchService {
     }
   ): Promise<CVJDMatch | null> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('cv_jd_matches')
         .update(feedback)
         .eq('id', id)
@@ -166,7 +166,7 @@ export class MatchService {
   // Get top matches by percentage
   static async getTopMatches(userId: string, minPercentage = 70, limit = 10): Promise<CVJDMatch[]> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('cv_jd_matches')
         .select(
           `
@@ -201,7 +201,7 @@ export class MatchService {
     recommendation: 'strong_match' | 'potential_fit' | 'not_recommended'
   ): Promise<CVJDMatch[]> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('cv_jd_matches')
         .select(
           `
@@ -240,7 +240,7 @@ export class MatchService {
     total_cost_usd: number;
   }> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('cv_jd_matches')
         .select(
           `
@@ -295,7 +295,7 @@ export class MatchService {
   // Delete match
   static async delete(id: string): Promise<void> {
     return withPerformanceMonitoring(async () => {
-      const { error } = await supabase.from('cv_jd_matches').delete().eq('id', id);
+      const { error } = await supabase!.from('cv_jd_matches').delete().eq('id', id);
 
       if (error) {
         throw new Error(handleDatabaseError(error, 'delete match'));

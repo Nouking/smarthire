@@ -13,7 +13,7 @@ export class JobDescriptionService {
   // Create a new job description
   static async create(jobData: JobDescriptionInsert): Promise<JobDescription | null> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('job_descriptions')
         .insert(jobData)
         .select()
@@ -30,7 +30,7 @@ export class JobDescriptionService {
   // Get job description by ID
   static async getById(id: string): Promise<JobDescription | null> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('job_descriptions')
         .select('*')
         .eq('id', id)
@@ -47,7 +47,7 @@ export class JobDescriptionService {
   // Get all job descriptions for a user
   static async getByUser(userId: string, limit = 20, offset = 0): Promise<JobDescription[]> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('job_descriptions')
         .select('*')
         .eq('user_id', userId)
@@ -65,7 +65,7 @@ export class JobDescriptionService {
   // Update job description
   static async update(id: string, updates: JobDescriptionUpdate): Promise<JobDescription | null> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('job_descriptions')
         .update({ ...updates, updated_at: new Date().toISOString() })
         .eq('id', id)
@@ -83,7 +83,7 @@ export class JobDescriptionService {
   // Delete job description
   static async delete(id: string): Promise<void> {
     return withPerformanceMonitoring(async () => {
-      const { error } = await supabase.from('job_descriptions').delete().eq('id', id);
+      const { error } = await supabase!.from('job_descriptions').delete().eq('id', id);
 
       if (error) {
         throw new Error(handleDatabaseError(error, 'delete job description'));
@@ -99,7 +99,7 @@ export class JobDescriptionService {
     limit = 10
   ): Promise<JobDescriptionWithSimilarity[]> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase.rpc('match_job_descriptions', {
+      const { data, error } = await supabase!.rpc('match_job_descriptions', {
         query_embedding: embedding,
         match_threshold: threshold,
         match_count: limit,
@@ -118,7 +118,7 @@ export class JobDescriptionService {
   static async incrementUsage(id: string): Promise<void> {
     return withPerformanceMonitoring(async () => {
       // First get the current times_used value
-      const { data: current, error: fetchError } = await supabase
+      const { data: current, error: fetchError } = await supabase!
         .from('job_descriptions')
         .select('times_used')
         .eq('id', id)
@@ -129,7 +129,7 @@ export class JobDescriptionService {
       }
 
       // Increment and update
-      const { error } = await supabase
+      const { error } = await supabase!
         .from('job_descriptions')
         .update({
           times_used: (current?.times_used || 0) + 1,
@@ -147,7 +147,7 @@ export class JobDescriptionService {
   // Get most used job descriptions for a user
   static async getMostUsed(userId: string, limit = 5): Promise<JobDescription[]> {
     return withPerformanceMonitoring(async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('job_descriptions')
         .select('*')
         .eq('user_id', userId)

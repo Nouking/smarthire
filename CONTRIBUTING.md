@@ -11,28 +11,31 @@ Welcome to SmartHire AI! We're excited you're interested in contributing. This g
 Before contributing, ensure you have:
 
 - **Node.js**: Version 18.17 or later
-- **npm**: Version 9.6.7 or later  
+- **npm**: Version 9.6.7 or later
 - **Git**: For version control
 - **Code Editor**: VS Code recommended with TypeScript and Prettier extensions
 
 ### Development Setup
 
 1. **Fork & Clone**
+
    ```bash
    # Fork the repository on GitHub, then clone your fork
    git clone https://github.com/YOUR_USERNAME/smarthire.git
    cd smarthire
-   
+
    # Add upstream remote
    git remote add upstream https://github.com/[main-org]/smarthire.git
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Environment Configuration**
+
    ```bash
    # Copy and configure environment variables
    cp .env.local.example .env.local
@@ -55,17 +58,21 @@ Before contributing, ensure you have:
 We use a feature branch workflow with the following naming conventions:
 
 #### Epic Tasks (E14-TX format)
+
 ```bash
 dev-e{epic}-t{task}-{kebab-case-description}
 ```
+
 **Examples:**
+
 - `dev-e14-t1-nextjs-foundation-setup`
 - `dev-e14-t6-documentation-dev-environment`
 
 #### General Development
+
 ```bash
 feature/{kebab-case-name}        # New features
-fix/{kebab-case-description}     # Bug fixes  
+fix/{kebab-case-description}     # Bug fixes
 docs/{kebab-case-topic}         # Documentation updates
 chore/{kebab-case-task}         # Maintenance tasks
 ```
@@ -83,6 +90,7 @@ type(scope): description
 ```
 
 #### Commit Types
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation changes
@@ -92,6 +100,7 @@ type(scope): description
 - `chore`: Maintenance tasks, dependency updates
 
 #### Examples
+
 ```bash
 feat(auth): implement enhanced signup validation
 fix(ui): resolve mobile responsive grid layout
@@ -121,12 +130,12 @@ interface User {
 
 const fetchUser = async (id: string): Promise<User> => {
   // Implementation
-}
+};
 
 // ❌ Bad: Using any
 const fetchUser = async (id: any): Promise<any> => {
-  // Implementation  
-}
+  // Implementation
+};
 ```
 
 ### Component Standards
@@ -275,7 +284,7 @@ describe('Button', () => {
   it('calls onClick when clicked', () => {
     const handleClick = jest.fn();
     render(<Button onClick={handleClick}>Click me</Button>);
-    
+
     fireEvent.click(screen.getByRole('button'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -349,12 +358,14 @@ If pre-commit hooks fail, fix the issues before committing.
 ### PR Preparation
 
 1. **Update Your Branch**
+
    ```bash
    git fetch upstream
    git rebase upstream/main
    ```
 
 2. **Quality Gates**
+
    ```bash
    # Ensure all checks pass
    npm run quality
@@ -370,21 +381,25 @@ If pre-commit hooks fail, fix the issues before committing.
 
 ```markdown
 ## Description
+
 Brief description of changes made
 
 ## Type of Change
+
 - [ ] Bug fix (non-breaking change that fixes an issue)
 - [ ] New feature (non-breaking change that adds functionality)
 - [ ] Breaking change (fix or feature that causes existing functionality to change)
 - [ ] Documentation update
 
 ## Testing
+
 - [ ] All quality gates pass (`npm run quality`)
 - [ ] New tests added for new functionality
 - [ ] All existing tests pass
 - [ ] Manual testing completed
 
 ## Checklist
+
 - [ ] Code follows the style guidelines
 - [ ] Self-review completed
 - [ ] Commented any hard-to-understand areas
@@ -392,16 +407,18 @@ Brief description of changes made
 - [ ] No console.log statements left in code
 
 ## Screenshots (if applicable)
+
 Add screenshots of UI changes
 
 ## Related Issues
+
 Closes #(issue number)
 ```
 
 ### Review Process
 
 1. **Automated Checks**: All CI/CD checks must pass
-2. **Code Review**: At least one approving review required  
+2. **Code Review**: At least one approving review required
 3. **Quality Gates**: Manual verification of quality gate compliance
 4. **Documentation**: Ensure documentation is updated if needed
 
@@ -420,7 +437,7 @@ interface PageProps {
 
 export default async function UserPage({ params, searchParams }: PageProps) {
   const user = await getUser(params.id);
-  
+
   return (
     <div>
       <h1>{user.name}</h1>
@@ -435,11 +452,7 @@ export default async function UserPage({ params, searchParams }: PageProps) {
 ```typescript
 // ✅ Good: Supabase with proper error handling
 export async function getUser(id: string): Promise<User | null> {
-  const { data, error } = await supabase
-    .from('users')
-    .select('*')
-    .eq('id', id)
-    .single();
+  const { data, error } = await supabase.from('users').select('*').eq('id', id).single();
 
   if (error) {
     console.error('Error fetching user:', error);
@@ -458,12 +471,14 @@ import { createClient } from '@/lib/auth/server';
 
 export async function getServerUser() {
   const supabase = createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   if (!user) {
     redirect('/auth/signin');
   }
-  
+
   return user;
 }
 ```
@@ -475,7 +490,7 @@ export async function getServerUser() {
 ### Essential Reading
 
 - **[Technical Design](docs/core/smarthire_technical_design.md)**: Complete architecture specification
-- **[Development Workflow](docs/development/development-workflow.md)**: Detailed development procedures  
+- **[Development Workflow](docs/development/development-workflow.md)**: Detailed development procedures
 - **[Project Structure](docs/development/project-structure.md)**: Codebase organization guide
 - **[Component Patterns](docs/development/component-patterns.md)**: shadcn/ui usage guidelines
 
@@ -494,19 +509,22 @@ export async function getServerUser() {
 ### Development Issues
 
 **Issue**: TypeScript compilation errors
+
 ```bash
 # Solution: Check types and run diagnostics
 npm run type-check
 npx tsc --noEmit --diagnostics
 ```
 
-**Issue**: ESLint warnings/errors  
+**Issue**: ESLint warnings/errors
+
 ```bash
 # Solution: Auto-fix where possible
 npm run lint:fix
 ```
 
 **Issue**: Supabase connection issues
+
 ```bash
 # Solution: Verify environment variables
 echo $NEXT_PUBLIC_SUPABASE_URL
@@ -516,12 +534,14 @@ echo $NEXT_PUBLIC_SUPABASE_ANON_KEY
 ### Build Issues
 
 **Issue**: Production build fails
+
 ```bash
 # Solution: Check for dynamic imports and environment variables
 npm run build 2>&1 | grep ERROR
 ```
 
 **Issue**: Tests failing
+
 ```bash
 # Solution: Run tests with verbose output
 npm test -- --verbose
@@ -554,7 +574,7 @@ Our contribution goals align with the SmartHire AI mission:
 
 - **Quality First**: Maintain high code quality and test coverage
 - **Performance Focus**: Optimize for the 30-second processing SLA
-- **Mobile-First**: Ensure excellent mobile user experience  
+- **Mobile-First**: Ensure excellent mobile user experience
 - **Cost Efficiency**: Keep operational costs under $8/month target
 - **Security Priority**: Maintain enterprise-grade security standards
 

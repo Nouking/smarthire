@@ -160,7 +160,7 @@ src/components/
 Clear separation between different layers:
 
 - **`app/`**: Pages and routing logic
-- **`components/`**: UI presentation layer  
+- **`components/`**: UI presentation layer
 - **`lib/`**: Business logic and utilities
 - **`hooks/`**: Stateful logic and side effects
 - **`types/`**: Type definitions and interfaces
@@ -198,7 +198,7 @@ src/app/
 
 - **`page.tsx`**: Creates a route segment
 - **`layout.tsx`**: Shared UI for a segment and its children
-- **`loading.tsx`**: Loading UI for a segment  
+- **`loading.tsx`**: Loading UI for a segment
 - **`error.tsx`**: Error UI for a segment
 - **`not-found.tsx`**: Not found UI for a segment
 
@@ -211,7 +211,7 @@ app/
 ├── (auth)/             # Grouping for auth pages
 │   ├── signin/page.tsx # /signin
 │   └── signup/page.tsx # /signup
-└── (dashboard)/        # Grouping for app pages  
+└── (dashboard)/        # Grouping for app pages
     └── profile/page.tsx # /profile
 ```
 
@@ -226,7 +226,7 @@ Pre-built, customizable UI components:
 ```
 src/components/ui/
 ├── button.tsx          # Button variants and sizes
-├── card.tsx           # Card container component  
+├── card.tsx           # Card container component
 ├── dialog.tsx         # Modal dialog component
 ├── form.tsx           # Form wrapper and field components
 ├── input.tsx          # Input field component
@@ -235,6 +235,7 @@ src/components/ui/
 ```
 
 **Usage Pattern:**
+
 ```typescript
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -261,7 +262,7 @@ Domain-specific components organized by feature:
 src/components/auth/
 ├── enhanced-signup-form.tsx    # Complex signup form
 ├── signin-form.tsx             # Sign-in form
-├── signup-form.tsx             # Basic signup form  
+├── signup-form.tsx             # Basic signup form
 └── registration-success.tsx     # Success state component
 ```
 
@@ -296,6 +297,7 @@ src/lib/auth/
 ```
 
 **Usage Pattern:**
+
 ```typescript
 // Client-side
 import { useAuth } from '@/lib/auth/client';
@@ -347,6 +349,7 @@ src/types/
 ```
 
 **Type Organization Pattern:**
+
 ```typescript
 // database.ts
 export interface User {
@@ -487,17 +490,21 @@ import './styles.css';
 ## File Naming Conventions
 
 ### Component Files
+
 - **PascalCase**: `SignupForm.tsx`, `UserProfile.tsx`
 - **kebab-case**: `signup-form.tsx`, `user-profile.tsx` (preferred)
 
 ### Utility Files
+
 - **camelCase**: `authUtils.ts`, `formatHelpers.ts`
 - **kebab-case**: `auth-utils.ts`, `format-helpers.ts` (preferred)
 
 ### Page Files (App Router)
+
 - **Always**: `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`
 
 ### Directory Names
+
 - **kebab-case**: `user-profile/`, `job-descriptions/`
 - **camelCase**: `userProfile/`, `jobDescriptions/` (acceptable)
 
@@ -574,13 +581,21 @@ Each file should have a single, clear responsibility:
 ```typescript
 // ✅ Good: Single component per file
 // signup-form.tsx
-export function SignupForm() { /* ... */ }
+export function SignupForm() {
+  /* ... */
+}
 
 // ❌ Bad: Multiple components in one file
-// forms.tsx  
-export function SignupForm() { /* ... */ }
-export function LoginForm() { /* ... */ }
-export function ProfileForm() { /* ... */ }
+// forms.tsx
+export function SignupForm() {
+  /* ... */
+}
+export function LoginForm() {
+  /* ... */
+}
+export function ProfileForm() {
+  /* ... */
+}
 ```
 
 ### 2. Clear Naming
@@ -605,11 +620,17 @@ Use consistent export patterns across the application:
 
 ```typescript
 // ✅ Good: Named exports for utilities
-export function formatCurrency(amount: number): string { /* ... */ }
-export function parseDate(date: string): Date { /* ... */ }
+export function formatCurrency(amount: number): string {
+  /* ... */
+}
+export function parseDate(date: string): Date {
+  /* ... */
+}
 
 // ✅ Good: Default exports for components
-export default function HomePage() { /* ... */ }
+export default function HomePage() {
+  /* ... */
+}
 
 // ✅ Good: Index files for public APIs
 // src/lib/auth/index.ts

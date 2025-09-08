@@ -114,7 +114,7 @@ const alertVariants = cva(
   }
 );
 
-interface AlertProps extends React.HTMLAttributes<HTMLDivElement>, 
+interface AlertProps extends React.HTMLAttributes<HTMLDivElement>,
   VariantProps<typeof alertVariants> {}
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
@@ -267,7 +267,7 @@ function BadResponsiveGrid({ children }: { children: React.ReactNode }) {
 function ResponsiveContainer({ children }: { children: React.ReactNode }) {
   return (
     <div className="
-      w-full max-w-7xl mx-auto 
+      w-full max-w-7xl mx-auto
       px-4 py-6
       sm:px-6 sm:py-8
       lg:px-8 lg:py-10
@@ -317,17 +317,17 @@ function MobileNavigation() {
             {isOpen ? <X size={20} /> : <Menu size={20} />}
           </Button>
         </div>
-        
+
         {isOpen && (
           <div className="border-t bg-background p-4 space-y-2">
-            <a 
-              href="/dashboard" 
+            <a
+              href="/dashboard"
               className="block py-2 text-foreground hover:text-primary"
             >
               Dashboard
             </a>
-            <a 
-              href="/candidates" 
+            <a
+              href="/candidates"
               className="block py-2 text-foreground hover:text-primary"
             >
               Candidates
@@ -354,7 +354,7 @@ function ResponsiveTypography() {
       ">
         Main Heading
       </h1>
-      
+
       <p className="
         text-sm leading-relaxed
         sm:text-base
@@ -486,14 +486,14 @@ function FormSection({ title, description, children }: FormSectionProps) {
 function CompanyProfileForm() {
   return (
     <div className="space-y-8">
-      <FormSection 
+      <FormSection
         title="Company Information"
         description="Basic details about your company"
       >
         <FormField name="companyName" />
         <FormField name="industry" />
       </FormSection>
-      
+
       <FormSection
         title="Contact Details"
         description="How candidates can reach you"
@@ -556,13 +556,13 @@ function UserActionsDialog({ userId }: { userId: string }) {
           </DialogDescription>
         </DialogHeader>
         <div className="flex justify-end space-x-2 pt-4">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={() => setIsOpen(false)}
           >
             Cancel
           </Button>
-          <Button 
+          <Button
             variant="destructive"
             onClick={handleDelete}
             disabled={isLoading}
@@ -622,10 +622,10 @@ function AddUserDialog() {
                 </FormItem>
               )}
             />
-            
+
             <div className="flex justify-end space-x-2 pt-4">
-              <Button 
-                type="button" 
+              <Button
+                type="button"
                 variant="outline"
                 onClick={() => setIsOpen(false)}
               >
@@ -726,9 +726,9 @@ function ErrorState({ error, retry, showDetails = false }: ErrorStateProps) {
           </details>
         )}
         {retry && (
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <Button
+            variant="outline"
+            size="sm"
             onClick={retry}
             className="mt-2"
           >
@@ -742,11 +742,11 @@ function ErrorState({ error, retry, showDetails = false }: ErrorStateProps) {
 }
 
 // Empty state pattern
-function EmptyState({ 
-  icon: Icon, 
-  title, 
-  description, 
-  action 
+function EmptyState({
+  icon: Icon,
+  title,
+  description,
+  action
 }: {
   icon: React.ComponentType<{ className?: string }>;
   title: string;
@@ -812,8 +812,8 @@ function UserTable({ users }: { users: User[] }) {
               <TableCell>{user.role}</TableCell>
               <TableCell className="text-right">
                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                  user.status === 'active' 
-                    ? 'bg-green-100 text-green-800' 
+                  user.status === 'active'
+                    ? 'bg-green-100 text-green-800'
                     : 'bg-gray-100 text-gray-800'
                 }`}>
                   {user.status}
@@ -912,7 +912,7 @@ describe('Button', () => {
   it('calls onClick when clicked', () => {
     const handleClick = jest.fn();
     render(<Button onClick={handleClick}>Click me</Button>);
-    
+
     fireEvent.click(screen.getByRole('button'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -983,11 +983,11 @@ function DashboardPage() {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Dashboard</h1>
-      
+
       <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
         <CandidateAnalytics />
       </Suspense>
-      
+
       <Suspense fallback={<Skeleton className="h-[300px] w-full" />}>
         <ReportsPanel />
       </Suspense>
@@ -1012,14 +1012,14 @@ const CandidateItem = memo(({ candidate }: { candidate: Candidate }) => {
 });
 
 // Memoize expensive calculations
-function CandidateList({ candidates, filter }: { 
-  candidates: Candidate[]; 
-  filter: string; 
+function CandidateList({ candidates, filter }: {
+  candidates: Candidate[];
+  filter: string;
 }) {
   const filteredCandidates = useMemo(() => {
     return candidates.filter(candidate =>
       candidate.name.toLowerCase().includes(filter.toLowerCase()) ||
-      candidate.skills.some(skill => 
+      candidate.skills.some(skill =>
         skill.toLowerCase().includes(filter.toLowerCase())
       )
     );
@@ -1051,13 +1051,13 @@ function AccessibleDropdown() {
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
-        setSelectedIndex(prev => 
+        setSelectedIndex(prev =>
           prev < items.length - 1 ? prev + 1 : 0
         );
         break;
       case 'ArrowUp':
         event.preventDefault();
-        setSelectedIndex(prev => 
+        setSelectedIndex(prev =>
           prev > 0 ? prev - 1 : items.length - 1
         );
         break;
@@ -1083,7 +1083,7 @@ function AccessibleDropdown() {
       >
         Select Option
       </Button>
-      
+
       {isOpen && (
         <ul
           role="listbox"
@@ -1133,7 +1133,7 @@ function AccessibleForm() {
           </p>
         )}
       </div>
-      
+
       <div>
         <fieldset className="space-y-2">
           <legend className="font-medium">Preferred Contact Method</legend>

@@ -11,6 +11,7 @@ This guide outlines the daily development workflow for SmartHire AI contributors
 ### 1. Start Your Development Day
 
 **Sync with Latest Changes:**
+
 ```bash
 # Switch to main branch
 git checkout main
@@ -23,6 +24,7 @@ git push origin main
 ```
 
 **Update Dependencies (if needed):**
+
 ```bash
 # Check for updates
 npm outdated
@@ -37,11 +39,13 @@ npm run quality
 ### 2. Pick Up New Work
 
 **Review Available Tasks:**
+
 - Check [IMPROVEMENT-TASK-TRACKING.md](../IMPROVEMENT-TASK-TRACKING.md) for assigned tasks
 - Review GitHub Issues for bug reports or feature requests
 - Coordinate with team on Slack/Discord for task assignment
 
 **Create Feature Branch:**
+
 ```bash
 # For Epic tasks (E14-TX format)
 git checkout -b dev-e14-t6-documentation-dev-environment
@@ -56,17 +60,20 @@ git checkout -b fix/mobile-responsive-layout
 ### 3. Development Process
 
 **Start Development Server:**
+
 ```bash
 npm run dev
 ```
 
 **Make Changes:**
+
 - Follow [project structure guidelines](project-structure.md)
 - Implement features incrementally
 - Test changes frequently in the browser
 - Write unit tests as you develop
 
 **Quality Checks During Development:**
+
 ```bash
 # Run individual checks as needed
 npm run type-check    # TypeScript validation
@@ -77,6 +84,7 @@ npm test -- --watch  # Run tests in watch mode
 ### 4. Commit Your Changes
 
 **Stage Changes:**
+
 ```bash
 # Stage specific files
 git add src/components/ui/button.tsx
@@ -87,6 +95,7 @@ git add .
 ```
 
 **Commit with Conventional Format:**
+
 ```bash
 git commit -m "feat(ui): add button component with variants
 
@@ -97,6 +106,7 @@ git commit -m "feat(ui): add button component with variants
 ```
 
 **Pre-commit Hooks Verification:**
+
 - Husky automatically runs quality checks
 - Fix any issues that arise before commit completes
 - Hooks run: ESLint, Prettier, TypeScript, Tests
@@ -104,11 +114,13 @@ git commit -m "feat(ui): add button component with variants
 ### 5. Push and Create Pull Request
 
 **Push to Your Fork:**
+
 ```bash
 git push origin feature-branch-name
 ```
 
 **Create Pull Request:**
+
 1. Visit GitHub repository
 2. Click "New Pull Request"
 3. Select your branch
@@ -122,6 +134,7 @@ git push origin feature-branch-name
 ### Branch Types
 
 **Epic Tasks (E14-TX format):**
+
 ```bash
 dev-e14-t1-nextjs-foundation-setup
 dev-e14-t6-documentation-dev-environment
@@ -129,6 +142,7 @@ dev-e15-t2-ai-processing-pipeline
 ```
 
 **Feature Development:**
+
 ```bash
 feature/user-authentication
 feature/cv-upload-processing
@@ -136,6 +150,7 @@ feature/dashboard-analytics
 ```
 
 **Bug Fixes:**
+
 ```bash
 fix/mobile-responsive-layout
 fix/authentication-token-refresh
@@ -143,6 +158,7 @@ fix/file-upload-validation
 ```
 
 **Documentation:**
+
 ```bash
 docs/api-documentation-update
 docs/contributing-guidelines
@@ -150,6 +166,7 @@ docs/deployment-procedures
 ```
 
 **Chores/Maintenance:**
+
 ```bash
 chore/dependency-updates
 chore/eslint-configuration
@@ -262,16 +279,20 @@ test(api): add endpoint integration tests
 ### Submitting Pull Requests
 
 **PR Title Format:**
+
 ```
 type(scope): Brief description of changes
 ```
 
 **PR Description Template:**
+
 ```markdown
 ## Summary
+
 Brief description of what this PR accomplishes.
 
 ## Type of Change
+
 - [ ] Bug fix (non-breaking change that fixes an issue)
 - [ ] New feature (non-breaking change that adds functionality)
 - [ ] Breaking change (fix or feature that causes existing functionality to change)
@@ -280,11 +301,13 @@ Brief description of what this PR accomplishes.
 - [ ] Performance improvement
 
 ## Changes Made
+
 - Specific change 1
 - Specific change 2
 - Specific change 3
 
 ## Testing
+
 - [ ] All quality gates pass (`npm run quality`)
 - [ ] New tests added for new functionality
 - [ ] All existing tests pass
@@ -293,9 +316,11 @@ Brief description of what this PR accomplishes.
 - [ ] Mobile testing (if applicable)
 
 ## Screenshots (if applicable)
+
 [Add screenshots of UI changes]
 
 ## Quality Checklist
+
 - [ ] Code follows style guidelines
 - [ ] Self-review completed
 - [ ] Hard-to-understand areas commented
@@ -304,6 +329,7 @@ Brief description of what this PR accomplishes.
 - [ ] Error handling implemented where needed
 
 ## Related Issues
+
 Closes #123
 Relates to #456
 ```
@@ -320,13 +346,16 @@ Relates to #456
 6. **Accessibility**: Does UI code meet accessibility standards?
 
 **Review Comments:**
+
 ```markdown
 # ✅ Good review comments
+
 "Consider extracting this logic into a separate utility function for reusability."
 "This component looks great! Could we add a test for the error state?"
 "The implementation is solid. Just a minor suggestion about variable naming."
 
-# ❌ Poor review comments  
+# ❌ Poor review comments
+
 "This is wrong."
 "Fix this."
 "Looks good."
@@ -335,6 +364,7 @@ Relates to #456
 ### Addressing Review Feedback
 
 **Responding to Comments:**
+
 1. Read all feedback carefully
 2. Ask for clarification if comments are unclear
 3. Make requested changes in separate commits
@@ -342,6 +372,7 @@ Relates to #456
 5. Re-request review when ready
 
 **Making Changes:**
+
 ```bash
 # Make changes based on feedback
 git add modified-files
@@ -371,7 +402,7 @@ npm run quality
 npm run type-check
 # Expected: No compilation errors
 
-# 2. ESLint Validation (MUST PASS ✅)  
+# 2. ESLint Validation (MUST PASS ✅)
 npm run lint
 # Expected: No warnings or errors
 
@@ -392,11 +423,12 @@ Git hooks automatically run before commits:
 # These run automatically on `git commit`
 1. TypeScript type checking
 2. ESLint with auto-fix
-3. Prettier code formatting  
+3. Prettier code formatting
 4. Test execution for changed files
 ```
 
 **If hooks fail:**
+
 ```bash
 # Fix the issues shown in the output
 # Then retry the commit
@@ -416,6 +448,7 @@ git commit -m "your commit message"
 - [ ] **Accessibility**: Keyboard navigation and screen reader compatibility
 
 **Testing Commands:**
+
 ```bash
 # Start development server for manual testing
 npm run dev
@@ -432,12 +465,14 @@ npm start
 ### Development Debugging
 
 **Browser DevTools:**
+
 - Use React Developer Tools for component inspection
 - Check Network tab for API calls
 - Review Console for errors and warnings
 - Use Application tab for localStorage/sessionStorage
 
 **VS Code Debugging:**
+
 ```json
 // .vscode/launch.json
 {
@@ -465,6 +500,7 @@ npm start
 ### Common Debugging Scenarios
 
 **TypeScript Errors:**
+
 ```bash
 # Get detailed type information
 npx tsc --noEmit --diagnostics
@@ -474,6 +510,7 @@ npx tsc --noEmit src/components/problem-component.tsx
 ```
 
 **ESLint Issues:**
+
 ```bash
 # Auto-fix what's possible
 npm run lint:fix
@@ -483,6 +520,7 @@ npx eslint src/components/problem-component.tsx
 ```
 
 **Build Failures:**
+
 ```bash
 # Clean build cache and retry
 npm run clean
@@ -493,6 +531,7 @@ npm run build 2>&1 | tee build-output.log
 ```
 
 **Test Failures:**
+
 ```bash
 # Run specific test file
 npm test -- button.test.tsx
@@ -511,11 +550,13 @@ npm test -- --debug
 ### Development Deployment
 
 **Vercel Integration:**
+
 - Every PR automatically gets a preview deployment
 - Preview URL is posted in PR comments
 - Use preview deployments for testing and review
 
 **Manual Preview:**
+
 ```bash
 # Install Vercel CLI (one-time setup)
 npm i -g vercel
@@ -530,11 +571,13 @@ vercel --prod
 ### Production Deployment
 
 **Automated via GitHub Actions:**
+
 - Pushes to `main` branch trigger production deployment
 - All quality gates must pass before deployment
 - Automatic rollback on deployment failures
 
 **Manual Production Deployment:**
+
 ```bash
 # Ensure you're on main branch
 git checkout main
@@ -554,16 +597,19 @@ vercel --prod
 ### Communication Channels
 
 **Daily Standup:**
+
 - Share progress on current tasks
 - Identify blockers and dependencies
 - Coordinate on shared components or APIs
 
 **Code Reviews:**
+
 - Provide constructive feedback
 - Learn from others' implementations
 - Share knowledge and best practices
 
 **Documentation Updates:**
+
 - Update docs when changing APIs or workflows
 - Provide clear examples and use cases
 - Keep troubleshooting guides current
@@ -571,12 +617,14 @@ vercel --prod
 ### Pair Programming
 
 **When to Pair Program:**
+
 - Complex feature implementations
 - Debugging difficult issues
 - Knowledge transfer sessions
 - Onboarding new team members
 
 **Pair Programming Setup:**
+
 ```bash
 # Use VS Code Live Share for remote pairing
 # Install Live Share extension
@@ -590,6 +638,7 @@ vercel --prod
 ### Git Issues
 
 **Merge Conflicts:**
+
 ```bash
 # Pull latest changes
 git pull upstream main
@@ -601,6 +650,7 @@ git commit -m "resolve: merge conflicts with main"
 ```
 
 **Wrong Branch:**
+
 ```bash
 # If you committed to wrong branch
 git checkout correct-branch
@@ -612,6 +662,7 @@ git reset --hard HEAD~1
 ```
 
 **Lost Work:**
+
 ```bash
 # Find lost commits
 git reflog
@@ -624,6 +675,7 @@ git checkout -b recovery-branch
 ### Development Issues
 
 **Port Already in Use:**
+
 ```bash
 # Find and kill process using port 3000
 lsof -ti:3000 | xargs kill -9
@@ -633,6 +685,7 @@ PORT=3001 npm run dev
 ```
 
 **Cache Issues:**
+
 ```bash
 # Clear Next.js cache
 npm run clean
@@ -645,6 +698,7 @@ npm run reinstall
 ```
 
 **Permission Issues:**
+
 ```bash
 # Fix npm permissions (macOS/Linux)
 sudo chown -R $(whoami) ~/.npm
@@ -660,6 +714,7 @@ sudo chown -R $(whoami) project-directory
 ### Development Efficiency
 
 **VS Code Extensions:**
+
 - ES7+ React/Redux/React-Native snippets
 - Tailwind CSS IntelliSense
 - TypeScript Importer
@@ -667,6 +722,7 @@ sudo chown -R $(whoami) project-directory
 - Thunder Client (for API testing)
 
 **Keyboard Shortcuts:**
+
 ```bash
 # VS Code
 Cmd/Ctrl + ` : Toggle terminal
@@ -677,10 +733,11 @@ Shift + F12 : Find references
 ```
 
 **Terminal Aliases:**
+
 ```bash
 # Add to ~/.bashrc or ~/.zshrc
 alias nrd="npm run dev"
-alias nrb="npm run build"  
+alias nrb="npm run build"
 alias nrt="npm test"
 alias nrq="npm run quality"
 
@@ -693,13 +750,15 @@ alias gps="git push"
 ### Time Management
 
 **Focus Blocks:**
+
 - Use Pomodoro technique (25min work, 5min break)
 - Turn off notifications during deep work
 - Batch similar tasks (all testing, all documentation, etc.)
 
 **Daily Planning:**
+
 - Review tasks at start of day
-- Estimate time for each task  
+- Estimate time for each task
 - Plan break points for commits and pushes
 - Leave buffer time for unexpected issues
 

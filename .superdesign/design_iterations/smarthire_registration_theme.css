@@ -5,7 +5,7 @@
   --brand-blue-hover: #1d4ed8;
   --brand-blue-light: #dbeafe;
   --brand-blue-dark: #1e40af;
-  
+
   /* Professional Palette */
   --background: #ffffff;
   --foreground: #0f172a;
@@ -13,23 +13,23 @@
   --card-foreground: #0f172a;
   --popover: #ffffff;
   --popover-foreground: #0f172a;
-  
+
   /* Primary (Brand Blue) */
   --primary: var(--brand-blue);
   --primary-foreground: #ffffff;
-  
+
   /* Secondary (Professional Gray) */
   --secondary: #f1f5f9;
   --secondary-foreground: #334155;
-  
+
   /* Muted (Subtle Grays) */
   --muted: #f8fafc;
   --muted-foreground: #64748b;
-  
+
   /* Accent (Interactive Blue) */
   --accent: #f0f9ff;
   --accent-foreground: var(--brand-blue);
-  
+
   /* Form States */
   --success: #059669;
   --success-foreground: #ffffff;
@@ -37,25 +37,27 @@
   --warning-foreground: #ffffff;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  
+
   /* Borders and Inputs */
   --border: #e2e8f0;
   --input: #ffffff;
   --input-border: #cbd5e1;
   --input-border-focus: var(--brand-blue);
   --ring: var(--brand-blue);
-  
+
   /* Professional Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-  
+
   /* Professional Spacing & Sizing */
   --radius: 0.5rem;
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
-  
+
   /* Professional Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -63,7 +65,7 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  
+
   /* Form Focus Ring */
   --focus-ring: 0 0 0 2px var(--brand-blue-light);
 }
@@ -163,10 +165,18 @@ body {
   border-radius: 2px !important;
 }
 
-.password-strength-weak { background: var(--destructive) !important; }
-.password-strength-fair { background: var(--warning) !important; }
-.password-strength-good { background: var(--brand-blue) !important; }
-.password-strength-strong { background: var(--success) !important; }
+.password-strength-weak {
+  background: var(--destructive) !important;
+}
+.password-strength-fair {
+  background: var(--warning) !important;
+}
+.password-strength-good {
+  background: var(--brand-blue) !important;
+}
+.password-strength-strong {
+  background: var(--success) !important;
+}
 
 /* Professional Validation States */
 .form-error {
@@ -286,20 +296,45 @@ body {
 
 /* Professional Keyframes */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes bounce {
-  0%, 20%, 53%, 80%, 100% { transform: translate3d(0, 0, 0); }
-  40%, 43% { transform: translate3d(0, -8px, 0); }
-  70% { transform: translate3d(0, -4px, 0); }
-  90% { transform: translate3d(0, -2px, 0); }
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%,
+  43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
 }
 
 /* Professional Loading States */
@@ -313,7 +348,9 @@ body {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Professional Responsive Design */
@@ -322,18 +359,19 @@ body {
     margin: 1rem !important;
     border-radius: var(--radius) !important;
   }
-  
+
   .heading-primary {
     font-size: 1.75rem !important;
   }
-  
+
   .btn-primary {
     width: 100% !important;
     padding: 0.875rem 1.5rem !important;
     font-size: 1rem !important;
   }
-  
-  .form-input, .form-select {
+
+  .form-input,
+  .form-select {
     padding: 0.875rem 1rem !important;
     font-size: 1rem !important;
   }

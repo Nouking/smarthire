@@ -13,6 +13,7 @@ This guide helps you resolve common issues encountered during SmartHire AI devel
 #### Issue: "npm command not found"
 
 **Symptoms:**
+
 ```bash
 $ npm --version
 bash: npm: command not found
@@ -21,6 +22,7 @@ bash: npm: command not found
 **Solutions:**
 
 **macOS:**
+
 ```bash
 # Install via Homebrew
 brew install node
@@ -29,6 +31,7 @@ brew install node
 ```
 
 **Windows:**
+
 ```bash
 # Download and reinstall from nodejs.org
 # Ensure "Add to PATH" is checked during installation
@@ -36,6 +39,7 @@ brew install node
 ```
 
 **Linux (Ubuntu/Debian):**
+
 ```bash
 # Install via package manager
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
@@ -48,6 +52,7 @@ node --version && npm --version
 #### Issue: "Permission denied" errors during npm install
 
 **Symptoms:**
+
 ```bash
 $ npm install
 npm ERR! Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules'
@@ -56,6 +61,7 @@ npm ERR! Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules'
 **Solutions:**
 
 **macOS/Linux:**
+
 ```bash
 # Fix npm permissions
 sudo chown -R $(whoami) ~/.npm
@@ -69,6 +75,7 @@ source ~/.profile
 ```
 
 **Windows:**
+
 ```bash
 # Run Command Prompt/PowerShell as Administrator
 # Or use npm's Windows installer fix
@@ -78,11 +85,13 @@ npm install -g npm
 #### Issue: "ENOTFOUND" or timeout errors during npm install
 
 **Symptoms:**
+
 ```bash
 npm ERR! network request to https://registry.npmjs.org failed, reason: getaddrinfo ENOTFOUND
 ```
 
 **Solutions:**
+
 ```bash
 # Clear npm cache
 npm cache clean --force
@@ -106,6 +115,7 @@ ping registry.npmjs.org
 #### Issue: "Port 3000 already in use"
 
 **Symptoms:**
+
 ```bash
 $ npm run dev
 Error: listen EADDRINUSE: address already in use :::3000
@@ -114,6 +124,7 @@ Error: listen EADDRINUSE: address already in use :::3000
 **Solutions:**
 
 **Find and kill process using port:**
+
 ```bash
 # macOS/Linux
 lsof -ti:3000 | xargs kill -9
@@ -124,6 +135,7 @@ taskkill /PID <PID_NUMBER> /F
 ```
 
 **Use different port:**
+
 ```bash
 # Set PORT environment variable
 PORT=3001 npm run dev
@@ -135,6 +147,7 @@ PORT=3001 npm run dev
 #### Issue: Development server won't start
 
 **Symptoms:**
+
 ```bash
 $ npm run dev
 ready - started server on 0.0.0.0:3000
@@ -142,6 +155,7 @@ ready - started server on 0.0.0.0:3000
 ```
 
 **Solutions:**
+
 ```bash
 # Check if Node.js process is running
 ps aux | grep node
@@ -163,10 +177,12 @@ npm run dev -- -H localhost
 #### Issue: Hot reload not working
 
 **Symptoms:**
+
 - File changes don't trigger browser refresh
 - Need to manually refresh browser to see changes
 
 **Solutions:**
+
 ```bash
 # Check file watcher limits (Linux)
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
@@ -188,11 +204,13 @@ npm run dev
 #### Issue: "Cannot find module" errors
 
 **Symptoms:**
+
 ```bash
 error TS2307: Cannot find module '@/components/ui/button' or its corresponding type declarations.
 ```
 
 **Solutions:**
+
 ```bash
 # Check tsconfig.json path mapping
 {
@@ -218,12 +236,14 @@ npm install
 #### Issue: Type errors in strict mode
 
 **Symptoms:**
+
 ```bash
 error TS2322: Type 'string | null' is not assignable to type 'string'
 error TS2531: Object is possibly 'null'
 ```
 
 **Solutions:**
+
 ```typescript
 // Use type guards
 if (user?.name) {
@@ -243,11 +263,13 @@ const name = user!.name; // Non-null assertion
 #### Issue: Module resolution errors
 
 **Symptoms:**
+
 ```bash
 Module not found: Can't resolve 'src/components/Button'
 ```
 
 **Solutions:**
+
 ```bash
 # Check import paths are correct
 import { Button } from '@/components/ui/button'; // ✅ Correct
@@ -267,6 +289,7 @@ import { Button } from '@/components/ui/button'; // File: button.tsx ✅
 #### Issue: Production build fails
 
 **Symptoms:**
+
 ```bash
 $ npm run build
 > Build error occurred
@@ -274,6 +297,7 @@ Error: Build failed because of webpack errors
 ```
 
 **Solutions:**
+
 ```bash
 # Clear build cache
 rm -rf .next
@@ -292,12 +316,14 @@ npm run build -- --debug
 #### Issue: Out of memory during build
 
 **Symptoms:**
+
 ```bash
 <--- Last few GCs --->
 FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory
 ```
 
 **Solutions:**
+
 ```bash
 # Increase Node.js memory limit
 export NODE_OPTIONS="--max-old-space-size=4096"
@@ -319,12 +345,14 @@ set NODE_OPTIONS=--max-old-space-size=4096 && npm run build
 #### Issue: "Invalid API key" or connection refused
 
 **Symptoms:**
+
 ```bash
 Error: Invalid API key
 Error: fetch failed
 ```
 
 **Solutions:**
+
 ```bash
 # Verify environment variables
 node -e "console.log('URL:', process.env.NEXT_PUBLIC_SUPABASE_URL)"
@@ -344,11 +372,13 @@ npm run dev
 #### Issue: "Row Level Security policy violation"
 
 **Symptoms:**
+
 ```bash
 Error: new row violates row-level security policy
 ```
 
 **Solutions:**
+
 ```sql
 -- Check RLS policies in Supabase dashboard
 -- SQL Editor > Run this query to see policies:
@@ -367,12 +397,14 @@ CREATE POLICY "Users can insert their own data" ON your_table_name
 #### Issue: User authentication fails
 
 **Symptoms:**
+
 ```bash
 Error: Invalid login credentials
 User is null after authentication
 ```
 
 **Solutions:**
+
 ```typescript
 // Check authentication flow
 import { createClient } from '@/lib/auth/client';
@@ -380,7 +412,7 @@ import { createClient } from '@/lib/auth/client';
 const supabase = createClient();
 const { data, error } = await supabase.auth.signInWithPassword({
   email: 'user@example.com',
-  password: 'password'
+  password: 'password',
 });
 
 if (error) {
@@ -389,7 +421,9 @@ if (error) {
 }
 
 // Verify user session
-const { data: { session } } = await supabase.auth.getSession();
+const {
+  data: { session },
+} = await supabase.auth.getSession();
 console.log('Current session:', session);
 ```
 
@@ -402,10 +436,12 @@ console.log('Current session:', session);
 #### Issue: Tailwind styles not applied
 
 **Symptoms:**
+
 - Classes like `bg-blue-500` don't work
 - No styling appears in browser
 
 **Solutions:**
+
 ```bash
 # Check if Tailwind is imported in globals.css
 # src/app/globals.css should have:
@@ -432,6 +468,7 @@ npm run dev
 #### Issue: Custom Tailwind classes not working
 
 **Symptoms:**
+
 ```css
 /* Custom classes in globals.css don't work */
 .custom-button {
@@ -440,11 +477,12 @@ npm run dev
 ```
 
 **Solutions:**
+
 ```css
 /* Use @layer directive */
 @layer components {
   .custom-button {
-    @apply bg-blue-500 text-white px-4 py-2 rounded;
+    @apply rounded bg-blue-500 px-4 py-2 text-white;
   }
 }
 
@@ -462,11 +500,13 @@ npm run dev
 #### Issue: Mobile layout broken
 
 **Symptoms:**
+
 - Horizontal scrolling on mobile
 - Elements overflow screen
 - Touch targets too small
 
 **Solutions:**
+
 ```typescript
 // Use mobile-first responsive design
 <div className="w-full px-4 md:px-8 lg:px-12">
@@ -493,12 +533,14 @@ npm run dev
 #### Issue: Tests fail to run
 
 **Symptoms:**
+
 ```bash
 $ npm test
 ● Test environment jest-environment-jsdom not found
 ```
 
 **Solutions:**
+
 ```bash
 # Install missing dependencies
 npm install --save-dev jest-environment-jsdom @testing-library/jest-dom
@@ -520,11 +562,13 @@ import '@testing-library/jest-dom';
 #### Issue: Module import errors in tests
 
 **Symptoms:**
+
 ```bash
 Cannot resolve module '@/components/ui/button'
 ```
 
 **Solutions:**
+
 ```javascript
 // Update jest.config.js module mapping
 module.exports = {
@@ -543,12 +587,14 @@ npm install --save-dev identity-obj-proxy
 #### Issue: React component tests fail
 
 **Symptoms:**
+
 ```bash
 ReferenceError: React is not defined
 TypeError: Cannot read property 'createElement' of undefined
 ```
 
 **Solutions:**
+
 ```typescript
 // Ensure React is imported in test files
 import React from 'react';
@@ -559,11 +605,14 @@ import { Button } from '../button';
 // jest.config.js
 module.exports = {
   transform: {
-    '^.+\\.(ts|tsx)$': ['ts-jest', {
-      tsconfig: {
-        jsx: 'react-jsx', // This allows React 17+ JSX transform
+    '^.+\\.(ts|tsx)$': [
+      'ts-jest',
+      {
+        tsconfig: {
+          jsx: 'react-jsx', // This allows React 17+ JSX transform
+        },
       },
-    }],
+    ],
   },
 };
 ```
@@ -577,11 +626,13 @@ module.exports = {
 #### Issue: Slow hot reload and compilation
 
 **Symptoms:**
+
 - Changes take 10+ seconds to reflect
 - High CPU usage during development
 - Frequent "Compiling..." messages
 
 **Solutions:**
+
 ```bash
 # Increase Node.js memory for development
 export NODE_OPTIONS="--max-old-space-size=4096"
@@ -607,12 +658,14 @@ npm run build && npm start
 #### Issue: Large bundle size
 
 **Symptoms:**
+
 ```bash
 Warning: Large bundle size detected
 Page size exceeds recommended limits
 ```
 
 **Solutions:**
+
 ```bash
 # Analyze bundle size
 npm install --save-dev @next/bundle-analyzer
@@ -648,6 +701,7 @@ npx depcheck
 #### Issue: Merge conflicts during git pull
 
 **Symptoms:**
+
 ```bash
 $ git pull upstream main
 CONFLICT (content): Merge conflict in src/components/Button.tsx
@@ -655,6 +709,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 ```
 
 **Solutions:**
+
 ```bash
 # View conflicted files
 git status
@@ -677,10 +732,12 @@ git merge --abort
 #### Issue: Accidentally committed to wrong branch
 
 **Symptoms:**
+
 - Commits appear on main instead of feature branch
 - Need to move commits to correct branch
 
 **Solutions:**
+
 ```bash
 # Create new branch from current position
 git checkout -b correct-feature-branch
@@ -702,11 +759,13 @@ git checkout correct-feature-branch
 #### Issue: Path separator issues
 
 **Symptoms:**
+
 ```bash
 Error: Cannot resolve module with '\' path separators
 ```
 
 **Solutions:**
+
 ```javascript
 // Use forward slashes in imports (works on all platforms)
 import { Button } from '@/components/ui/button'; // ✅
@@ -722,11 +781,13 @@ config.resolve.alias = {
 #### Issue: Long file paths
 
 **Symptoms:**
+
 ```bash
 ENAMETOOLONG: name too long, open 'C:\very\long\path\to\node_modules\...'
 ```
 
 **Solutions:**
+
 ```bash
 # Enable long paths in Windows 10+
 # Run as Administrator in PowerShell:
@@ -741,11 +802,13 @@ New-ItemProperty -Path "HKLM:SYSTEM\CurrentControlSet\Control\FileSystem" -Name 
 #### Issue: Permission denied for global npm packages
 
 **Symptoms:**
+
 ```bash
 npm ERR! Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules'
 ```
 
 **Solutions:**
+
 ```bash
 # Use nvm to manage Node.js versions
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
@@ -784,17 +847,20 @@ printenv | grep -i supabase
 ### Support Resources
 
 **Documentation:**
+
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Supabase Documentation](https://supabase.com/docs)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 
 **Community Support:**
+
 - GitHub Issues: Report bugs and get help
 - Stack Overflow: Search for similar issues
 - Discord/Slack: Real-time team support
 
 **Creating Support Requests:**
+
 1. Include diagnostic command output
 2. Describe exact steps to reproduce
 3. Share relevant code snippets (without sensitive data)
@@ -845,7 +911,7 @@ else
     echo "❌ Node.js version too old: $node_version (need 18.17.0+)"
 fi
 
-# Check npm version  
+# Check npm version
 npm_version=$(npm --version)
 echo "✅ npm version: $npm_version"
 

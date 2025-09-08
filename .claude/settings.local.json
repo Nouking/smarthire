@@ -46,7 +46,8 @@
       "Bash(npx shadcn@latest add:*)",
       "mcp__serena__insert_after_symbol",
       "mcp__serena__create_text_file",
-      "mcp__serena__execute_shell_command"
+      "mcp__serena__execute_shell_command",
+      "Bash(npx prettier:*)"
     ],
     "deny": [],
     "ask": []
