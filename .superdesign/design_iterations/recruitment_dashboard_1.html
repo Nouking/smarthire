@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartHire AI - Recruitment Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="recruitment_dashboard_theme_1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-container">
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo and Navigation -->
+                <div class="flex items-center space-x-8">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <i data-lucide="zap" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <h1 class="text-xl font-bold text-gray-900">SmartHire AI</h1>
+                    </div>
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="#" class="text-blue-600 font-medium border-b-2 border-blue-600 pb-1">Dashboard</a>
+                        <a href="#" class="text-gray-600 hover:text-gray-900 transition-colors">Jobs</a>
+                        <a href="#" class="text-gray-600 hover:text-gray-900 transition-colors">Candidates</a>
+                        <a href="#" class="text-gray-600 hover:text-gray-900 transition-colors">Reports</a>
+                    </nav>
+                </div>
+
+                <!-- Search and User Profile -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:block relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="search" class="w-4 h-4 text-gray-400"></i>
+                        </div>
+                        <input type="text" placeholder="Quick search..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64">
+                    </div>
+                    <button class="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+                    </button>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                            <i data-lucide="user" class="w-4 h-4 text-blue-600"></i>
+                        </div>
+                        <div class="hidden md:block">
+                            <p class="text-sm font-medium text-gray-900">Sarah Johnson</p>
+                            <p class="text-xs text-gray-600">HR Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Welcome Section -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, Sarah!</h2>
+            <p class="text-gray-600">Here's what's happening with your recruitment pipeline today.</p>
+        </div>
+
+        <!-- Key Metrics Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- CVs Processed -->
+            <div class="metrics-card animate-slide-up">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i data-lucide="file-text" class="w-5 h-5 text-blue-600"></i>
+                    </div>
+                    <span class="metric-trend trend-positive">
+                        <i data-lucide="trending-up" class="w-3 h-3"></i>
+                        +12%
+                    </span>
+                </div>
+                <h3 class="text-sm font-medium text-gray-600 mb-1">CVs Processed</h3>
+                <div class="metric-value" id="cvs-count">1,234</div>
+                <p class="text-xs text-gray-500 mt-2">This month</p>
+            </div>
+
+            <!-- Active Jobs -->
+            <div class="metrics-card animate-slide-up" style="animation-delay: 100ms;">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                        <i data-lucide="briefcase" class="w-5 h-5 text-green-600"></i>
+                    </div>
+                    <span class="metric-trend trend-positive">
+                        <i data-lucide="trending-up" class="w-3 h-3"></i>
+                        +3
+                    </span>
+                </div>
+                <h3 class="text-sm font-medium text-gray-600 mb-1">Active Jobs</h3>
+                <div class="metric-value" id="active-jobs">45</div>
+                <p class="text-xs text-gray-500 mt-2">Currently open</p>
+            </div>
+
+            <!-- Monthly Matches -->
+            <div class="metrics-card animate-slide-up" style="animation-delay: 200ms;">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <i data-lucide="target" class="w-5 h-5 text-purple-600"></i>
+                    </div>
+                    <span class="metric-trend trend-positive">
+                        <i data-lucide="trending-up" class="w-3 h-3"></i>
+                        +8%
+                    </span>
+                </div>
+                <h3 class="text-sm font-medium text-gray-600 mb-1">Monthly Matches</h3>
+                <div class="metric-value" id="monthly-matches">186</div>
+                <p class="text-xs text-gray-500 mt-2">Above 85% score</p>
+            </div>
+
+            <!-- Processing Time -->
+            <div class="metrics-card animate-slide-up" style="animation-delay: 300ms;">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <i data-lucide="clock" class="w-5 h-5 text-orange-600"></i>
+                    </div>
+                    <span class="metric-trend trend-positive">
+                        <i data-lucide="trending-down" class="w-3 h-3"></i>
+                        -15s
+                    </span>
+                </div>
+                <h3 class="text-sm font-medium text-gray-600 mb-1">Avg Processing Time</h3>
+                <div class="metric-value" id="processing-time">2.3<span class="text-lg">min</span></div>
+                <p class="text-xs text-gray-500 mt-2">Per CV analysis</p>
+            </div>
+        </div>
+
+        <!-- Secondary Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Usage Stats -->
+            <div class="metrics-card animate-fade-in">
+                <h3 class="chart-title mb-6">Usage Statistics</h3>
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-700">AI Analyses Used</span>
+                            <span class="text-sm text-gray-600">850 / 1,000</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 85%"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Resets Dec 15, 2024</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-700">Storage Used</span>
+                            <span class="text-sm text-gray-600">2.3 GB / 5 GB</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 46%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-700">API Calls</span>
+                            <span class="text-sm text-gray-600">12,450 / 15,000</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 83%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="metrics-card animate-fade-in" style="animation-delay: 100ms;">
+                <h3 class="chart-title mb-6">Quick Actions</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <button class="quick-action-btn">
+                        <i data-lucide="upload" class="w-5 h-5 text-blue-600 group-hover:text-white transition-colors"></i>
+                        <span class="text-sm">Upload CV</span>
+                    </button>
+                    <button class="quick-action-btn">
+                        <i data-lucide="plus-circle" class="w-5 h-5 text-green-600 group-hover:text-white transition-colors"></i>
+                        <span class="text-sm">Create Job</span>
+                    </button>
+                    <button class="quick-action-btn">
+                        <i data-lucide="zap" class="w-5 h-5 text-purple-600 group-hover:text-white transition-colors"></i>
+                        <span class="text-sm">Run Match</span>
+                    </button>
+                    <button class="quick-action-btn">
+                        <i data-lucide="bar-chart-3" class="w-5 h-5 text-orange-600 group-hover:text-white transition-colors"></i>
+                        <span class="text-sm">View Reports</span>
+                    </button>
+                </div>
+                <div class="mt-6 pt-6 border-t border-gray-100">
+                    <h4 class="text-sm font-medium text-gray-700 mb-3">Recent Uploads</h4>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="text-gray-600">senior_dev_resume.pdf</span>
+                            <span class="text-green-600">✓ Processed</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="text-gray-600">marketing_manager_cv.pdf</span>
+                            <span class="text-yellow-600">⏳ Processing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="metrics-card animate-fade-in" style="animation-delay: 200ms;">
+                <h3 class="chart-title mb-6">Recent Activity</h3>
+                <div class="space-y-3 max-h-64 overflow-y-auto">
+                    <div class="activity-item">
+                        <div class="activity-indicator activity-success"></div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-900">High Match Found</p>
+                            <p class="text-xs text-gray-600">Senior Software Engineer - 95% match</p>
+                            <p class="text-xs text-gray-500">2 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-indicator activity-info"></div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-900">New Job Posted</p>
+                            <p class="text-xs text-gray-600">Marketing Manager - Remote</p>
+                            <p class="text-xs text-gray-500">15 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-indicator activity-success"></div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-900">CV Processed</p>
+                            <p class="text-xs text-gray-600">Data Scientist - Analysis complete</p>
+                            <p class="text-xs text-gray-500">23 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-indicator activity-warning"></div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-900">Match Review Needed</p>
+                            <p class="text-xs text-gray-600">Frontend Developer - 78% match</p>
+                            <p class="text-xs text-gray-500">1 hour ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-indicator activity-success"></div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-900">Candidate Shortlisted</p>
+                            <p class="text-xs text-gray-600">UX Designer - Added to pipeline</p>
+                            <p class="text-xs text-gray-500">2 hours ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Processing Time Trends -->
+            <div class="chart-container animate-fade-in">
+                <h3 class="chart-title">Processing Time Trends</h3>
+                <div class="relative h-64">
+                    <canvas id="processingChart"></canvas>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-sm text-gray-600">
+                    <span>Average: 2.3 minutes</span>
+                    <span class="text-green-600">↓ 12% improvement</span>
+                </div>
+            </div>
+
+            <!-- Match Success Rate -->
+            <div class="chart-container animate-fade-in" style="animation-delay: 100ms;">
+                <h3 class="chart-title">Match Success Rate</h3>
+                <div class="relative h-64">
+                    <canvas id="successChart"></canvas>
+                </div>
+                <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div class="text-2xl font-bold text-green-600">92%</div>
+                        <div class="text-xs text-gray-600">High Matches</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-yellow-600">6%</div>
+                        <div class="text-xs text-gray-600">Medium Matches</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-red-600">2%</div>
+                        <div class="text-xs text-gray-600">Low Matches</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Animated counter function
+        function animateCounter(elementId, targetValue, suffix = '') {
+            const element = document.getElementById(elementId);
+            const startValue = 0;
+            const duration = 1000;
+            const increment = targetValue / (duration / 16);
+            let currentValue = startValue;
+
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= targetValue) {
+                    currentValue = targetValue;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(currentValue) + suffix;
+            }, 16);
+        }
+
+        // Initialize counters with animation
+        window.addEventListener('load', () => {
+            animateCounter('cvs-count', 1234);
+            animateCounter('active-jobs', 45);
+            animateCounter('monthly-matches', 186);
+            animateCounter('processing-time', 2.3, ' min');
+        });
+
+        // Processing Time Chart
+        const processingCtx = document.getElementById('processingChart').getContext('2d');
+        new Chart(processingCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: 'Processing Time (minutes)',
+                    data: [3.2, 2.9, 2.8, 2.6, 2.4, 2.3, 2.3],
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 2.0,
+                        grid: {
+                            color: '#f1f5f9'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Success Rate Chart
+        const successCtx = document.getElementById('successChart').getContext('2d');
+        new Chart(successCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['High Match (85%+)', 'Medium Match (70-84%)', 'Low Match (<70%)'],
+                datasets: [{
+                    data: [92, 6, 2],
+                    backgroundColor: ['#059669', '#d97706', '#dc2626'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 15
+                        }
+                    }
+                }
+            }
+        });
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const activityFeed = document.querySelector('.space-y-3');
+            const indicators = document.querySelectorAll('.activity-indicator');
+            
+            // Animate activity indicators occasionally
+            if (Math.random() > 0.7) {
+                const randomIndicator = indicators[Math.floor(Math.random() * indicators.length)];
+                randomIndicator.style.animation = 'pulse 800ms ease-in-out';
+                setTimeout(() => {
+                    randomIndicator.style.animation = '';
+                }, 800);
+            }
+        }, 3000);
+
+        // Add hover effects to metric cards
+        document.querySelectorAll('.metrics-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Progress bar animations
+        function animateProgressBars() {
+            document.querySelectorAll('.progress-bar').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        }
+
+        // Trigger progress bar animations on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateProgressBars();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.querySelectorAll('.progress-container').forEach(container => {
+            observer.observe(container);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.createElement('button');
+        mobileMenuToggle.innerHTML = '<i data-lucide="menu" class="w-5 h-5"></i>';
+        mobileMenuToggle.className = 'md:hidden p-2 text-gray-600';
+        
+        // Add responsive behavior
+        function handleResize() {
+            if (window.innerWidth < 768) {
+                // Mobile optimizations
+                document.querySelectorAll('.metric-value').forEach(el => {
+                    el.style.fontSize = '1.5rem';
+                });
+            } else {
+                // Desktop optimizations
+                document.querySelectorAll('.metric-value').forEach(el => {
+                    el.style.fontSize = '2rem';
+                });
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial call
+    </script>
+</body>
+</html>
