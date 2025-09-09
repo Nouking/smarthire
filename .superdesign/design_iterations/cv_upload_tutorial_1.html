@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartHire AI - Upload CVs (Step 4 of 4)</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <!-- Custom Theme -->
+    <link rel="stylesheet" href="cv_upload_theme_1.css" />
+    
+    <!-- Tailwind Config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+              mono: ['JetBrains Mono', 'ui-monospace'],
+            },
+            colors: {
+              primary: 'hsl(252 55% 55%)',
+              secondary: 'hsl(252 14% 94%)',
+              success: 'hsl(142 55% 35%)',
+              warning: 'hsl(43 96% 56%)',
+              muted: 'hsl(252 14% 94%)',
+              'upload-zone': 'hsl(252 20% 98%)',
+              'upload-active': 'hsl(252 30% 96%)',
+              processing: 'hsl(252 45% 70%)',
+            },
+            animation: {
+              'bounce-in': 'bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+              'slide-up': 'slideUp 0.4s ease-out',
+              'pulse-success': 'pulseSuccess 1s ease-in-out',
+              'shake': 'shake 0.3s ease-in-out',
+              'shimmer': 'shimmer 2s linear infinite',
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  
+  <body class="min-h-screen bg-gray-50">
+    <div class="cv-upload-container">
+      <!-- Header -->
+      <header class="upload-header">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 text-white">
+            <i data-lucide="briefcase" class="h-5 w-5"></i>
+          </div>
+          <div>
+            <h1 class="text-lg font-semibold text-gray-900">SmartHire AI</h1>
+            <p class="text-sm text-gray-600">Intelligent CV Matching</p>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-4">
+          <div class="text-center">
+            <div class="text-lg font-semibold text-gray-900">Step 4 of 4</div>
+            <div class="text-sm text-gray-600">Upload CVs</div>
+          </div>
+          <button class="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white hover:bg-gray-50 transition-colors">
+            <i data-lucide="help-circle" class="h-5 w-5 text-gray-600"></i>
+          </button>
+        </div>
+      </header>
+      
+      <!-- Tutorial Progress -->
+      <div class="tutorial-progress">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-semibold text-gray-900">Upload Progress</h2>
+          <span class="text-sm font-medium text-blue-600">80% Complete</span>
+        </div>
+        
+        <div class="progress-steps">
+          <div class="step-indicator"></div>
+          <div class="flex-1 h-0.5 bg-blue-600 mx-2"></div>
+          <div class="step-indicator"></div>
+          <div class="flex-1 h-0.5 bg-blue-600 mx-2"></div>
+          <div class="step-indicator"></div>
+          <div class="flex-1 h-0.5 bg-blue-600 mx-2"></div>
+          <div class="step-indicator"></div>
+          <div class="flex-1 h-0.5 bg-gray-300 mx-2"></div>
+          <div class="step-indicator inactive"></div>
+        </div>
+        
+        <div class="flex justify-between text-xs text-gray-600 mt-2">
+          <span>Setup</span>
+          <span>Profile</span>
+          <span>Preferences</span>
+          <span class="font-medium text-blue-600">Upload</span>
+          <span>Complete</span>
+        </div>
+      </div>
+      
+      <!-- Upload Zone -->
+      <div class="upload-zone" id="uploadZone">
+        <div class="mb-4">
+          <i data-lucide="upload-cloud" class="h-16 w-16 text-gray-400 mx-auto mb-4"></i>
+        </div>
+        <div class="text-center">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Drop your CVs here</h3>
+          <p class="text-gray-600 mb-4">or click to browse from your device</p>
+          <div class="text-sm text-gray-500 space-y-1">
+            <p>Supported formats: PDF, DOC, DOCX, Images</p>
+            <p>Up to 5 files, maximum 5MB each</p>
+          </div>
+        </div>
+        <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" class="hidden" />
+      </div>
+      
+      <!-- Processing Queue -->
+      <div class="file-queue" id="fileQueue" style="display: none;">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold text-gray-900">Processing Queue</h3>
+          <button class="text-sm text-gray-500 hover:text-gray-700 transition-colors">Clear All</button>
+        </div>
+        
+        <div id="fileList">
+          <!-- Sample File Items for Demo -->
+          <div class="file-item animate-slide-up">
+            <div class="file-info flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <i data-lucide="file-text" class="h-5 w-5 text-blue-600"></i>
+                <span class="file-name">CV_John_Doe.pdf</span>
+                <div class="status-badge processing">Processing</div>
+              </div>
+              <div class="file-progress">
+                <div class="file-progress-bar uploading" style="width: 85%;"></div>
+              </div>
+              <div class="extracted-skills">Skills detected: React, TypeScript, Node.js, AWS, Docker</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm text-gray-600">85%</span>
+              <button class="text-gray-400 hover:text-red-500 transition-colors">
+                <i data-lucide="x" class="h-4 w-4"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="file-item animate-slide-up" style="animation-delay: 0.1s;">
+            <div class="file-info flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <i data-lucide="file-text" class="h-5 w-5 text-green-600"></i>
+                <span class="file-name">Resume_Jane_Smith.docx</span>
+                <div class="status-badge completed">Completed</div>
+              </div>
+              <div class="file-progress">
+                <div class="file-progress-bar completed" style="width: 100%;"></div>
+              </div>
+              <div class="extracted-skills">Skills detected: Python, Machine Learning, Data Science, TensorFlow, SQL</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-600"></i>
+              <button class="text-gray-400 hover:text-red-500 transition-colors">
+                <i data-lucide="x" class="h-4 w-4"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="file-item animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="file-info flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <i data-lucide="file-text" class="h-5 w-5 text-red-600"></i>
+                <span class="file-name">Portfolio_Mike.pdf</span>
+                <div class="status-badge error">Failed</div>
+              </div>
+              <div class="file-progress">
+                <div class="file-progress-bar error" style="width: 30%;"></div>
+              </div>
+              <div class="text-sm text-red-600">Error: File size exceeds 5MB limit</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">Retry</button>
+              <button class="text-gray-400 hover:text-red-500 transition-colors">
+                <i data-lucide="x" class="h-4 w-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Batch Processing Status -->
+      <div class="batch-status">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-lg font-semibold text-gray-900">Batch Processing Status</h3>
+          <div class="text-sm text-gray-600">2 of 3 files processed</div>
+        </div>
+        
+        <div class="overall-progress mb-3">
+          <div class="overall-progress-bar" style="width: 67%;"></div>
+        </div>
+        
+        <div class="flex items-center justify-between text-sm">
+          <div class="flex items-center gap-4">
+            <span class="flex items-center gap-1 text-green-600">
+              <i data-lucide="check-circle" class="h-4 w-4"></i>
+              1 completed
+            </span>
+            <span class="flex items-center gap-1 text-blue-600">
+              <i data-lucide="loader" class="h-4 w-4 animate-spin"></i>
+              1 processing
+            </span>
+            <span class="flex items-center gap-1 text-red-600">
+              <i data-lucide="alert-circle" class="h-4 w-4"></i>
+              1 failed
+            </span>
+          </div>
+          <div class="text-gray-600">67% complete</div>
+        </div>
+        
+        <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+          <div class="flex items-center gap-2">
+            <i data-lucide="zap" class="h-4 w-4 text-blue-600"></i>
+            <span class="text-sm font-medium text-blue-900">Next: AI Matching</span>
+          </div>
+          <p class="text-sm text-blue-700 mt-1">Your CVs will be automatically matched against job requirements using advanced AI analysis.</p>
+        </div>
+      </div>
+      
+      <!-- Tips Section -->
+      <div class="tips-section">
+        <div class="tips-title">
+          <i data-lucide="lightbulb" class="h-5 w-5 text-amber-600"></i>
+          <span>Tips for Best Results</span>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <h4 class="font-medium text-gray-900 mb-2">File Format Best Practices</h4>
+            <ul class="tip-list">
+              <li class="tip-item">
+                <i data-lucide="check" class="h-4 w-4 text-green-600 mt-0.5"></i>
+                <span>Use standard CV layouts for better AI parsing</span>
+              </li>
+              <li class="tip-item">
+                <i data-lucide="check" class="h-4 w-4 text-green-600 mt-0.5"></i>
+                <span>Include clear section headers (Experience, Skills, etc.)</span>
+              </li>
+              <li class="tip-item">
+                <i data-lucide="check" class="h-4 w-4 text-green-600 mt-0.5"></i>
+                <span>List technical skills and tools prominently</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="font-medium text-gray-900 mb-2">What Our AI Extracts</h4>
+            <ul class="tip-list">
+              <li class="tip-item">
+                <i data-lucide="cpu" class="h-4 w-4 text-blue-600 mt-0.5"></i>
+                <span>Technical skills and programming languages</span>
+              </li>
+              <li class="tip-item">
+                <i data-lucide="briefcase" class="h-4 w-4 text-blue-600 mt-0.5"></i>
+                <span>Work experience and project details</span>
+              </li>
+              <li class="tip-item">
+                <i data-lucide="graduation-cap" class="h-4 w-4 text-blue-600 mt-0.5"></i>
+                <span>Education, certifications, and qualifications</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="px-6 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors">
+          Add More Files
+        </button>
+        
+        <button class="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg">
+          Continue to Results
+        </button>
+        
+        <button class="px-6 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors">
+          Skip This Step
+        </button>
+      </div>
+    </div>
+    
+    <!-- JavaScript for Interactivity -->
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+      
+      // File upload functionality
+      const uploadZone = document.getElementById('uploadZone');
+      const fileInput = document.getElementById('fileInput');
+      const fileQueue = document.getElementById('fileQueue');
+      const fileList = document.getElementById('fileList');
+      
+      // Drag and drop handlers
+      uploadZone.addEventListener('click', () => {
+        fileInput.click();
+      });
+      
+      uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.classList.add('drag-over');
+      });
+      
+      uploadZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('drag-over');
+      });
+      
+      uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('drag-over');
+        handleFiles(e.dataTransfer.files);
+      });
+      
+      fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+      });
+      
+      // File handling function
+      function handleFiles(files) {
+        if (files.length === 0) return;
+        
+        fileQueue.style.display = 'block';
+        
+        Array.from(files).slice(0, 5).forEach((file, index) => {
+          setTimeout(() => {
+            addFileToQueue(file);
+          }, index * 100);
+        });
+      }
+      
+      function addFileToQueue(file) {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item animate-slide-up';
+        
+        const fileSize = (file.size / (1024 * 1024)).toFixed(1);
+        const isValidSize = file.size <= 5 * 1024 * 1024;
+        const status = isValidSize ? 'processing' : 'error';
+        const statusText = isValidSize ? 'Processing' : 'Too Large';
+        
+        fileItem.innerHTML = `
+          <div class="file-info flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <i data-lucide="file-text" class="h-5 w-5 text-blue-600"></i>
+              <span class="file-name">${file.name}</span>
+              <div class="status-badge ${status}">${statusText}</div>
+            </div>
+            <div class="file-progress">
+              <div class="file-progress-bar ${status}" style="width: ${isValidSize ? '0' : '100'}%;"></div>
+            </div>
+            ${isValidSize ? 
+              '<div class="extracted-skills">Analyzing file...</div>' : 
+              `<div class="text-sm text-red-600">Error: File size (${fileSize}MB) exceeds 5MB limit</div>`
+            }
+          </div>
+          <div class="flex items-center gap-2">
+            ${isValidSize ? 
+              '<span class="text-sm text-gray-600">0%</span>' : 
+              '<button class="text-sm text-blue-600 hover:text-blue-700 font-medium">Retry</button>'
+            }
+            <button class="text-gray-400 hover:text-red-500 transition-colors">
+              <i data-lucide="x" class="h-4 w-4"></i>
+            </button>
+          </div>
+        `;
+        
+        fileList.appendChild(fileItem);
+        
+        // Re-initialize icons for the new element
+        lucide.createIcons();
+        
+        if (isValidSize) {
+          simulateUpload(fileItem);
+        }
+      }
+      
+      function simulateUpload(fileItem) {
+        const progressBar = fileItem.querySelector('.file-progress-bar');
+        const statusBadge = fileItem.querySelector('.status-badge');
+        const skillsDiv = fileItem.querySelector('.extracted-skills');
+        const percentageSpan = fileItem.querySelector('.file-info').nextElementSibling.querySelector('span');
+        
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += Math.random() * 15 + 5;
+          
+          if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+            
+            // Complete animation
+            progressBar.style.width = '100%';
+            progressBar.classList.remove('uploading');
+            progressBar.classList.add('completed');
+            statusBadge.textContent = 'Completed';
+            statusBadge.classList.remove('processing');
+            statusBadge.classList.add('completed');
+            
+            skillsDiv.textContent = 'Skills detected: JavaScript, React, Python, SQL, Git';
+            
+            // Add success icon
+            const icon = fileItem.querySelector('i[data-lucide="file-text"]');
+            icon.className = 'h-5 w-5 text-green-600';
+            icon.setAttribute('data-lucide', 'check-circle');
+            
+            percentageSpan.innerHTML = '<i data-lucide="check-circle" class="h-5 w-5 text-green-600"></i>';
+            
+            // Re-initialize icons
+            lucide.createIcons();
+            
+            // Trigger success animation
+            fileItem.classList.add('animate-pulse-success');
+            setTimeout(() => {
+              fileItem.classList.remove('animate-pulse-success');
+            }, 1000);
+          } else {
+            progressBar.style.width = progress + '%';
+            if (percentageSpan) {
+              percentageSpan.textContent = Math.round(progress) + '%';
+            }
+          }
+        }, 200 + Math.random() * 300);
+      }
+      
+      // Remove file functionality
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('button') && e.target.closest('button').querySelector('[data-lucide="x"]')) {
+          const fileItem = e.target.closest('.file-item');
+          if (fileItem) {
+            fileItem.style.transform = 'translateX(-100%)';
+            fileItem.style.opacity = '0';
+            setTimeout(() => {
+              fileItem.remove();
+              
+              // Hide queue if empty
+              if (fileList.children.length === 0) {
+                fileQueue.style.display = 'none';
+              }
+            }, 300);
+          }
+        }
+      });
+      
+      // Keyboard accessibility
+      uploadZone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          fileInput.click();
+        }
+      });
+      
+      // Auto-show demo files after 2 seconds
+      setTimeout(() => {
+        fileQueue.style.display = 'block';
+      }, 2000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Matching Demo - SmartHire AI CV-to-Job Match Analysis">
+    <title>AI Matching Demo - SmartHire AI</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <!-- Custom Themes -->
+    <link rel="stylesheet" href="smarthire_theme.css">
+    <link rel="stylesheet" href="ai_matching_demo_theme.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+        <div class="container mx-auto">
+            <nav class="flex h-16 items-center justify-between lg:h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-700">
+                        <i data-lucide="brain-circuit" class="h-5 w-5 text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-gray-900">SmartHire AI</span>
+                </div>
+
+                <!-- Breadcrumb -->
+                <div class="hidden md:flex items-center space-x-2 text-sm text-gray-500">
+                    <a href="#" class="hover:text-gray-700">Dashboard</a>
+                    <i data-lucide="chevron-right" class="h-4 w-4"></i>
+                    <span class="text-gray-900 font-medium">AI Matching Demo</span>
+                </div>
+
+                <!-- Exit Demo -->
+                <button id="exit-demo" class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors">
+                    <i data-lucide="x" class="h-5 w-5"></i>
+                    <span class="hidden sm:inline">Exit Demo</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-8">
+        <!-- Demo Container -->
+        <div class="demo-container" id="demo-container">
+            <!-- Processing State -->
+            <div id="processing-state" class="text-center">
+                <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                    AI Matching Analysis
+                </h1>
+                <p class="text-lg text-gray-600 mb-8">
+                    Analyzing CV against Senior Frontend Developer position
+                </p>
+
+                <!-- Progress Circle -->
+                <div class="progress-circle">
+                    <svg class="progress-ring" width="200" height="200">
+                        <circle
+                            class="progress-ring-bg"
+                            cx="100"
+                            cy="100"
+                            r="85"
+                        ></circle>
+                        <circle
+                            class="progress-ring-fill"
+                            cx="100"
+                            cy="100"
+                            r="85"
+                            stroke-dasharray="534"
+                            stroke-dashoffset="534"
+                        ></circle>
+                    </svg>
+                    <div class="progress-text">
+                        <div class="progress-percentage" id="progress-percentage">0%</div>
+                        <div class="progress-label">Processing</div>
+                    </div>
+                </div>
+
+                <!-- Status Message -->
+                <div class="status-message processing">
+                    <i data-lucide="brain-circuit" class="h-5 w-5 status-icon"></i>
+                    <span id="status-text">Initializing AI analysis...</span>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-6">
+                    <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+                </div>
+
+                <!-- Timer -->
+                <div class="text-center mb-6">
+                    <div class="text-sm text-gray-500">Time remaining</div>
+                    <div id="timer" class="text-2xl font-bold text-gray-900">30s</div>
+                </div>
+
+                <!-- Cancel Button -->
+                <button id="cancel-btn" class="btn-cancel">
+                    <i data-lucide="x-circle" class="h-4 w-4"></i>
+                    Cancel Analysis
+                </button>
+            </div>
+
+            <!-- Results State (Initially Hidden) -->
+            <div id="results-state" class="hidden">
+                <!-- Match Result Header -->
+                <div class="match-result high-match">
+                    <div class="match-percentage-large">87%</div>
+                    <div class="match-confidence">95% Confidence</div>
+                    <div class="match-metrics">
+                        <div class="metric-item">
+                            <div class="metric-value">2.3s</div>
+                            <div class="metric-label">Processing Time</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">8/11</div>
+                            <div class="metric-label">Skills Matched</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">Strong</div>
+                            <div class="metric-label">Recommendation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Analysis -->
+                <div class="skills-section">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Skills Analysis</h2>
+                    
+                    <div class="skills-grid">
+                        <!-- Matching Skills -->
+                        <div class="skill-category matching">
+                            <div class="skill-category-title">
+                                <i data-lucide="check-circle" class="h-5 w-5 text-green-600"></i>
+                                <span>Matching Skills (8)</span>
+                            </div>
+                            <div class="skill-list">
+                                <span class="skill-tag matching">
+                                    <i data-lucide="check" class="h-3 w-3"></i>
+                                    React.js
+                                </span>
+                                <span class="skill-tag matching">
+                                    <i data-lucide="check" class="h-3 w-3"></i>
+                                    TypeScript
+                                </span>
+                                <span class="skill-tag matching">
+                                    <i data-lucide="check" class="h-3 w-3"></i>
+                                    Next.js
+                                </span>
+                                <span class="skill-tag matching">
+                                    <i data-lucide="check" class="h-3 w-3"></i>
+                                    Tailwind CSS
+                                </span>
+                                <span class="skill-tag matching">
+                                    <i data-lucide="check" class="h-3 w-3"></i>
+                                    Node.js
+                                </span>
+                                <span class="skill-tag matching">
+                                    <i data-lucide="check" class="h-3 w-3"></i>
+                                    Git
+                                </span>
+                                <span class="skill-tag matching">
+                                    <i data-lucide="check" class="h-3 w-3"></i>
+                                    REST APIs
+                                </span>
+                                <span class="skill-tag matching">
+                                    <i data-lucide="check" class="h-3 w-3"></i>
+                                    Agile/Scrum
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Missing Skills -->
+                        <div class="skill-category missing">
+                            <div class="skill-category-title">
+                                <i data-lucide="alert-circle" class="h-5 w-5 text-yellow-600"></i>
+                                <span>Missing Skills (3)</span>
+                            </div>
+                            <div class="skill-list">
+                                <span class="skill-tag missing">
+                                    <i data-lucide="minus" class="h-3 w-3"></i>
+                                    Vue.js
+                                </span>
+                                <span class="skill-tag missing">
+                                    <i data-lucide="minus" class="h-3 w-3"></i>
+                                    GraphQL
+                                </span>
+                                <span class="skill-tag missing">
+                                    <i data-lucide="minus" class="h-3 w-3"></i>
+                                    Docker
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Strengths and Concerns -->
+                    <div class="skills-grid mt-6">
+                        <!-- Strengths -->
+                        <div class="skill-category matching">
+                            <div class="skill-category-title">
+                                <i data-lucide="trending-up" class="h-5 w-5 text-green-600"></i>
+                                <span>Strengths (5)</span>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="star" class="h-4 w-4 text-yellow-500"></i>
+                                    <span class="text-sm">5+ years React experience</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="star" class="h-4 w-4 text-yellow-500"></i>
+                                    <span class="text-sm">Strong TypeScript proficiency</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="star" class="h-4 w-4 text-yellow-500"></i>
+                                    <span class="text-sm">Team lead experience</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="star" class="h-4 w-4 text-yellow-500"></i>
+                                    <span class="text-sm">Performance optimization expertise</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="star" class="h-4 w-4 text-yellow-500"></i>
+                                    <span class="text-sm">Open source contributions</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Concerns -->
+                        <div class="skill-category missing">
+                            <div class="skill-category-title">
+                                <i data-lucide="alert-triangle" class="h-5 w-5 text-yellow-600"></i>
+                                <span>Concerns (2)</span>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="info" class="h-4 w-4 text-yellow-600"></i>
+                                    <span class="text-sm">Limited backend experience</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="info" class="h-4 w-4 text-yellow-600"></i>
+                                    <span class="text-sm">No DevOps experience mentioned</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Reasoning -->
+                <div class="ai-reasoning">
+                    <h3 class="ai-reasoning-title">AI Analysis & Recommendation</h3>
+                    <div class="ai-reasoning-text">
+                        <p>This candidate demonstrates exceptional frontend development skills with a strong foundation in modern React ecosystem. The 87% match indicates excellent technical alignment with your requirements.</p>
+                        
+                        <p class="mt-4"><strong>Key Highlights:</strong></p>
+                        <ul class="mt-2 space-y-1 list-disc list-inside">
+                            <li>Extensive React.js experience (5+ years) with advanced patterns</li>
+                            <li>Strong TypeScript proficiency demonstrating code quality focus</li>
+                            <li>Next.js expertise perfect for modern web development</li>
+                            <li>Team leadership experience valuable for senior role</li>
+                        </ul>
+                        
+                        <p class="mt-4"><strong>Recommendation:</strong> <span class="text-green-600 font-semibold">Strong Match - Proceed with interview</span></p>
+                        <p class="mt-2 text-sm">The missing skills (Vue.js, GraphQL, Docker) are learnable and shouldn't be barriers for a senior developer with this candidate's profile.</p>
+                    </div>
+                </div>
+
+                <!-- Demo Actions -->
+                <div class="demo-actions">
+                    <button id="continue-dashboard" class="btn-demo-primary">
+                        <i data-lucide="arrow-right" class="h-5 w-5"></i>
+                        Continue to Dashboard
+                    </button>
+                    <button id="run-another" class="btn-demo-secondary">
+                        <i data-lucide="refresh-cw" class="h-5 w-5"></i>
+                        Run Another Analysis
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confetti Container -->
+    <div id="confetti" class="confetti"></div>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Demo state management
+        let demoState = {
+            isProcessing: true,
+            progress: 0,
+            timeRemaining: 30,
+            isCancelled: false
+        };
+
+        // Status messages for different stages
+        const statusMessages = [
+            "Initializing AI analysis...",
+            "Parsing CV content...",
+            "Analyzing skills and experience...",
+            "Matching against job requirements...",
+            "Evaluating technical proficiency...",
+            "Calculating confidence scores...",
+            "Generating recommendations...",
+            "Finalizing analysis..."
+        ];
+
+        // DOM elements
+        const progressPercentage = document.getElementById('progress-percentage');
+        const progressBar = document.getElementById('progress-bar');
+        const statusText = document.getElementById('status-text');
+        const timer = document.getElementById('timer');
+        const processingState = document.getElementById('processing-state');
+        const resultsState = document.getElementById('results-state');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const progressRing = document.querySelector('.progress-ring-fill');
+
+        // Calculate circle circumference for progress ring
+        const radius = 85;
+        const circumference = radius * 2 * Math.PI;
+        progressRing.style.strokeDasharray = circumference;
+        progressRing.style.strokeDashoffset = circumference;
+
+        // Update progress ring
+        function updateProgressRing(percent) {
+            const offset = circumference - (percent / 100) * circumference;
+            progressRing.style.strokeDashoffset = offset;
+        }
+
+        // Start demo processing
+        function startDemo() {
+            const duration = 30000; // 30 seconds
+            const interval = 100; // Update every 100ms
+            const increment = 100 / (duration / interval);
+            
+            let currentProgress = 0;
+            let messageIndex = 0;
+            let timeLeft = 30;
+
+            const progressInterval = setInterval(() => {
+                if (demoState.isCancelled) {
+                    clearInterval(progressInterval);
+                    return;
+                }
+
+                currentProgress += increment;
+                
+                if (currentProgress >= 100) {
+                    currentProgress = 100;
+                    clearInterval(progressInterval);
+                    completeDemo();
+                }
+
+                // Update progress displays
+                demoState.progress = Math.floor(currentProgress);
+                progressPercentage.textContent = `${demoState.progress}%`;
+                progressBar.style.width = `${currentProgress}%`;
+                updateProgressRing(currentProgress);
+
+                // Update timer every second
+                const newTimeLeft = Math.ceil((duration - (currentProgress * duration / 100)) / 1000);
+                if (newTimeLeft !== timeLeft) {
+                    timeLeft = newTimeLeft;
+                    timer.textContent = `${timeLeft}s`;
+                }
+
+                // Update status messages
+                const progressBasedIndex = Math.floor((currentProgress / 100) * statusMessages.length);
+                if (progressBasedIndex !== messageIndex && progressBasedIndex < statusMessages.length) {
+                    messageIndex = progressBasedIndex;
+                    statusText.textContent = statusMessages[messageIndex];
+                    
+                    // Add typewriter effect
+                    statusText.style.opacity = '0';
+                    setTimeout(() => {
+                        statusText.style.opacity = '1';
+                    }, 100);
+                }
+            }, interval);
+        }
+
+        // Complete demo and show results
+        function completeDemo() {
+            demoState.isProcessing = false;
+            
+            // Create confetti celebration
+            createConfetti();
+            
+            // Transition to results with delay
+            setTimeout(() => {
+                processingState.style.opacity = '0';
+                processingState.style.transform = 'translateY(-20px)';
+                
+                setTimeout(() => {
+                    processingState.classList.add('hidden');
+                    resultsState.classList.remove('hidden');
+                    resultsState.style.opacity = '0';
+                    resultsState.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        resultsState.style.opacity = '1';
+                        resultsState.style.transform = 'translateY(0)';
+                        
+                        // Animate results cards
+                        animateResultsCards();
+                    }, 100);
+                }, 500);
+            }, 1000);
+        }
+
+        // Animate results cards appearance
+        function animateResultsCards() {
+            const cards = document.querySelectorAll('.skill-category, .match-result, .ai-reasoning');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease-out';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            // Animate match percentage with counting effect
+            animateMatchPercentage();
+        }
+
+        // Animate match percentage counting
+        function animateMatchPercentage() {
+            const percentageEl = document.querySelector('.match-percentage-large');
+            let current = 0;
+            const target = 87;
+            const duration = 2000;
+            const increment = target / (duration / 50);
+
+            const countInterval = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(countInterval);
+                }
+                percentageEl.textContent = `${Math.floor(current)}%`;
+            }, 50);
+        }
+
+        // Create confetti celebration
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            const colors = ['#22c55e', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confettiPiece = document.createElement('div');
+                confettiPiece.className = 'confetti-piece';
+                confettiPiece.style.left = Math.random() * 100 + '%';
+                confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confettiPiece.style.animationDelay = Math.random() * 2 + 's';
+                confettiPiece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                
+                confettiContainer.appendChild(confettiPiece);
+                
+                // Remove confetti piece after animation
+                setTimeout(() => {
+                    confettiPiece.remove();
+                }, 5000);
+            }
+        }
+
+        // Cancel demo
+        function cancelDemo() {
+            if (confirm('Are you sure you want to cancel the analysis?')) {
+                demoState.isCancelled = true;
+                
+                // Show cancellation feedback
+                statusText.textContent = 'Analysis cancelled';
+                statusText.style.color = 'var(--danger)';
+                
+                setTimeout(() => {
+                    resetDemo();
+                }, 2000);
+            }
+        }
+
+        // Reset demo to initial state
+        function resetDemo() {
+            demoState = {
+                isProcessing: true,
+                progress: 0,
+                timeRemaining: 30,
+                isCancelled: false
+            };
+
+            // Reset UI elements
+            progressPercentage.textContent = '0%';
+            progressBar.style.width = '0%';
+            updateProgressRing(0);
+            timer.textContent = '30s';
+            statusText.textContent = statusMessages[0];
+            statusText.style.color = '';
+
+            // Show processing state
+            resultsState.classList.add('hidden');
+            processingState.classList.remove('hidden');
+            processingState.style.opacity = '1';
+            processingState.style.transform = 'translateY(0)';
+
+            // Restart demo
+            setTimeout(startDemo, 1000);
+        }
+
+        // Event listeners
+        cancelBtn.addEventListener('click', cancelDemo);
+
+        document.getElementById('exit-demo').addEventListener('click', () => {
+            if (confirm('Are you sure you want to exit the demo?')) {
+                window.location.href = '#dashboard';
+            }
+        });
+
+        document.getElementById('continue-dashboard').addEventListener('click', () => {
+            // Add success feedback
+            const button = document.getElementById('continue-dashboard');
+            const originalContent = button.innerHTML;
+            button.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i>Redirecting...';
+            lucide.createIcons();
+
+            setTimeout(() => {
+                window.location.href = '#dashboard';
+            }, 1500);
+        });
+
+        document.getElementById('run-another').addEventListener('click', () => {
+            resetDemo();
+        });
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (demoState.isProcessing) {
+                    cancelDemo();
+                } else {
+                    document.getElementById('exit-demo').click();
+                }
+            }
+        });
+
+        // Add touch support for mobile
+        let touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diff = touchStartY - touchEndY;
+
+            // Pull down to refresh gesture
+            if (diff < -100 && !demoState.isProcessing) {
+                resetDemo();
+            }
+        }, { passive: true });
+
+        // Performance monitoring
+        const performanceStart = performance.now();
+
+        // Monitor performance and show loading indicators appropriately
+        function monitorPerformance() {
+            const now = performance.now();
+            const loadTime = now - performanceStart;
+            
+            if (loadTime > 3000) {
+                console.warn('Demo loading performance exceeded 3s threshold');
+            }
+        }
+
+        // Initialize demo
+        document.addEventListener('DOMContentLoaded', () => {
+            monitorPerformance();
+            
+            // Add entrance animation to container
+            const container = document.getElementById('demo-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(40px)';
+            
+            setTimeout(() => {
+                container.style.transition = 'all 0.8s ease-out';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+                
+                // Start demo after entrance animation
+                setTimeout(startDemo, 800);
+            }, 100);
+        });
+
+        // Add smooth transitions for all interactive elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const interactiveElements = document.querySelectorAll('button, .skill-category, .card');
+            interactiveElements.forEach(el => {
+                el.style.transition = 'all 0.3s ease-out';
+            });
+        });
+    </script>
+
+    <!-- Additional CSS for enhanced animations -->
+    <style>
+        /* Enhanced entrance animations */
+        .demo-container {
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        /* Status message transitions */
+        .status-message span {
+            transition: opacity 0.3s ease-out !important;
+        }
+
+        /* Button click effects */
+        .btn-demo-primary:active,
+        .btn-demo-secondary:active,
+        .btn-cancel:active {
+            transform: scale(0.98) !important;
+        }
+
+        /* Loading skeleton for better perceived performance */
+        .loading-skeleton {
+            height: 1rem !important;
+            margin: 0.5rem 0 !important;
+        }
+
+        /* Enhanced focus states */
+        .skill-tag:focus-within,
+        .skill-category:focus-within {
+            outline: 2px solid var(--primary) !important;
+            outline-offset: 2px !important;
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth !important;
+        }
+
+        /* Progress ring enhanced animation */
+        .progress-ring-fill {
+            transition: stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        /* Results cards stagger animation */
+        .skill-category,
+        .match-result,
+        .ai-reasoning {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,382 @@
+/* Job Description Creation Interface Theme - SmartHire Design System */
+
+/* Import Inter font to match SmartHire branding */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* SmartHire Brand Colors - Consistent with existing design system */
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --success: #16a34a;
+  --success-foreground: #ffffff;
+
+  /* Background & Foreground - Matching smarthire_theme.css */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --muted-background: #f8fafc;
+  --muted-foreground: #64748b;
+
+  /* Card & Surface Colors */
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --border: #e2e8f0;
+  --input: #f1f5f9;
+
+  /* Interactive States */
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --secondary: #f8fafc;
+  --secondary-foreground: #475569;
+
+  /* Semantic Colors */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --warning: #f59e0b;
+  --warning-foreground: #ffffff;
+  --info: #3b82f6;
+  --info-foreground: #ffffff;
+
+  /* File Upload Specific Colors */
+  --upload-border: #cbd5e1;
+  --upload-border-active: #2563eb;
+  --upload-background: #f8fafc;
+  --upload-background-hover: #eff6ff;
+
+  /* Skill Tag Colors */
+  --skill-tag-bg: #dbeafe;
+  --skill-tag-text: #1e40af;
+  --skill-tag-border: #93c5fd;
+
+  /* Typography - Matching SmartHire font stack */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'Menlo', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  /* Spacing & Layout - Consistent with SmartHire theme */
+  --radius: 0.5rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Shadows - Matching existing SmartHire shadow system */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Gradients - SmartHire style */
+  --gradient-hero: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #1e40af 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+
+  /* Animation Timing - Consistent with SmartHire */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Component Specific Variables */
+  --progress-height: 0.5rem;
+  --upload-zone-min-height: 12rem;
+  --textarea-min-height: 8rem;
+}
+
+/* Dark mode support - Matching SmartHire dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    --muted-background: #1e293b;
+    --muted-foreground: #94a3b8;
+
+    --card: #1e293b;
+    --card-foreground: #f8fafc;
+    --border: #334155;
+    --input: #334155;
+
+    --accent: #334155;
+    --accent-foreground: #f8fafc;
+    --secondary: #1e293b;
+    --secondary-foreground: #cbd5e1;
+
+    --upload-border: #475569;
+    --upload-border-active: #3b82f6;
+    --upload-background: #1e293b;
+    --upload-background-hover: #1e3a8a;
+
+    --gradient-hero: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
+    --gradient-card: linear-gradient(145deg, #1e293b 0%, #334155 100%);
+  }
+}
+
+/* Global Styles - Matching SmartHire base */
+* {
+  border-color: var(--border);
+}
+
+body {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  font-family: var(--font-sans) !important;
+  font-display: swap !important;
+  line-height: 1.6 !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Typography Scale - Matching SmartHire scale */
+h1 {
+  font-size: clamp(2.25rem, 5vw, 3.75rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.025em !important;
+}
+
+h2 {
+  font-size: clamp(1.875rem, 4vw, 3rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.025em !important;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+}
+
+/* SmartHire Component Classes */
+.job-description-container {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.progress-indicator {
+  background-color: var(--primary);
+  height: var(--progress-height);
+  border-radius: 9999px;
+  transition: width var(--transition-normal);
+}
+
+.upload-zone {
+  min-height: var(--upload-zone-min-height);
+  border: 2px dashed var(--upload-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--upload-background);
+  transition: all var(--transition-normal);
+}
+
+.upload-zone:hover,
+.upload-zone.drag-over {
+  border-color: var(--upload-border-active);
+  background-color: var(--upload-background-hover);
+  transform: scale(1.01);
+}
+
+.skill-tag {
+  background-color: var(--skill-tag-bg);
+  color: var(--skill-tag-text);
+  border: 1px solid var(--skill-tag-border);
+  border-radius: var(--radius);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.skill-tag:hover {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.form-textarea {
+  min-height: var(--textarea-min-height);
+  resize: vertical;
+}
+
+/* SmartHire Button Styles - Matching existing patterns */
+.btn-primary {
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  border: none !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: var(--radius) !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  transition: all var(--transition-normal) !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.btn-secondary {
+  background-color: var(--secondary) !important;
+  color: var(--secondary-foreground) !important;
+  border: 1px solid var(--border) !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: var(--radius) !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  transition: all var(--transition-normal) !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+}
+
+.btn-secondary:hover {
+  background-color: var(--accent) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* SmartHire Card Style - Matching company profile form */
+.card {
+  background: var(--card) !important;
+  color: var(--card-foreground) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 1.5rem !important;
+  box-shadow: var(--shadow) !important;
+  transition: all var(--transition-normal) !important;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Form elements inside cards should inherit proper colors */
+.card h3, .card h4, .card h5 {
+  color: var(--card-foreground) !important;
+}
+
+.card p {
+  color: var(--muted-foreground) !important;
+}
+
+.card label {
+  color: var(--card-foreground) !important;
+}
+
+/* Professional focus states */
+.focus-ring {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.15);
+}
+
+/* Status indicators */
+.status-success {
+  color: var(--success);
+  background-color: var(--success-foreground);
+}
+
+.status-error {
+  color: var(--destructive);
+  background-color: var(--destructive-foreground);
+}
+
+.status-warning {
+  color: var(--warning);
+  background-color: var(--warning-foreground);
+}
+
+/* SmartHire Badge Style */
+.badge {
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  padding: 0.25rem 0.75rem !important;
+  border-radius: 9999px !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.badge-success {
+  background-color: var(--success) !important;
+  color: var(--success-foreground) !important;
+}
+
+/* Animation Classes - Matching SmartHire patterns */
+.fade-in {
+  animation: fadeIn var(--transition-slow) ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp var(--transition-slow) ease-out forwards;
+}
+
+.scale-in {
+  animation: scaleIn var(--transition-normal) ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .job-description-container {
+    padding: 1rem;
+  }
+  
+  .upload-zone {
+    min-height: 8rem;
+  }
+  
+  .form-textarea {
+    min-height: 6rem;
+  }
+}
+
+/* Reduced motion support - Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
