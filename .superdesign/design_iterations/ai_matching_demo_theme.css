@@ -1,0 +1,493 @@
+/* AI Matching Demo Theme - Extends SmartHire Base Theme */
+:root {
+  /* Enhanced color palette for AI demo */
+  --success: #16a34a;
+  --success-light: #22c55e;
+  --success-dark: #15803d;
+  --success-foreground: #ffffff;
+  --success-background: #dcfce7;
+
+  --warning: #f59e0b;
+  --warning-light: #fbbf24;
+  --warning-dark: #d97706;
+  --warning-foreground: #ffffff;
+  --warning-background: #fef3c7;
+
+  --danger: #ef4444;
+  --danger-light: #f87171;
+  --danger-dark: #dc2626;
+  --danger-foreground: #ffffff;
+  --danger-background: #fee2e2;
+
+  /* AI-specific colors */
+  --ai-processing: #8b5cf6;
+  --ai-processing-light: #a78bfa;
+  --ai-processing-dark: #7c3aed;
+  --ai-background: #f5f3ff;
+
+  /* Enhanced primary colors */
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --primary-gradient: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #1e40af 100%);
+
+  /* Demo specific gradients */
+  --gradient-success: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #15803d 100%);
+  --gradient-processing: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 50%, #7c3aed 100%);
+  --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f87171 50%, #dc2626 100%);
+
+  /* Enhanced shadows for depth */
+  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.3);
+  --shadow-success-glow: 0 0 20px rgba(22, 163, 74, 0.3);
+  --shadow-processing-glow: 0 0 20px rgba(139, 92, 246, 0.3);
+
+  /* Animation timing for smooth interactions */
+  --transition-smooth: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Enhanced typography */
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+
+  /* Demo container styling */
+  --demo-max-width: 800px;
+  --demo-border-radius: 1.5rem;
+  --demo-padding: 2rem;
+}
+
+/* Enhanced component styles for AI demo */
+.demo-container {
+  max-width: var(--demo-max-width) !important;
+  margin: 2rem auto !important;
+  padding: var(--demo-padding) !important;
+  background: var(--gradient-card) !important;
+  border-radius: var(--demo-border-radius) !important;
+  box-shadow: var(--shadow-xl) !important;
+  border: 1px solid var(--border) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Progress circle styling */
+.progress-circle {
+  width: 200px !important;
+  height: 200px !important;
+  margin: 0 auto 2rem !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.progress-ring {
+  transform: rotate(-90deg) !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.progress-ring-bg {
+  fill: none !important;
+  stroke: var(--border) !important;
+  stroke-width: 8 !important;
+}
+
+.progress-ring-fill {
+  fill: none !important;
+  stroke: var(--success) !important;
+  stroke-width: 8 !important;
+  stroke-linecap: round !important;
+  transition: stroke-dashoffset var(--transition-smooth) !important;
+}
+
+.progress-text {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  text-align: center !important;
+}
+
+.progress-percentage {
+  font-size: 3rem !important;
+  font-weight: 800 !important;
+  color: var(--foreground) !important;
+  line-height: 1 !important;
+}
+
+.progress-label {
+  font-size: 0.875rem !important;
+  color: var(--muted-foreground) !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Status message styling */
+.status-message {
+  text-align: center !important;
+  padding: 1rem !important;
+  margin: 1rem 0 !important;
+  border-radius: var(--radius-lg) !important;
+  background: var(--ai-background) !important;
+  border: 1px solid var(--border) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.75rem !important;
+}
+
+.status-message.processing {
+  background: var(--ai-background) !important;
+  border-color: var(--ai-processing) !important;
+  color: var(--ai-processing-dark) !important;
+}
+
+.status-icon {
+  animation: spin 2s linear infinite !important;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Match result styling */
+.match-result {
+  text-align: center !important;
+  padding: 2rem !important;
+  border-radius: var(--radius-xl) !important;
+  margin: 2rem 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.match-result.high-match {
+  background: var(--gradient-success) !important;
+  color: var(--success-foreground) !important;
+  box-shadow: var(--shadow-success-glow) !important;
+}
+
+.match-result.medium-match {
+  background: var(--gradient-primary) !important;
+  color: var(--primary-foreground) !important;
+  box-shadow: var(--shadow-glow) !important;
+}
+
+.match-result.low-match {
+  background: var(--gradient-danger) !important;
+  color: var(--danger-foreground) !important;
+}
+
+.match-percentage-large {
+  font-size: 4rem !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.match-confidence {
+  font-size: 1.125rem !important;
+  opacity: 0.9 !important;
+  margin-bottom: 1rem !important;
+}
+
+.match-metrics {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 2rem !important;
+  flex-wrap: wrap !important;
+}
+
+.metric-item {
+  text-align: center !important;
+}
+
+.metric-value {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+}
+
+.metric-label {
+  font-size: 0.875rem !important;
+  opacity: 0.8 !important;
+}
+
+/* Skills analysis styling */
+.skills-section {
+  margin: 2rem 0 !important;
+}
+
+.skills-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: 1.5rem !important;
+  margin: 1.5rem 0 !important;
+}
+
+.skill-category {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 1.5rem !important;
+  transition: all var(--transition-normal) !important;
+}
+
+.skill-category:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.skill-category-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 1rem !important;
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+}
+
+.skill-category.matching {
+  border-color: var(--success) !important;
+}
+
+.skill-category.matching .skill-category-title {
+  color: var(--success-dark) !important;
+}
+
+.skill-category.missing {
+  border-color: var(--warning) !important;
+}
+
+.skill-category.missing .skill-category-title {
+  color: var(--warning-dark) !important;
+}
+
+.skill-list {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.5rem !important;
+}
+
+.skill-tag {
+  padding: 0.25rem 0.75rem !important;
+  border-radius: 9999px !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+}
+
+.skill-tag.matching {
+  background: var(--success-background) !important;
+  color: var(--success-dark) !important;
+}
+
+.skill-tag.missing {
+  background: var(--warning-background) !important;
+  color: var(--warning-dark) !important;
+}
+
+/* AI reasoning section */
+.ai-reasoning {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 2rem !important;
+  margin: 2rem 0 !important;
+  position: relative !important;
+}
+
+.ai-reasoning::before {
+  content: '🤖' !important;
+  position: absolute !important;
+  top: 1rem !important;
+  left: 1.5rem !important;
+  font-size: 1.5rem !important;
+}
+
+.ai-reasoning-title {
+  margin-left: 3rem !important;
+  margin-bottom: 1rem !important;
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+  color: var(--foreground) !important;
+}
+
+.ai-reasoning-text {
+  margin-left: 3rem !important;
+  line-height: 1.7 !important;
+  color: var(--muted-foreground) !important;
+}
+
+/* Action buttons */
+.demo-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+  margin-top: 3rem !important;
+}
+
+@media (min-width: 640px) {
+  .demo-actions {
+    flex-direction: row !important;
+    justify-content: center !important;
+  }
+}
+
+.btn-demo-primary {
+  background: var(--primary-gradient) !important;
+  color: var(--primary-foreground) !important;
+  border: none !important;
+  padding: 1rem 2rem !important;
+  border-radius: var(--radius) !important;
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.75rem !important;
+  transition: all var(--transition-normal) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.btn-demo-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-glow), var(--shadow-xl) !important;
+}
+
+.btn-demo-secondary {
+  background: var(--card) !important;
+  color: var(--foreground) !important;
+  border: 2px solid var(--border) !important;
+  padding: 1rem 2rem !important;
+  border-radius: var(--radius) !important;
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.75rem !important;
+  transition: all var(--transition-normal) !important;
+}
+
+.btn-demo-secondary:hover {
+  background: var(--accent) !important;
+  border-color: var(--primary) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Cancel button styling */
+.btn-cancel {
+  background: transparent !important;
+  color: var(--muted-foreground) !important;
+  border: 1px solid var(--border) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: var(--radius) !important;
+  font-size: 0.875rem !important;
+  cursor: pointer !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.btn-cancel:hover {
+  background: var(--danger-background) !important;
+  border-color: var(--danger) !important;
+  color: var(--danger-dark) !important;
+}
+
+/* Loading states */
+.loading-skeleton {
+  background: linear-gradient(90deg, var(--muted-background) 25%, var(--accent) 50%, var(--muted-background) 75%) !important;
+  background-size: 200% 100% !important;
+  animation: shimmer 2s infinite !important;
+  border-radius: var(--radius) !important;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Confetti animation */
+.confetti {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+  z-index: 9999 !important;
+}
+
+.confetti-piece {
+  position: absolute !important;
+  width: 10px !important;
+  height: 10px !important;
+  background: var(--success) !important;
+  animation: confetti-fall 3s linear infinite !important;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .demo-container {
+    margin: 1rem !important;
+    padding: 1.5rem !important;
+  }
+  
+  .progress-circle {
+    width: 150px !important;
+    height: 150px !important;
+  }
+  
+  .progress-percentage {
+    font-size: 2rem !important;
+  }
+  
+  .match-percentage-large {
+    font-size: 3rem !important;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .match-metrics {
+    gap: 1rem !important;
+  }
+}
+
+/* Accessibility enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .progress-ring-fill,
+  .status-icon,
+  .loading-skeleton,
+  .confetti-piece {
+    animation: none !important;
+  }
+  
+  .skill-category:hover,
+  .btn-demo-primary:hover,
+  .btn-demo-secondary:hover {
+    transform: none !important;
+  }
+}
+
+/* Focus states for accessibility */
+.btn-demo-primary:focus,
+.btn-demo-secondary:focus,
+.btn-cancel:focus {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}

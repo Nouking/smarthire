@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Profile Setup - SmartHire AI</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <!-- Custom Theme -->
+    <link rel="stylesheet" href="company_form_theme_1.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'oklch(0.5490 0.2240 263.0000)',
+                        'primary-foreground': 'oklch(0.9850 0 0)',
+                        secondary: 'oklch(0.9650 0 0)',
+                        'secondary-foreground': 'oklch(0.2050 0 0)',
+                        muted: 'oklch(0.9650 0 0)',
+                        'muted-foreground': 'oklch(0.5500 0 0)',
+                        destructive: 'oklch(0.5830 0.2387 28.4765)',
+                        success: 'oklch(0.6200 0.1800 142.0000)',
+                        border: 'oklch(0.9200 0 0)'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <!-- Form Container -->
+        <div class="form-container bg-white rounded-xl shadow-lg">
+            
+            <!-- Header -->
+            <div class="form-header">
+                <div class="flex items-center gap-2">
+                    <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors" onclick="goBack()">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                    <div class="brand-logo">
+                        Smart<span class="brand-accent">Hire</span> AI
+                    </div>
+                </div>
+                
+                <div class="step-indicator">
+                    Step 2 of 4
+                </div>
+                
+                <a href="#" class="skip-button" onclick="skipStep()">
+                    Skip →
+                </a>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 50%"></div>
+            </div>
+            
+            <!-- Form Content -->
+            <form id="companyProfileForm" class="space-y-6">
+                <!-- Form Title -->
+                <div class="text-center mb-8">
+                    <h1 class="form-title">
+                        <i data-lucide="building-2" class="w-8 h-8"></i>
+                        Company Profile Setup
+                    </h1>
+                    <p class="form-subtitle">
+                        Let's personalize your AI matching experience
+                    </p>
+                </div>
+                
+                <!-- Company Size Field -->
+                <div class="field-group">
+                    <label for="companySize" class="field-label">
+                        Company Size <span class="field-required">*</span>
+                    </label>
+                    <select id="companySize" name="companySize" class="form-select" required>
+                        <option value="">Select your company size...</option>
+                        <option value="startup">1-10 employees (Startup)</option>
+                        <option value="small">11-50 employees (Small Business)</option>
+                        <option value="medium">51-200 employees (Medium Business)</option>
+                        <option value="enterprise">200+ employees (Enterprise)</option>
+                    </select>
+                    <div class="field-description">
+                        <i data-lucide="info" class="w-3 h-3"></i>
+                        Helps us understand your hiring scale and needs
+                    </div>
+                    <div class="error-message" id="companySizeError" style="display: none;">
+                        <i data-lucide="alert-circle" class="w-3 h-3"></i>
+                        Please select your company size
+                    </div>
+                </div>
+                
+                <!-- Industry Field -->
+                <div class="field-group">
+                    <label for="industry" class="field-label">
+                        Industry <span class="field-required">*</span>
+                    </label>
+                    <div class="relative">
+                        <select id="industry" name="industry" class="form-select" required>
+                            <option value="">Select your industry...</option>
+                            <option value="technology">Technology & Software</option>
+                            <option value="healthcare">Healthcare & Medical</option>
+                            <option value="finance">Finance & Banking</option>
+                            <option value="education">Education & Training</option>
+                            <option value="retail">Retail & E-commerce</option>
+                            <option value="manufacturing">Manufacturing & Production</option>
+                            <option value="consulting">Consulting & Professional Services</option>
+                            <option value="marketing">Marketing & Advertising</option>
+                            <option value="real-estate">Real Estate & Construction</option>
+                            <option value="hospitality">Hospitality & Tourism</option>
+                            <option value="transportation">Transportation & Logistics</option>
+                            <option value="media">Media & Entertainment</option>
+                            <option value="non-profit">Non-Profit & Government</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="field-description">
+                        <i data-lucide="target" class="w-3 h-3"></i>
+                        Improves job-candidate matching accuracy
+                    </div>
+                    <div class="error-message" id="industryError" style="display: none;">
+                        <i data-lucide="alert-circle" class="w-3 h-3"></i>
+                        Please select your industry
+                    </div>
+                </div>
+                
+                <!-- Company Description Field -->
+                <div class="field-group">
+                    <label for="description" class="field-label">
+                        Company Description <span class="text-gray-400">(Optional)</span>
+                    </label>
+                    <textarea 
+                        id="description" 
+                        name="description" 
+                        class="form-textarea" 
+                        rows="4"
+                        placeholder="Tell us about your company culture, values, and what makes you unique..."
+                        maxlength="500"
+                    ></textarea>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="field-description">
+                            <i data-lucide="users" class="w-3 h-3"></i>
+                            Helps candidates understand your company culture
+                        </div>
+                        <div class="text-xs text-gray-400" id="descriptionCounter">
+                            0/500
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Use Case Field -->
+                <div class="field-group">
+                    <label for="useCase" class="field-label">
+                        How will you use SmartHire AI? <span class="text-gray-400">(Optional)</span>
+                    </label>
+                    <textarea 
+                        id="useCase" 
+                        name="useCase" 
+                        class="form-textarea" 
+                        rows="3"
+                        placeholder="e.g., 'Screen resumes for software engineering roles', 'Match candidates for multiple departments', etc."
+                        maxlength="300"
+                    ></textarea>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="field-description">
+                            <i data-lucide="zap" class="w-3 h-3"></i>
+                            Helps us customize AI recommendations for your needs
+                        </div>
+                        <div class="text-xs text-gray-400" id="useCaseCounter">
+                            0/300
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Size Field -->
+                <div class="field-group">
+                    <label for="teamSize" class="field-label">
+                        Hiring Team Size <span class="text-gray-400">(Optional)</span>
+                    </label>
+                    <div class="flex items-center gap-4">
+                        <input 
+                            type="number" 
+                            id="teamSize" 
+                            name="teamSize" 
+                            class="form-input form-number w-32" 
+                            min="1" 
+                            max="1000"
+                            placeholder="25"
+                        >
+                        <span class="text-sm text-gray-600">people involved in hiring</span>
+                    </div>
+                    <div class="field-description">
+                        <i data-lucide="user-check" class="w-3 h-3"></i>
+                        Helps us suggest collaboration features
+                    </div>
+                </div>
+                
+                <!-- Auto-save Status -->
+                <div class="auto-save-status" id="autoSaveStatus" style="display: none;">
+                    <div class="loading-spinner" id="saveSpinner" style="display: none;"></div>
+                    <i data-lucide="check-circle" class="w-4 h-4" id="saveCheck" style="display: none;"></i>
+                    <span id="saveStatusText">Auto-saved just now</span>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="button-group">
+                    <button type="button" class="button button-secondary" onclick="saveDraft()">
+                        <i data-lucide="save" class="w-4 h-4"></i>
+                        Save Draft
+                    </button>
+                    <button type="submit" class="button button-primary" id="continueButton">
+                        Continue Setup
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Form state management
+        let formData = {
+            companySize: '',
+            industry: '',
+            description: '',
+            useCase: '',
+            teamSize: ''
+        };
+        
+        let lastSaveTime = null;
+        let autoSaveTimeout = null;
+        let hasUnsavedChanges = false;
+        
+        // Character counters
+        function updateCharacterCounter(textareaId, counterId, maxLength) {
+            const textarea = document.getElementById(textareaId);
+            const counter = document.getElementById(counterId);
+            
+            textarea.addEventListener('input', function() {
+                const currentLength = this.value.length;
+                counter.textContent = `${currentLength}/${maxLength}`;
+                
+                // Change color when approaching limit
+                if (currentLength > maxLength * 0.8) {
+                    counter.classList.add('text-yellow-600');
+                } else {
+                    counter.classList.remove('text-yellow-600');
+                }
+                
+                if (currentLength >= maxLength) {
+                    counter.classList.add('text-red-600');
+                } else {
+                    counter.classList.remove('text-red-600');
+                }
+                
+                // Trigger auto-save
+                scheduleAutoSave();
+            });
+        }
+        
+        // Initialize character counters
+        updateCharacterCounter('description', 'descriptionCounter', 500);
+        updateCharacterCounter('useCase', 'useCaseCounter', 300);
+        
+        // Auto-save functionality
+        function scheduleAutoSave() {
+            hasUnsavedChanges = true;
+            
+            // Clear existing timeout
+            if (autoSaveTimeout) {
+                clearTimeout(autoSaveTimeout);
+            }
+            
+            // Schedule auto-save after 2 seconds of inactivity
+            autoSaveTimeout = setTimeout(() => {
+                performAutoSave();
+            }, 2000);
+        }
+        
+        function performAutoSave() {
+            if (!hasUnsavedChanges) return;
+            
+            // Show saving state
+            showSaveStatus('saving');
+            
+            // Collect form data
+            const form = document.getElementById('companyProfileForm');
+            const formDataObj = new FormData(form);
+            formData = Object.fromEntries(formDataObj.entries());
+            
+            // Save to localStorage (simulating API call)
+            localStorage.setItem('companyProfile', JSON.stringify(formData));
+            
+            // Simulate API delay
+            setTimeout(() => {
+                hasUnsavedChanges = false;
+                lastSaveTime = new Date();
+                showSaveStatus('saved');
+                
+                // Hide status after 5 seconds
+                setTimeout(() => {
+                    hideAuteSaveStatus();
+                }, 5000);
+            }, 800);
+        }
+        
+        function showSaveStatus(status) {
+            const statusDiv = document.getElementById('autoSaveStatus');
+            const spinner = document.getElementById('saveSpinner');
+            const checkmark = document.getElementById('saveCheck');
+            const statusText = document.getElementById('saveStatusText');
+            
+            statusDiv.style.display = 'flex';
+            
+            if (status === 'saving') {
+                spinner.style.display = 'block';
+                checkmark.style.display = 'none';
+                statusText.textContent = 'Saving changes...';
+                statusDiv.className = 'auto-save-status bg-blue-100 text-blue-800';
+            } else if (status === 'saved') {
+                spinner.style.display = 'none';
+                checkmark.style.display = 'block';
+                statusText.textContent = `Auto-saved ${formatTime(lastSaveTime)}`;
+                statusDiv.className = 'auto-save-status bg-green-100 text-green-800';
+            }
+        }
+        
+        function hideAuteSaveStatus() {
+            const statusDiv = document.getElementById('autoSaveStatus');
+            statusDiv.style.display = 'none';
+        }
+        
+        function formatTime(date) {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) {
+                return 'just now';
+            } else if (diffInSeconds < 3600) {
+                const minutes = Math.floor(diffInSeconds / 60);
+                return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+            } else {
+                return date.toLocaleTimeString();
+            }
+        }
+        
+        // Form validation
+        function validateForm() {
+            let isValid = true;
+            
+            // Company Size validation
+            const companySize = document.getElementById('companySize');
+            const companySizeError = document.getElementById('companySizeError');
+            
+            if (!companySize.value) {
+                showError(companySize, companySizeError);
+                isValid = false;
+            } else {
+                hideError(companySize, companySizeError);
+            }
+            
+            // Industry validation
+            const industry = document.getElementById('industry');
+            const industryError = document.getElementById('industryError');
+            
+            if (!industry.value) {
+                showError(industry, industryError);
+                isValid = false;
+            } else {
+                hideError(industry, industryError);
+            }
+            
+            return isValid;
+        }
+        
+        function showError(field, errorElement) {
+            field.parentElement.classList.add('field-error');
+            errorElement.style.display = 'flex';
+            field.classList.add('shake');
+            
+            setTimeout(() => {
+                field.classList.remove('shake');
+            }, 400);
+        }
+        
+        function hideError(field, errorElement) {
+            field.parentElement.classList.remove('field-error');
+            errorElement.style.display = 'none';
+        }
+        
+        // Event listeners
+        document.getElementById('companyProfileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                // Show loading state
+                const continueButton = document.getElementById('continueButton');
+                const originalHTML = continueButton.innerHTML;
+                continueButton.innerHTML = '<div class="loading-spinner"></div> Processing...';
+                continueButton.disabled = true;
+                
+                // Simulate form submission
+                setTimeout(() => {
+                    // Success animation
+                    continueButton.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Success!';
+                    continueButton.classList.remove('button-primary');
+                    continueButton.classList.add('bg-green-600', 'text-white');
+                    
+                    // Navigate to next step
+                    setTimeout(() => {
+                        window.location.href = '#next-step';
+                    }, 1500);
+                }, 1000);
+            }
+        });
+        
+        // Add event listeners for auto-save
+        ['companySize', 'industry', 'description', 'useCase', 'teamSize'].forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            field.addEventListener('change', scheduleAutoSave);
+            if (field.type !== 'select-one') {
+                field.addEventListener('input', scheduleAutoSave);
+            }
+        });
+        
+        // Load saved data on page load
+        window.addEventListener('load', function() {
+            const savedData = localStorage.getItem('companyProfile');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                Object.keys(data).forEach(key => {
+                    const field = document.getElementById(key);
+                    if (field && data[key]) {
+                        field.value = data[key];
+                    }
+                });
+                
+                // Update character counters
+                const description = document.getElementById('description');
+                const useCase = document.getElementById('useCase');
+                if (description.value) {
+                    document.getElementById('descriptionCounter').textContent = `${description.value.length}/500`;
+                }
+                if (useCase.value) {
+                    document.getElementById('useCaseCounter').textContent = `${useCase.value.length}/300`;
+                }
+            }
+            
+            // Refresh icons after dynamic content
+            lucide.createIcons();
+        });
+        
+        // Utility functions
+        function goBack() {
+            if (hasUnsavedChanges) {
+                if (confirm('You have unsaved changes. Are you sure you want to go back?')) {
+                    window.history.back();
+                }
+            } else {
+                window.history.back();
+            }
+        }
+        
+        function skipStep() {
+            if (confirm('Skip company profile setup? You can complete this later in your account settings.')) {
+                window.location.href = '#next-step';
+            }
+        }
+        
+        function saveDraft() {
+            performAutoSave();
+            alert('Draft saved! You can continue setting up your profile later.');
+        }
+        
+        // Add shake animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            .shake {
+                animation: shake 0.4s ease-in-out;
+            }
+            
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+            
+            .field-error .form-input,
+            .field-error .form-select,
+            .field-error .form-textarea {
+                border-color: rgb(239 68 68) !important;
+                box-shadow: 0 0 0 3px rgb(239 68 68 / 0.1) !important;
+            }
+        `;
+        document.head.appendChild(style);
+        
+    </script>
+</body>
+</html>

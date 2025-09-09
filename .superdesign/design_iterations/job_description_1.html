@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 2: Create Job Description - SmartHire AI</title>
+    
+    <!-- Google Fonts - Matching SmartHire branding -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <!-- SmartHire Theme -->
+    <link rel="stylesheet" href="job_description_theme_1.css">
+    
+    <script>
+        // Tailwind config to match SmartHire colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        'primary-foreground': '#ffffff',
+                        secondary: '#f8fafc',
+                        'secondary-foreground': '#475569',
+                        muted: '#f8fafc',
+                        'muted-foreground': '#64748b',
+                        destructive: '#ef4444',
+                        success: '#16a34a',
+                        border: '#e2e8f0'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Additional SmartHire-specific styles */
+        .upload-zone-active {
+            border-color: #2563eb !important;
+            background-color: #eff6ff !important;
+            transform: scale(1.02) !important;
+        }
+        
+        .skill-tag-remove:hover {
+            background-color: #ef4444 !important;
+            color: #ffffff !important;
+        }
+        
+        .progress-step {
+            transition: all 200ms ease-out;
+        }
+        
+        .progress-step.active {
+            transform: scale(1.05);
+            color: #2563eb;
+            font-weight: 600;
+        }
+        
+        /* SmartHire brand styling */
+        .brand-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        
+        .brand-accent {
+            color: #2563eb;
+        }
+        
+        .step-indicator {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .form-container {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        
+        .form-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-subtitle {
+            color: #64748b;
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+        
+        /* Enhanced animations */
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Form Container -->
+        <div class="form-container">
+            
+            <!-- Header - Matching SmartHire form header pattern -->
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-3">
+                    <button id="backBtn" class="p-2 hover:bg-gray-100 rounded-lg transition-colors hover:-translate-x-1">
+                        <i data-lucide="arrow-left" class="w-5 h-5 text-gray-600"></i>
+                    </button>
+                    <div class="brand-logo">
+                        Smart<span class="brand-accent">Hire</span> AI
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="step-indicator">Step 2 of 4</div>
+                </div>
+                
+                <button class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors" onclick="skipStep()">
+                    Skip →
+                </button>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-6">
+                <div class="progress-indicator w-1/2 h-full"></div>
+            </div>
+            
+            <!-- Step Indicators -->
+            <div class="flex justify-between mb-8 text-sm">
+                <span class="progress-step text-blue-600">Company Profile</span>
+                <span class="progress-step active">Job Description</span>
+                <span class="progress-step text-gray-400">Upload Demo CV</span>
+                <span class="progress-step text-gray-400">AI Match</span>
+            </div>
+
+            <!-- Form Title -->
+            <div class="text-center mb-8">
+                <h1 class="form-title">
+                    <i data-lucide="briefcase" class="w-8 h-8 text-blue-600"></i>
+                    Create Job Description
+                </h1>
+                <p class="form-subtitle">
+                    Upload an existing job description or create one from scratch
+                </p>
+            </div>
+
+            <!-- File Upload Section -->
+            <section class="mb-8">
+                <div class="card">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="upload" class="w-5 h-5 text-blue-600"></i>
+                        <h3 class="font-semibold text-lg">Upload Job Description</h3>
+                    </div>
+                    <p class="text-sm mb-6">Upload an existing job description file or start from scratch</p>
+                    
+                    <!-- Upload Zone -->
+                    <div id="uploadZone" class="upload-zone flex flex-col items-center justify-center p-8 text-center cursor-pointer relative mb-4">
+                        <div id="uploadContent">
+                            <div class="mb-4">
+                                <i data-lucide="file-plus" class="w-12 h-12 text-gray-400 mx-auto mb-3"></i>
+                            </div>
+                            <h4 class="font-semibold text-lg mb-2">Drag & drop your job description here</h4>
+                            <p class="mb-4" style="color: var(--muted-foreground);">or click to browse files</p>
+                            <div class="flex items-center justify-center gap-4 text-sm text-gray-500">
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                                    PDF
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="file" class="w-4 h-4"></i>
+                                    DOC
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="file-type" class="w-4 h-4"></i>
+                                    TXT
+                                </span>
+                                <span class="text-xs text-gray-400">(Max: 5MB)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Upload Progress (Hidden by default) -->
+                        <div id="uploadProgress" class="hidden w-full max-w-sm">
+                            <div class="flex items-center gap-3 mb-2">
+                                <i data-lucide="file-text" class="w-5 h-5 text-blue-600"></i>
+                                <span class="text-sm font-medium text-gray-900" id="fileName">job_description.pdf</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div id="progressBar" class="bg-blue-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1" id="progressText">Uploading...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Action Buttons -->
+                    <div class="flex flex-wrap gap-3">
+                        <button class="btn-secondary">
+                            <i data-lucide="folder-open" class="w-4 h-4"></i>
+                            Choose File
+                        </button>
+                        <button class="btn-secondary">
+                            <i data-lucide="layout-template" class="w-4 h-4"></i>
+                            Use Template
+                        </button>
+                        <button class="btn-secondary">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            AI Generate
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Job Description Form -->
+            <section class="mb-8">
+                <div class="card">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="edit" class="w-5 h-5 text-blue-600"></i>
+                        <h3 class="font-semibold text-lg">Job Details</h3>
+                    </div>
+                    <p class="text-sm mb-6">Fill in the job details or let AI extract them from your uploaded file</p>
+                    
+                    <form class="space-y-6">
+                        <!-- Job Title & Company Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">
+                                    Job Title <span class="text-red-500">*</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    placeholder="e.g., Senior Frontend Developer"
+                                    class="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                    value="Senior Full Stack Developer"
+                                >
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">
+                                    Company <span class="text-red-500">*</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    placeholder="e.g., TechCorp Inc."
+                                    class="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                    value="SmartHire AI"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Experience Level -->
+                        <div>
+                            <label class="block text-sm font-medium mb-2">
+                                Experience Level
+                            </label>
+                            <select class="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                <option value="">Select experience level</option>
+                                <option value="entry">Entry Level (0-2 years)</option>
+                                <option value="mid" selected>Mid Level (3-5 years)</option>
+                                <option value="senior">Senior Level (5+ years)</option>
+                                <option value="lead">Lead/Principal (8+ years)</option>
+                            </select>
+                        </div>
+
+                        <!-- Job Description -->
+                        <div>
+                            <label class="block text-sm font-medium mb-2">
+                                Job Description <span class="text-red-500">*</span>
+                            </label>
+                            <textarea 
+                                placeholder="Describe the role, responsibilities, and what makes this position exciting..."
+                                class="form-textarea w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                rows="8"
+                            >We are looking for a talented Senior Full Stack Developer to join our growing team at SmartHire AI. You'll be working on cutting-edge AI-powered recruitment technology that helps companies find the perfect candidates faster.
+
+Responsibilities:
+• Develop and maintain scalable web applications using modern frameworks
+• Collaborate with cross-functional teams to deliver high-quality features
+• Architect and implement robust backend systems and APIs
+• Optimize application performance and user experience
+• Mentor junior developers and contribute to technical decisions
+
+What we offer:
+• Competitive salary and equity package
+• Remote-first culture with flexible working hours
+• Professional development budget and conference attendance
+• Health, dental, and vision insurance
+• Unlimited PTO policy</textarea>
+                        </div>
+
+                        <!-- Requirements Section -->
+                        <div>
+                            <label class="block text-sm font-medium mb-3">
+                                Requirements <span class="text-red-500">*</span>
+                                <span class="text-xs ml-2 flex items-center gap-1" style="color: var(--muted-foreground);">
+                                    <i data-lucide="sparkles" class="w-3 h-3"></i>
+                                    AI-detected from upload
+                                </span>
+                            </label>
+                            <div class="flex flex-wrap gap-2 mb-4" id="skillTags">
+                                <span class="skill-tag bounce-in flex items-center gap-1">
+                                    JavaScript
+                                    <button type="button" class="ml-1 hover:text-red-500 transition-colors">
+                                        <i data-lucide="x" class="w-3 h-3"></i>
+                                    </button>
+                                </span>
+                                <span class="skill-tag bounce-in flex items-center gap-1" style="animation-delay: 100ms;">
+                                    React.js
+                                    <button type="button" class="ml-1 hover:text-red-500 transition-colors">
+                                        <i data-lucide="x" class="w-3 h-3"></i>
+                                    </button>
+                                </span>
+                                <span class="skill-tag bounce-in flex items-center gap-1" style="animation-delay: 200ms;">
+                                    Node.js
+                                    <button type="button" class="ml-1 hover:text-red-500 transition-colors">
+                                        <i data-lucide="x" class="w-3 h-3"></i>
+                                    </button>
+                                </span>
+                                <span class="skill-tag bounce-in flex items-center gap-1" style="animation-delay: 300ms;">
+                                    TypeScript
+                                    <button type="button" class="ml-1 hover:text-red-500 transition-colors">
+                                        <i data-lucide="x" class="w-3 h-3"></i>
+                                    </button>
+                                </span>
+                                <span class="skill-tag bounce-in flex items-center gap-1" style="animation-delay: 400ms;">
+                                    MongoDB
+                                    <button type="button" class="ml-1 hover:text-red-500 transition-colors">
+                                        <i data-lucide="x" class="w-3 h-3"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <button type="button" class="btn-secondary text-sm" id="addSkillBtn">
+                                <i data-lucide="plus" class="w-3 h-3"></i>
+                                Add Requirement
+                            </button>
+                        </div>
+
+                        <!-- Skills Category -->
+                        <div>
+                            <label class="block text-sm font-medium mb-3">
+                                Skill Categories
+                            </label>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="badge">
+                                    <i data-lucide="code" class="w-3 h-3"></i>
+                                    Frontend Development
+                                </span>
+                                <span class="badge">
+                                    <i data-lucide="server" class="w-3 h-3"></i>
+                                    Backend Development
+                                </span>
+                                <span class="badge-success">
+                                    <i data-lucide="database" class="w-3 h-3"></i>
+                                    Database Design
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Extracted Content Preview -->
+            <section class="mb-8" id="extractedSection" style="display: none;">
+                <div class="card fade-in">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="file-text" class="w-5 h-5 text-green-600"></i>
+                            <h3 class="font-semibold text-lg">Extracted Content Preview</h3>
+                        </div>
+                        <button id="toggleExtracted" class="p-2 hover:bg-gray-100 rounded-md transition-colors">
+                            <i data-lucide="chevron-up" class="w-4 h-4 text-gray-500"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm mb-4" style="color: var(--muted-foreground);">Successfully processed from job_description.pdf</p>
+                    
+                    <div id="extractedContent">
+                        <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <span class="text-sm font-medium text-gray-900">Processing complete</span>
+                                <span class="text-xs text-gray-500 ml-auto">AI Confidence: 94%</span>
+                            </div>
+                            <div class="text-sm text-gray-600 space-y-1">
+                                <p><strong>Senior Full Stack Developer</strong></p>
+                                <p>Experience Level: 3-5 years</p>
+                                <p>Key Skills: JavaScript, React, Node.js, TypeScript, MongoDB, AWS, Docker</p>
+                                <p>Job Type: Full-time, Remote-friendly</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <button class="btn-secondary text-sm">
+                                <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+                                Re-extract
+                            </button>
+                            <button class="btn-secondary text-sm">
+                                <i data-lucide="edit" class="w-3 h-3"></i>
+                                Edit Content
+                            </button>
+                            <button class="btn-secondary text-sm">
+                                <i data-lucide="bar-chart" class="w-3 h-3"></i>
+                                Skill Analysis
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Footer -->
+            <footer class="flex items-center justify-between pt-6 border-t border-gray-200">
+                <button class="btn-secondary">
+                    <i data-lucide="bookmark" class="w-4 h-4"></i>
+                    Save Draft
+                </button>
+                
+                <div class="flex gap-3">
+                    <button class="btn-secondary">
+                        <i data-lucide="skip-forward" class="w-4 h-4"></i>
+                        Skip Step
+                    </button>
+                    <button class="btn-primary" id="continueBtn">
+                        Continue
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Drag and drop functionality
+        const uploadZone = document.getElementById('uploadZone');
+        const uploadContent = document.getElementById('uploadContent');
+        const uploadProgress = document.getElementById('uploadProgress');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const extractedSection = document.getElementById('extractedSection');
+
+        // Drag and drop events
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('upload-zone-active');
+        });
+
+        uploadZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('upload-zone-active');
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('upload-zone-active');
+            handleFileUpload();
+        });
+
+        uploadZone.addEventListener('click', () => {
+            handleFileUpload();
+        });
+
+        // File upload simulation
+        function handleFileUpload() {
+            uploadContent.style.display = 'none';
+            uploadProgress.classList.remove('hidden');
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 100) progress = 100;
+                
+                progressBar.style.width = progress + '%';
+                
+                if (progress < 50) {
+                    progressText.textContent = 'Uploading...';
+                } else if (progress < 80) {
+                    progressText.textContent = 'Processing file...';
+                } else if (progress < 100) {
+                    progressText.textContent = 'Extracting content...';
+                } else {
+                    progressText.textContent = 'Complete!';
+                    clearInterval(interval);
+                    
+                    setTimeout(() => {
+                        extractedSection.style.display = 'block';
+                        extractedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 500);
+                }
+            }, 200);
+        }
+
+        // Skill tag management
+        document.getElementById('addSkillBtn').addEventListener('click', () => {
+            const skillName = prompt('Enter skill name:');
+            if (skillName) {
+                const skillTag = document.createElement('span');
+                skillTag.className = 'skill-tag bounce-in flex items-center gap-1';
+                skillTag.innerHTML = `
+                    ${skillName}
+                    <button type="button" class="ml-1 hover:text-red-500 transition-colors">
+                        <i data-lucide="x" class="w-3 h-3"></i>
+                    </button>
+                `;
+                
+                document.getElementById('skillTags').appendChild(skillTag);
+                lucide.createIcons();
+                
+                // Add remove functionality
+                skillTag.querySelector('button').addEventListener('click', () => {
+                    skillTag.remove();
+                });
+            }
+        });
+
+        // Remove skill functionality
+        document.querySelectorAll('#skillTags button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.target.closest('.skill-tag').remove();
+            });
+        });
+
+        // Toggle extracted content
+        document.getElementById('toggleExtracted').addEventListener('click', () => {
+            const content = document.getElementById('extractedContent');
+            const icon = document.querySelector('#toggleExtracted i');
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                icon.setAttribute('data-lucide', 'chevron-up');
+            } else {
+                content.style.display = 'none';
+                icon.setAttribute('data-lucide', 'chevron-down');
+            }
+            lucide.createIcons();
+        });
+
+        // Form validation and continue button
+        document.getElementById('continueBtn').addEventListener('click', () => {
+            // Simple validation
+            const title = document.querySelector('input[placeholder*="Senior Frontend"]').value;
+            const company = document.querySelector('input[placeholder*="TechCorp"]').value;
+            const description = document.querySelector('textarea').value;
+            
+            if (!title || !company || !description) {
+                alert('Please fill in all required fields (marked with *)');
+                return;
+            }
+            
+            // Simulate navigation to next step
+            alert('Great! Moving to Step 3: Upload Demo CV');
+        });
+
+        // Back button functionality
+        document.getElementById('backBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to go back? Unsaved changes will be lost.')) {
+                alert('Returning to Step 1: Company Profile');
+            }
+        });
+
+        // Skip step functionality
+        function skipStep() {
+            if (confirm('Skip this step? You can always come back later.')) {
+                alert('Skipping to Step 3: Upload Demo CV');
+            }
+        }
+
+        // Focus states for better UX
+        document.querySelectorAll('input, textarea, select').forEach(element => {
+            element.addEventListener('focus', (e) => {
+                e.target.classList.add('ring-2', 'ring-blue-500', 'border-blue-500');
+            });
+            
+            element.addEventListener('blur', (e) => {
+                e.target.classList.remove('ring-2', 'ring-blue-500', 'border-blue-500');
+            });
+        });
+
+        // Auto-save simulation
+        let autoSaveTimeout;
+        document.querySelectorAll('input, textarea').forEach(element => {
+            element.addEventListener('input', () => {
+                clearTimeout(autoSaveTimeout);
+                autoSaveTimeout = setTimeout(() => {
+                    // Visual feedback for auto-save
+                    console.log('Auto-saved draft');
+                }, 3000);
+            });
+        });
+
+        // Go back functionality
+        function goBack() {
+            document.getElementById('backBtn').click();
+        }
+    </script>
+</body>
+</html>
