@@ -93,10 +93,11 @@
 
 .progress-ring-fill {
   fill: none !important;
-  stroke: var(--success) !important;
+  stroke: var(--ai-processing) !important;
   stroke-width: 8 !important;
   stroke-linecap: round !important;
-  transition: stroke-dashoffset var(--transition-smooth) !important;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  filter: drop-shadow(0 2px 8px rgba(99, 102, 241, 0.25)) !important;
 }
 
 .progress-text {
@@ -348,6 +349,8 @@
   gap: 0.75rem !important;
   transition: all var(--transition-normal) !important;
   box-shadow: var(--shadow-lg) !important;
+  min-height: 44px !important;
+  min-width: 44px !important;
 }
 
 .btn-demo-primary:hover {
@@ -369,6 +372,8 @@
   justify-content: center !important;
   gap: 0.75rem !important;
   transition: all var(--transition-normal) !important;
+  min-height: 44px !important;
+  min-width: 44px !important;
 }
 
 .btn-demo-secondary:hover {
@@ -378,16 +383,22 @@
   box-shadow: var(--shadow-md) !important;
 }
 
-/* Cancel button styling */
+/* Cancel button styling - Improved touch targets */
 .btn-cancel {
   background: transparent !important;
   color: var(--muted-foreground) !important;
   border: 1px solid var(--border) !important;
-  padding: 0.5rem 1rem !important;
+  padding: 0.75rem 1.5rem !important;
   border-radius: var(--radius) !important;
   font-size: 0.875rem !important;
   cursor: pointer !important;
   transition: all var(--transition-fast) !important;
+  min-height: 44px !important;
+  min-width: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
 }
 
 .btn-cancel:hover {
@@ -439,7 +450,40 @@
   }
 }
 
-/* Responsive adjustments */
+/* Enhanced responsive adjustments - Mobile-first approach */
+@media (max-width: 480px) {
+  .demo-container {
+    margin: 0.5rem !important;
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+  }
+  
+  .progress-circle {
+    width: 140px !important;
+    height: 140px !important;
+    margin: 1.5rem auto 1rem !important;
+  }
+  
+  .progress-percentage {
+    font-size: 1.75rem !important;
+  }
+  
+  .progress-label {
+    font-size: 0.75rem !important;
+  }
+  
+  .status-message {
+    padding: 0.75rem 1rem !important;
+    margin: 1rem auto !important;
+    font-size: 0.875rem !important;
+  }
+  
+  .btn-cancel {
+    padding: 0.875rem 1.5rem !important;
+    font-size: 0.875rem !important;
+  }
+}
+
 @media (max-width: 768px) {
   .demo-container {
     margin: 1rem !important;
@@ -447,12 +491,12 @@
   }
   
   .progress-circle {
-    width: 150px !important;
-    height: 150px !important;
+    width: 160px !important;
+    height: 160px !important;
   }
   
   .progress-percentage {
-    font-size: 2rem !important;
+    font-size: 2.25rem !important;
   }
   
   .match-percentage-large {
@@ -461,10 +505,16 @@
   
   .skills-grid {
     grid-template-columns: 1fr !important;
+    gap: 1rem !important;
   }
   
   .match-metrics {
     gap: 1rem !important;
+    flex-direction: column !important;
+  }
+  
+  .metric-item {
+    margin-bottom: 0.5rem !important;
   }
 }
 
@@ -484,10 +534,43 @@
   }
 }
 
-/* Focus states for accessibility */
+/* Enhanced focus states for accessibility - WCAG 2.1 AA compliance */
 .btn-demo-primary:focus,
 .btn-demo-secondary:focus,
 .btn-cancel:focus {
-  outline: 2px solid var(--primary) !important;
+  outline: 3px solid var(--ai-processing) !important;
   outline-offset: 2px !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* Focus visible for keyboard navigation */
+.btn-demo-primary:focus-visible,
+.btn-demo-secondary:focus-visible,
+.btn-cancel:focus-visible {
+  outline: 3px solid var(--ai-processing) !important;
+  outline-offset: 3px !important;
+}
+
+/* Skip links for screen readers */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.sr-only:focus {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
 }
