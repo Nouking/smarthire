@@ -1,49 +1,51 @@
 :root {
   /* SmartHire Professional Theme */
-  --background: oklch(1.0000 0 0);
-  --foreground: oklch(0.1450 0 0);
-  --card: oklch(1.0000 0 0);
-  --card-foreground: oklch(0.1450 0 0);
-  --popover: oklch(1.0000 0 0);
-  --popover-foreground: oklch(0.1450 0 0);
-  --primary: oklch(0.5490 0.2240 263.0000);
-  --primary-foreground: oklch(0.9850 0 0);
-  --secondary: oklch(0.9650 0 0);
-  --secondary-foreground: oklch(0.2050 0 0);
-  --muted: oklch(0.9650 0 0);
-  --muted-foreground: oklch(0.5500 0 0);
-  --accent: oklch(0.9450 0.0200 263.0000);
-  --accent-foreground: oklch(0.2050 0 0);
-  --destructive: oklch(0.5830 0.2387 28.4765);
-  --destructive-foreground: oklch(0.9850 0 0);
-  --success: oklch(0.6200 0.1800 142.0000);
-  --success-foreground: oklch(0.9850 0 0);
-  --warning: oklch(0.7500 0.1900 65.0000);
-  --warning-foreground: oklch(0.1450 0 0);
-  --border: oklch(0.9200 0 0);
-  --input: oklch(0.9200 0 0);
-  --ring: oklch(0.5490 0.2240 263.0000);
-  
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.549 0.224 263);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.965 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.965 0 0);
+  --muted-foreground: oklch(0.55 0 0);
+  --accent: oklch(0.945 0.02 263);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.583 0.2387 28.4765);
+  --destructive-foreground: oklch(0.985 0 0);
+  --success: oklch(0.62 0.18 142);
+  --success-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.75 0.19 65);
+  --warning-foreground: oklch(0.145 0 0);
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.549 0.224 263);
+
   /* Typography */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  
+
   /* Spacing & Sizing */
   --radius: 0.5rem;
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
-  
+
   /* Shadows */
   --shadow-2xs: 0 1px 2px 0px hsl(0 0% 0% / 0.03);
   --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.08), 0 1px 2px -1px hsl(0 0% 0% / 0.08);
-  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
-  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
-  --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.10), 0 2px 4px -2px hsl(0 0% 0% / 0.10);
-  --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.10), 0 4px 6px -4px hsl(0 0% 0% / 0.10);
-  --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.10), 0 8px 10px -6px hsl(0 0% 0% / 0.10);
-  
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
+  --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -2px hsl(0 0% 0% / 0.1);
+  --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1);
+  --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.1), 0 8px 10px -6px hsl(0 0% 0% / 0.1);
+
   /* Form-specific variables */
   --form-spacing: 1.5rem;
   --field-spacing: 1rem;
@@ -132,7 +134,7 @@ body {
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary), oklch(0.6490 0.2240 283.0000));
+  background: linear-gradient(90deg, var(--primary), oklch(0.649 0.224 283));
   border-radius: 4px;
   transition: width var(--transition-slow);
   width: 50%;
@@ -182,7 +184,9 @@ body {
 }
 
 /* Input Styles */
-.form-input, .form-select, .form-textarea {
+.form-input,
+.form-select,
+.form-textarea {
   width: 100% !important;
   min-height: var(--touch-target) !important;
   padding: 0.75rem 1rem !important;
@@ -195,13 +199,16 @@ body {
   box-shadow: var(--shadow-2xs) !important;
 }
 
-.form-input:focus, .form-select:focus, .form-textarea:focus {
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
   outline: none !important;
   border-color: var(--primary) !important;
-  box-shadow: 0 0 0 var(--focus-ring-width) oklch(0.5490 0.2240 263.0000 / 0.2) !important;
+  box-shadow: 0 0 0 var(--focus-ring-width) oklch(0.549 0.224 263 / 0.2) !important;
 }
 
-.form-input::placeholder, .form-textarea::placeholder {
+.form-input::placeholder,
+.form-textarea::placeholder {
   color: var(--muted-foreground) !important;
 }
 
@@ -279,7 +286,7 @@ body {
 }
 
 .button-primary:hover {
-  background: oklch(0.5190 0.2240 263.0000) !important;
+  background: oklch(0.519 0.224 263) !important;
   box-shadow: var(--shadow-md) !important;
   transform: translateY(-1px) !important;
 }
@@ -309,22 +316,22 @@ body {
     padding: 1rem;
     border-radius: 0;
   }
-  
+
   .form-header {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
   }
-  
+
   .button-group {
     flex-direction: column-reverse;
     gap: 0.75rem;
   }
-  
+
   .button {
     width: 100% !important;
   }
-  
+
   .form-title {
     font-size: 1.5rem !important;
     text-align: center !important;
@@ -336,7 +343,7 @@ body {
 .field-error .form-select,
 .field-error .form-textarea {
   border-color: var(--destructive) !important;
-  box-shadow: 0 0 0 var(--focus-ring-width) oklch(0.5830 0.2387 28.4765 / 0.2) !important;
+  box-shadow: 0 0 0 var(--focus-ring-width) oklch(0.583 0.2387 28.4765 / 0.2) !important;
 }
 
 .error-message {
@@ -359,8 +366,12 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Accessibility */

@@ -49,8 +49,9 @@
 All 9 SuperDesign UI templates have been successfully processed into Epic 2 tasks:
 
 **✅ Epic 2 Tasks Created:**
+
 - E2-T1: Landing Page Implementation (`smarthire_landing.html` + CSS)
-- E2-T2: Login Page Implementation (`b2b_login_screen.html` + CSS)  
+- E2-T2: Login Page Implementation (`b2b_login_screen.html` + CSS)
 - E2-T3: Password Reset Flow (`password_reset_flow.html` + `password_reset_theme.css`)
 - E2-T4: Registration Screen (`smarthire_registration_1.html` + `smarthire_registration_theme.css`)
 - E2-T5: AI Matching CV/JD Screen (`ai_matching_demo.html` + CSS)
@@ -60,6 +61,7 @@ All 9 SuperDesign UI templates have been successfully processed into Epic 2 task
 - E2-T9: Dashboard Screen (`recruitment_dashboard_1.html` + `recruitment_dashboard_theme_1.css`)
 
 **✅ Documentation Structure Created:**
+
 - Complete Epic 2 task tracking with MCP server integration requirements
 - Agent assignments for @ux-expert, @architect, @dev collaboration
 - Pixel-perfect SuperDesign template matching requirements
@@ -354,21 +356,25 @@ Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execut
 **CRITICAL INSTRUCTION FOR AI**: When creating new epic tasks in IMPROVEMENT-TASK-TRACKING.md, automatically add a compact execution prompt to EVERY task following this exact process:
 
 **Step 1: Task Creation**
+
 - Create task header (### E{X}-T{Y}: {Title} (P{Priority}-{Level}))
 - Add status, branch, hours estimate, agents
 - Add task description
 
 **Step 2: Automatic Execution Prompt Addition**
+
 - Immediately after description, add execution prompt using compact format
 - Calculate line ranges from task header to end of testing requirements
 - Map primary agent to correct .bmad-core/agents/{agent}.md file
 - Include supporting agents with collaboration syntax
 
 **Step 3: Continue Task Structure**
+
 - Add Dependencies section after execution prompt
 - Continue with Reference Files, MCP Server Integration, etc.
 
 **Example Auto-Generated Execution Prompt**:
+
 ```
 **Execution Prompt**:
 Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E15-T3. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 234-289 for E15-T3 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @dev (primary) = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md + @po collaboration.

@@ -52,7 +52,8 @@
       "mcp__shadcn-ui__get_component",
       "Bash(claude-monitor:*)",
       "Bash(timeout 5s claude-monitor:*)",
-      "mcp__serena__replace_symbol_body"
+      "mcp__serena__replace_symbol_body",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []
