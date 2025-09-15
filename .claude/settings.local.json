@@ -49,7 +49,10 @@
       "mcp__serena__execute_shell_command",
       "Bash(npx prettier:*)",
       "mcp__shadcn-ui__list_components",
-      "mcp__shadcn-ui__get_component"
+      "mcp__shadcn-ui__get_component",
+      "Bash(claude-monitor:*)",
+      "Bash(timeout 5s claude-monitor:*)",
+      "mcp__serena__replace_symbol_body"
     ],
     "deny": [],
     "ask": []

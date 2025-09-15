@@ -1,12 +1,88 @@
-# Development Workflow Guide
+# SmartHire AI - Development Workflow Guide
 
-## Overview
+## 🚀 Quick Start for New Developers
 
-This guide outlines the daily development workflow for SmartHire AI contributors. Follow these procedures to ensure consistent, high-quality development practices.
+### Prerequisites
 
----
+- Node.js 20+ installed
+- Git configured
+- Code editor with TypeScript support (VS Code recommended)
 
-## Daily Development Workflow
+### Initial Setup
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd smarthire
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your configuration
+
+# Start development server
+npm run dev
+```
+
+## 📋 Development Pipeline Overview
+
+Our development pipeline ensures code quality, consistency, and reliability through automated checks and deployments.
+
+### Pipeline Components
+
+1. **Code Quality**: ESLint + Prettier + TypeScript
+2. **Testing**: Jest + React Testing Library
+3. **Pre-commit Hooks**: Husky + lint-staged
+4. **CI/CD**: GitHub Actions + Vercel
+5. **Performance**: Build optimization and monitoring
+
+## 🔧 Available Scripts
+
+### Core Development Commands
+
+```bash
+npm run dev          # Start development server with Turbopack
+npm run build        # Build production application
+npm run start        # Start production server locally
+```
+
+### Code Quality Commands
+
+```bash
+npm run lint         # Run ESLint with error reporting
+npm run lint:fix     # Run ESLint and auto-fix issues
+npm run format       # Format all files with Prettier
+npm run format:check # Check if files are properly formatted
+npm run type-check   # Run TypeScript type checking
+```
+
+### Testing Commands
+
+```bash
+npm test             # Run Jest tests
+npm run test:watch   # Run Jest in watch mode
+npm run test:coverage # Run tests with coverage report
+npm run test:ci      # Run tests for CI (no watch, with coverage)
+```
+
+### Quality Assurance Commands
+
+```bash
+npm run quality      # Run all quality checks (type-check + lint + format:check)
+npm run quality:fix  # Run all quality fixes (type-check + lint:fix + format)
+npm run pre-commit   # Run pre-commit checks manually
+```
+
+### Utility Commands
+
+```bash
+npm run clean        # Clean build artifacts (.next, out, build, dist)
+npm run reinstall    # Clean reinstall of all dependencies
+```
+
+## 🔄 Daily Development Workflow
 
 ### 1. Start Your Development Day
 
@@ -67,7 +143,7 @@ npm run dev
 
 **Make Changes:**
 
-- Follow [project structure guidelines](project-structure.md)
+- Follow project structure guidelines
 - Implement features incrementally
 - Test changes frequently in the browser
 - Write unit tests as you develop
@@ -124,14 +200,12 @@ git push origin feature-branch-name
 1. Visit GitHub repository
 2. Click "New Pull Request"
 3. Select your branch
-4. Fill out PR template (see below)
+4. Fill out PR template
 5. Request review from team members
 
----
+## 🔄 Git Workflow
 
-## Branch Strategy
-
-### Branch Types
+### Branch Naming Convention
 
 **Epic Tasks (E14-TX format):**
 
@@ -173,34 +247,18 @@ chore/eslint-configuration
 chore/test-setup-improvements
 ```
 
-### Branch Lifecycle
+### Commit Message Convention
 
-```mermaid
-graph LR
-    A[main] --> B[Create Branch]
-    B --> C[Development Work]
-    C --> D[Quality Checks]
-    D --> E[Push to Fork]
-    E --> F[Create PR]
-    F --> G[Code Review]
-    G --> H[Address Feedback]
-    H --> G
-    G --> I[Merge to main]
-    I --> J[Delete Branch]
-```
-
----
-
-## Commit Message Guidelines
-
-### Conventional Commit Format
+We use conventional commits for clear, standardized commit messages:
 
 ```
-type(scope): subject
+type(scope): description
 
-[optional body]
-
-[optional footer(s)]
+Examples:
+feat(auth): add JWT token validation
+fix(ui): resolve mobile responsive layout issue
+docs(readme): update installation instructions
+test(utils): add unit tests for helper functions
 ```
 
 ### Commit Types
@@ -213,68 +271,197 @@ type(scope): subject
 - **test**: Adding or updating tests
 - **chore**: Maintenance tasks (dependencies, build process, etc.)
 
-### Scope Examples
+### Pre-commit Quality Gates
 
-- **ui**: User interface components
-- **auth**: Authentication system
-- **db**: Database operations
-- **api**: API endpoints
-- **docs**: Documentation
-- **config**: Configuration files
-- **test**: Test utilities
+Automatic checks run before each commit:
 
-### Good Commit Examples
+- **ESLint**: Code quality and consistency
+- **Prettier**: Code formatting
+- **TypeScript**: Type checking
+- **Tests**: Affected tests (optional)
 
-```bash
-# Feature commits
-feat(auth): implement enhanced signup validation
-feat(ui): add responsive dashboard layout
-feat(api): add CV processing endpoint
+If any check fails, the commit is blocked until issues are resolved.
 
-# Bug fix commits
-fix(ui): resolve mobile navigation menu overflow
-fix(auth): handle token refresh edge cases
-fix(db): prevent duplicate user registration
+## 🚨 Quality Standards
 
-# Documentation commits
-docs(readme): update installation instructions
-docs(api): add endpoint documentation
-docs(contrib): clarify testing requirements
+### ESLint Configuration
 
-# Refactoring commits
-refactor(db): optimize user query performance
-refactor(ui): extract common form components
-refactor(auth): simplify authentication flow
+Our ESLint setup includes:
 
-# Test commits
-test(auth): add signup form validation tests
-test(ui): improve button component coverage
-test(api): add endpoint integration tests
+- **Next.js rules**: Framework-specific best practices
+- **TypeScript rules**: Type safety and consistency
+- **Accessibility rules**: WCAG compliance (jsx-a11y)
+- **Import rules**: Module organization and dependency management
+
+### Code Formatting (Prettier)
+
+- **Line width**: 100 characters
+- **Indentation**: 2 spaces
+- **Quotes**: Single quotes for JS/TS, double quotes for JSX
+- **Semicolons**: Always required
+- **Trailing commas**: ES5 compatible
+- **Tailwind CSS**: Automatic class sorting
+
+### TypeScript Standards
+
+- **Strict mode**: Enabled for maximum type safety
+- **No `any` types**: Use specific types or `unknown`
+- **Explicit return types**: For exported functions
+- **Import organization**: Grouped and sorted automatically
+
+## 🧪 Testing Strategy
+
+### Testing Framework Stack
+
+- **Jest**: Test runner and assertion library
+- **React Testing Library**: Component testing utilities
+- **Jest DOM**: Extended DOM matchers
+- **User Event**: User interaction simulation
+
+### Testing Patterns
+
+```typescript
+// Component test example
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { Button } from '@/components/ui/button';
+
+describe('Button Component', () => {
+  it('should render with correct text', () => {
+    render(<Button>Click me</Button>);
+    expect(screen.getByRole('button', { name: /click me/i })).toBeInTheDocument();
+  });
+
+  it('should handle click events', async () => {
+    const handleClick = jest.fn();
+    render(<Button onClick={handleClick}>Click me</Button>);
+
+    await userEvent.click(screen.getByRole('button'));
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+});
 ```
 
-### Bad Commit Examples
+### Coverage Requirements
+
+- **Minimum coverage**: 70% for branches, functions, lines, and statements
+- **Test location**: `__tests__` directories or `.test.ts/.spec.ts` files
+- **Test patterns**: Component tests, utility tests, integration tests
+
+### Mandatory Quality Gates
+
+Before any code review or merge, ensure ALL quality gates pass:
 
 ```bash
-# ❌ Too vague
-"fix stuff"
-"update code"
-"changes"
-
-# ❌ No type or scope
-"add new button"
-"fixed bug"
-"updated docs"
-
-# ❌ Too detailed in subject
-"feat(ui): add new button component with primary secondary and destructive variants plus size options"
-
-# ❌ Wrong type usage
-"feat(fix): resolve authentication issue"
+# Run complete quality check suite
+npm run quality
 ```
 
----
+**Individual Quality Checks:**
 
-## Code Review Process
+```bash
+# 1. TypeScript Compilation (MUST PASS ✅)
+npm run type-check
+# Expected: No compilation errors
+
+# 2. ESLint Validation (MUST PASS ✅)
+npm run lint
+# Expected: No warnings or errors
+
+# 3. Production Build (MUST PASS ✅)
+npm run build
+# Expected: Successful build completion
+
+# 4. Test Suite (MUST PASS ✅)
+npm test
+# Expected: All tests passing
+```
+
+## 🔄 CI/CD Pipeline
+
+### GitHub Actions Workflow
+
+Our pipeline runs on every push and pull request:
+
+1. **Quality Check Job**:
+   - Install dependencies
+   - Run ESLint
+   - Check Prettier formatting
+   - Perform TypeScript type checking
+   - Execute test suite
+   - Build application
+
+2. **Security Audit Job**:
+   - Check for known vulnerabilities
+   - Audit dependencies
+   - Security compliance checks
+
+3. **Deploy Job** (conditional):
+   - **Preview deployments**: For pull requests
+   - **Production deployments**: For main/master branch pushes
+
+### Vercel Integration
+
+- **Automatic deployments**: Connected to GitHub repository
+- **Preview URLs**: Generated for each pull request
+- **Production deployments**: Triggered by main branch updates
+- **Environment variables**: Managed through Vercel dashboard
+
+### Required Secrets (GitHub Repository)
+
+```
+VERCEL_TOKEN          # Vercel authentication token
+VERCEL_ORG_ID         # Vercel organization ID
+VERCEL_PROJECT_ID     # Vercel project ID
+```
+
+## 🔧 Development Best Practices
+
+### Code Organization
+
+```
+src/
+├── app/                 # Next.js 15 App Router pages
+├── components/          # Reusable React components
+│   ├── ui/             # shadcn/ui components
+│   └── ...             # Custom components
+├── lib/                # Utility functions and configurations
+├── hooks/              # Custom React hooks
+├── types/              # TypeScript type definitions
+└── styles/             # Global styles and Tailwind config
+```
+
+### Component Development
+
+- **Use TypeScript**: All components should have proper typing
+- **Props interface**: Define clear prop interfaces
+- **Default exports**: Use default exports for components
+- **Accessibility**: Include proper ARIA attributes and semantic HTML
+- **Testing**: Write tests for component behavior and user interactions
+
+### Import Organization
+
+```typescript
+// 1. Node modules
+import React from 'react';
+import { NextPage } from 'next';
+
+// 2. Internal modules
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/use-auth';
+import { AuthService } from '@/lib/auth';
+
+// 3. Types
+import type { User } from '@/types/user';
+```
+
+### Environment Variables
+
+- **Development**: Use `.env.local` (not committed)
+- **Production**: Configure through Vercel dashboard
+- **Type safety**: Define environment variables in `next.config.ts`
+
+## 📝 Code Review Process
 
 ### Submitting Pull Requests
 
@@ -345,22 +532,6 @@ Relates to #456
 5. **Security**: Are there any security vulnerabilities?
 6. **Accessibility**: Does UI code meet accessibility standards?
 
-**Review Comments:**
-
-```markdown
-# ✅ Good review comments
-
-"Consider extracting this logic into a separate utility function for reusability."
-"This component looks great! Could we add a test for the error state?"
-"The implementation is solid. Just a minor suggestion about variable naming."
-
-# ❌ Poor review comments
-
-"This is wrong."
-"Fix this."
-"Looks good."
-```
-
 ### Addressing Review Feedback
 
 **Responding to Comments:**
@@ -382,85 +553,7 @@ git commit -m "address: implement suggested validation improvements"
 git push origin feature-branch-name
 ```
 
----
-
-## Quality Assurance Workflow
-
-### Mandatory Quality Gates
-
-Before any code review or merge, ensure ALL quality gates pass:
-
-```bash
-# Run complete quality check suite
-npm run quality
-```
-
-**Individual Quality Checks:**
-
-```bash
-# 1. TypeScript Compilation (MUST PASS ✅)
-npm run type-check
-# Expected: No compilation errors
-
-# 2. ESLint Validation (MUST PASS ✅)
-npm run lint
-# Expected: No warnings or errors
-
-# 3. Production Build (MUST PASS ✅)
-npm run build
-# Expected: Successful build completion
-
-# 4. Test Suite (MUST PASS ✅)
-npm test
-# Expected: All tests passing
-```
-
-### Pre-commit Hook Validation
-
-Git hooks automatically run before commits:
-
-```bash
-# These run automatically on `git commit`
-1. TypeScript type checking
-2. ESLint with auto-fix
-3. Prettier code formatting
-4. Test execution for changed files
-```
-
-**If hooks fail:**
-
-```bash
-# Fix the issues shown in the output
-# Then retry the commit
-git add fixed-files
-git commit -m "your commit message"
-```
-
-### Manual Testing Checklist
-
-**Before Submitting PR:**
-
-- [ ] **Functionality**: All new features work as expected
-- [ ] **Responsive Design**: Layout works on mobile, tablet, desktop
-- [ ] **Browser Testing**: Works in Chrome, Firefox, Safari, Edge
-- [ ] **Error Handling**: Graceful error states and user feedback
-- [ ] **Performance**: No noticeable performance regressions
-- [ ] **Accessibility**: Keyboard navigation and screen reader compatibility
-
-**Testing Commands:**
-
-```bash
-# Start development server for manual testing
-npm run dev
-
-# Build and test production version
-npm run build
-npm start
-```
-
----
-
-## Debugging Workflow
+## 🔧 Debugging Workflow
 
 ### Development Debugging
 
@@ -543,9 +636,7 @@ npm test -- --verbose
 npm test -- --debug
 ```
 
----
-
-## Deployment Workflow
+## 🚀 Deployment Workflow
 
 ### Development Deployment
 
@@ -576,64 +667,64 @@ vercel --prod
 - All quality gates must pass before deployment
 - Automatic rollback on deployment failures
 
-**Manual Production Deployment:**
+## 🚨 Troubleshooting
+
+### Common Issues
+
+**ESLint errors after setup:**
 
 ```bash
-# Ensure you're on main branch
-git checkout main
-git pull upstream main
-
-# Verify quality gates
-npm run quality
-
-# Deploy (if you have permissions)
-vercel --prod
+npm run lint:fix
 ```
 
----
-
-## Collaboration Workflow
-
-### Communication Channels
-
-**Daily Standup:**
-
-- Share progress on current tasks
-- Identify blockers and dependencies
-- Coordinate on shared components or APIs
-
-**Code Reviews:**
-
-- Provide constructive feedback
-- Learn from others' implementations
-- Share knowledge and best practices
-
-**Documentation Updates:**
-
-- Update docs when changing APIs or workflows
-- Provide clear examples and use cases
-- Keep troubleshooting guides current
-
-### Pair Programming
-
-**When to Pair Program:**
-
-- Complex feature implementations
-- Debugging difficult issues
-- Knowledge transfer sessions
-- Onboarding new team members
-
-**Pair Programming Setup:**
+**Prettier formatting conflicts:**
 
 ```bash
-# Use VS Code Live Share for remote pairing
-# Install Live Share extension
-# Share session with teammates
+npm run format
 ```
 
----
+**TypeScript compilation errors:**
 
-## Troubleshooting Common Workflow Issues
+```bash
+npm run type-check
+```
+
+**Test failures:**
+
+```bash
+npm run test:watch
+```
+
+**Pre-commit hook failures:**
+
+```bash
+npm run quality:fix
+```
+
+**Build failures:**
+
+```bash
+npm run clean
+npm run build
+```
+
+### Pipeline Failures
+
+**GitHub Actions failing:**
+
+1. Check the Actions tab in GitHub repository
+2. Review error logs for specific failure points
+3. Common fixes:
+   - Update dependencies: `npm run reinstall`
+   - Fix linting issues: `npm run lint:fix`
+   - Resolve test failures: `npm run test`
+   - Fix TypeScript errors: `npm run type-check`
+
+**Vercel deployment issues:**
+
+1. Check Vercel dashboard for deployment logs
+2. Verify environment variables are set correctly
+3. Ensure build succeeds locally: `npm run build`
 
 ### Git Issues
 
@@ -707,9 +798,7 @@ sudo chown -R $(whoami) ~/.npm
 sudo chown -R $(whoami) project-directory
 ```
 
----
-
-## Workflow Optimization Tips
+## ⚡ Workflow Optimization Tips
 
 ### Development Efficiency
 
@@ -762,6 +851,43 @@ alias gps="git push"
 - Plan break points for commits and pushes
 - Leave buffer time for unexpected issues
 
+## 📞 Getting Help
+
+### Resources
+
+- **Next.js Documentation**: https://nextjs.org/docs
+- **TypeScript Handbook**: https://www.typescriptlang.org/docs/
+- **Testing Library Docs**: https://testing-library.com/docs/
+- **Tailwind CSS Docs**: https://tailwindcss.com/docs
+- **shadcn/ui Components**: https://ui.shadcn.com/
+
+### Team Support
+
+- Review this documentation first
+- Check existing issues and PRs
+- Ask questions in team channels
+- Pair program for complex features
+
+### Collaboration Workflow
+
+**Communication Channels:**
+
+- Share progress on current tasks
+- Identify blockers and dependencies
+- Coordinate on shared components or APIs
+
+**Code Reviews:**
+
+- Provide constructive feedback
+- Learn from others' implementations
+- Share knowledge and best practices
+
+**Documentation Updates:**
+
+- Update docs when changing APIs or workflows
+- Provide clear examples and use cases
+- Keep troubleshooting guides current
+
 ---
 
-This workflow ensures consistent, high-quality development practices while maintaining team coordination and code quality standards.
+_This comprehensive development workflow guide ensures consistent, high-quality development practices while maintaining team coordination and code quality standards for SmartHire AI._
