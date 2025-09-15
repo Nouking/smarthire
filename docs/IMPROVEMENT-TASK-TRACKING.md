@@ -55,6 +55,9 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 
 **Description**: Implement SmartHire AI landing page with exact visual match to SuperDesign template, ensuring mobile-first responsive design and seamless integration with Epic 14 foundation.
 
+**Execution Prompt**:
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E2-T1. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 49-120 for E2-T1 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @ux-expert (primary) = .bmad-core/agents/ux-expert.md + @dev = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md collaboration.
+
 **Dependencies**: Epic 14 foundation (Next.js 14, shadcn/ui, Tailwind CSS)
 
 **Reference Files**:
@@ -127,6 +130,9 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 
 **Description**: Implement login page with exact visual match to SuperDesign B2B login screen template, integrating with Epic 14 Supabase authentication system.
 
+**Execution Prompt**:
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E2-T2. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 121-177 for E2-T2 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @ux-expert (primary) = .bmad-core/agents/ux-expert.md + @dev = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md collaboration.
+
 **Dependencies**: E2-T1 (Landing Page), Epic 14 Supabase Authentication
 
 **Reference Files**:
@@ -184,6 +190,9 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 
 **Description**: Implement password reset flow with exact visual match to SuperDesign template, including email sending and password update functionality.
 
+**Execution Prompt**:
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E2-T3. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 178-223 for E2-T3 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @ux-expert (primary) = .bmad-core/agents/ux-expert.md + @dev = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md collaboration.
+
 **Dependencies**: E2-T2 (Login Page), Epic 14 Supabase Authentication
 
 **Reference Files**:
@@ -229,6 +238,9 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 - **Supporting Agents**: @architect (Winston - user onboarding flow)
 
 **Description**: Implement user registration screen with exact visual match to SuperDesign template, including comprehensive form validation and user onboarding integration.
+
+**Execution Prompt**:
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E2-T4. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 233-283 for E2-T4 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @ux-expert (primary) = .bmad-core/agents/ux-expert.md + @dev = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md collaboration.
 
 **Dependencies**: E2-T2 (Login Page), Epic 14 Supabase Authentication
 
@@ -277,6 +289,9 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 - **Supporting Agents**: @architect (Winston - AI processing integration)
 
 **Description**: Implement AI matching demonstration screen showing CV and job description matching process with exact visual match to SuperDesign template.
+
+**Execution Prompt**:
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E2-T5. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 284-335 for E2-T5 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @ux-expert (primary) = .bmad-core/agents/ux-expert.md + @dev = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md collaboration.
 
 **Dependencies**: E2-T1 (Landing Page), Epic 14 database foundation
 
@@ -327,6 +342,9 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 
 **Description**: Implement company profile input form with exact visual match to SuperDesign template, including comprehensive company information capture.
 
+**Execution Prompt**:
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E2-T6. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 336-386 for E2-T6 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @ux-expert (primary) = .bmad-core/agents/ux-expert.md + @dev = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md collaboration.
+
 **Dependencies**: E2-T4 (Registration), Epic 14 database schema
 
 **Reference Files**:
@@ -375,6 +393,9 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 
 **Description**: Implement job description upload and editing screen with exact visual match to SuperDesign template, supporting multiple input methods.
 
+**Execution Prompt**:
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E2-T7. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 387-437 for E2-T7 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @ux-expert (primary) = .bmad-core/agents/ux-expert.md + @dev = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md collaboration.
+
 **Dependencies**: E2-T6 (Company Profile), Epic 14 file storage
 
 **Reference Files**:
@@ -422,6 +443,9 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 - **Supporting Agents**: @architect (Winston - CV processing pipeline)
 
 **Description**: Implement CV upload screen with tutorial and processing feedback, matching SuperDesign template exactly with comprehensive file handling.
+
+**Execution Prompt**:
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E2-T8. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 438-490 for E2-T8 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @ux-expert (primary) = .bmad-core/agents/ux-expert.md + @dev = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md collaboration.
 
 **Dependencies**: E2-T7 (Job Description Upload), Epic 14 file storage and processing
 
@@ -472,6 +496,9 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 - **Supporting Agents**: @architect (Winston - data integration)
 
 **Description**: Implement comprehensive recruitment dashboard with exact visual match to SuperDesign template, including job management, CV matching, and analytics.
+
+**Execution Prompt**:
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E2-T9. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 491-552 for E2-T9 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @ux-expert (primary) = .bmad-core/agents/ux-expert.md + @dev = .bmad-core/agents/dev.md + @architect = .bmad-core/agents/architect.md collaboration.
 
 **Dependencies**: All previous Epic 2 tasks, Epic 14 database and authentication
 
@@ -531,6 +558,9 @@ Tasks are assigned primary agents with supporting agents based on expertise over
 - **Supporting Agents**: @architect (Winston - technical documentation review)
 
 **Description**: Verify all Epic 2 implementations against original SuperDesign templates, archive SuperDesign files to docs/html-template/ after successful conversion, and perform final documentation cleanup.
+
+**Execution Prompt**:
+Use the template from `docs/Build _from_epic_to_task_tracking.md` file to execute E2-T10. Read CLAUDE.md (full file) and IMPROVEMENT-TASK-TRACKING.md lines 553-624 for E2-T10 specification. Follow the template structure: Context Establishment → Workflow Compliance → Task Specification → Technical Implementation → Quality Assurance. Execute as @sm (primary) = .bmad-core/agents/sm.md + @po = .bmad-core/agents/po.md + @architect = .bmad-core/agents/architect.md collaboration.
 
 **Dependencies**: ALL Epic 2 tasks (E2-T1 through E2-T9) must be completed and verified first
 
